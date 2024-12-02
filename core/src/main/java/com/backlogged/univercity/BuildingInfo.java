@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * buildings on a map.
  */
 public class BuildingInfo {
-  final String[] type;
+  final BuildingType type;
   final ArrayList<Coord> tileCoverageOffsets;
   final String info;
   final Sprite buildingSprite;
@@ -32,7 +32,7 @@ public class BuildingInfo {
    *                            building.
    */
   public BuildingInfo(
-      String[] type, ArrayList<Coord> tileCoverageOffsets, String info, Sprite buildingSprite) {
+      BuildingType type, ArrayList<Coord> tileCoverageOffsets, String info, Sprite buildingSprite) {
     this.type = type;
     this.tileCoverageOffsets = tileCoverageOffsets;
     this.info = info;

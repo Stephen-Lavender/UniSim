@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * specific building
  * functionalities.
  */
-public abstract class AbstractBuilding {
+public class AbstractBuilding {
 
   private BuildingInfo buildingInfo;
   private Coord mapPos;
@@ -35,7 +35,7 @@ public abstract class AbstractBuilding {
    *
    * @return An array of strings representing the type categories of the building.
    */
-  public final String[] getType() {
+  public final BuildingType getType() {
     return buildingInfo.type;
   }
 
