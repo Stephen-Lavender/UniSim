@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class BuildingPlacementManager implements IBuildingPlacementManager {
   private TiledMapTileLayer terrainLayer;
-  private HashMap<Coord, AbstractBuilding> placedBuildings = new HashMap<>();
+  private HashMap<Coord, Building> placedBuildings = new HashMap<>();
   int count = 0;
 
   /**
@@ -32,10 +32,10 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    *
    * @param row      The row to start checking from.
    * @param column   The column to start checking from.
-   * @param building The {@link AbstractBuilding} to check.
+   * @param building The {@link Building} to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocation(int row, int column, AbstractBuilding building) {
+  public boolean canBePlacedAtLocation(int row, int column, Building building) {
 
     for (var tileOffset : building.getTileCoverageOffsets()) {
       TiledMapTileLayer.Cell terrainCell = terrainLayer.getCell(column + tileOffset.getColumn(),
@@ -55,11 +55,11 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    *
    * @param row      The row to start checking from.
    * @param column   The column to start checking from.
-   * @param building The {@link AbstractBuilding} to check.
+   * @param building The {@link Building} to check.
    * @return Returns true its possible and false if not.
    */
   public boolean canBePlacedAtLocationIgnoreTerrain(
-      int row, int column, AbstractBuilding building) {
+      int row, int column, Building building) {
     for (var tileOffset : building.getTileCoverageOffsets()) {
       if (placedBuildings.containsKey(
           new Coord(tileOffset.getRow() + row, tileOffset.getColumn() + column))) {
@@ -75,7 +75,7 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    * @param row    The row to place the building.
    * @param column The column to place the building.
    */
-  public void placeBuilding(int row, int column, AbstractBuilding building) {
+  public void placeBuilding(int row, int column, Building building) {
 
     for (var tileOffset : building.getTileCoverageOffsets()) {
       placedBuildings.put(
@@ -90,7 +90,7 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    *
    * @return A collection of the currently placed buildings.
    */
-  public Collection<AbstractBuilding> getPlacedBuildings() {
+  public Collection<Building> getPlacedBuildings() {
     return placedBuildings.values();
   }
 

@@ -118,7 +118,7 @@ public class MapScreen implements Screen {
       public void clicked(InputEvent e, float x, float y) {
         // Deal with clicking later
         buildingManager.setBuildingState();
-        buildingManager.chooseLocationOfBuilding("Accommodation");
+        buildingManager.chooseLocationOfBuilding(0);
       }
     });
 
@@ -127,7 +127,7 @@ public class MapScreen implements Screen {
       public void clicked(InputEvent e, float x, float y) {
         // Deal with clicking later
         buildingManager.setBuildingState();
-        buildingManager.chooseLocationOfBuilding("SportsCenter");
+        buildingManager.chooseLocationOfBuilding(3);
       }
     });
 
@@ -136,7 +136,7 @@ public class MapScreen implements Screen {
       public void clicked(InputEvent e, float x, float y) {
         // Deal with clicking later
         buildingManager.setBuildingState();
-        buildingManager.chooseLocationOfBuilding("LectureHall");
+        buildingManager.chooseLocationOfBuilding(2);
       }
     });
 
@@ -145,7 +145,7 @@ public class MapScreen implements Screen {
       public void clicked(InputEvent e, float x, float y) {
         // Deal with clicking later
         buildingManager.setBuildingState();
-        buildingManager.chooseLocationOfBuilding("FoodCourt");
+        buildingManager.chooseLocationOfBuilding(1);
       }
     });
 
@@ -164,7 +164,7 @@ public class MapScreen implements Screen {
         .height(Value.percentWidth(0.072f, table));
     table.add(buildingCounterLabel).expandX().top().left().width(Value.percentWidth(0.1f, table))
     .height(Value.percentWidth(0.072f, table));
-    
+
     table.add(pauseButton).expandX().top().right().spaceRight(10)
         .width(Value.percentWidth(0.05f, table))
         .height(Value.percentWidth(0.05f, table));
@@ -316,7 +316,7 @@ public class MapScreen implements Screen {
     camera.viewportHeight = camera.viewportWidth * height / width;
     camera.update();
     stage.getViewport().update(width, height, true);
-    
+
   }
 
   @Override

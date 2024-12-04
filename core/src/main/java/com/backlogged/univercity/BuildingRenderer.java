@@ -79,7 +79,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
    *                              start from.
    * @param camera                The camera used for projection, providing the
    *                              matrix for the shape renderer.
-   * @param building              The {@link AbstractBuilding} to be placed for
+   * @param building              The {@link Building} to be placed for
    *                              placement.
    */
   public void renderPlacementFeedback(
@@ -87,7 +87,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
       int row,
       int column,
       OrthographicCamera camera,
-      AbstractBuilding building) {
+      Building building) {
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
     Gdx.gl.glLineWidth(5);
@@ -121,7 +121,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
    * @param camera          The projection matrix for the sprite batch.
    */
   public void renderBuildings(
-      Collection<AbstractBuilding> placedBuildings, OrthographicCamera camera) {
+      Collection<Building> placedBuildings, OrthographicCamera camera) {
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for (var building : placedBuildings) {

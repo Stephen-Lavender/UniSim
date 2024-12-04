@@ -2,18 +2,15 @@ package com.backlogged.univercity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Manages building placement etc. within the game and Handles input, rendering,
@@ -29,102 +26,104 @@ public class BuildingManager {
     MOVING
   }
 
-  /**
-   * Reads building information from a JSON file and initializes BuildingInfo
-   * objects.
-   */
-  private static class BuildingInfoFromJsonFactory {
-    /**
-     * Parses tile coverage offsets from JSON.
-     *
-     * @param tileCoverageOffsetsJson JSON object representing tile offsets.
-     * @return ArrayList of Coord objects defining tile coverage.
-     */
-    private static ArrayList<Coord> getTileCoverageOffsetsFromJson(
-        JsonValue tileCoverageOffsetsJson) {
-      var tileCoverageOffsets = new ArrayList<Coord>();
-      for (var tileOffset : tileCoverageOffsetsJson) {
-        tileCoverageOffsets.add(new Coord(tileOffset.getInt("row"), tileOffset.getInt("column")));
-      }
-      return tileCoverageOffsets;
+    List<JSONBuilding> buildings;
+    List<BuildingInfo> buildingInfos;
+
+    public void generateBuildingBlueprints() {
+        buildings = new ArrayList<>();
+        JSONBuilding accommodationBuilding1 = new JSONBuilding();
+        JSONBuilding cafeteriaBuilding1 = new JSONBuilding();
+        JSONBuilding courseBuilding1 = new JSONBuilding();
+        JSONBuilding recreationalBuilding1 = new JSONBuilding();
+
+        accommodationBuilding1.setType(BuildingType.ACCOMMODATION);
+        accommodationBuilding1.setAtlasRegion("square");
+        accommodationBuilding1.setTileCoverageOffsets(List.of(
+            new Coord[] {
+                new Coord(0, 0),
+                new Coord(0, 1),
+                new Coord(1, 0),
+                new Coord(1, 1)
+            }
+        ));
+
+        cafeteriaBuilding1.setType(BuildingType.CAFETERIA);
+        cafeteriaBuilding1.setAtlasRegion("circle");
+        cafeteriaBuilding1.setTileCoverageOffsets(List.of(
+            new Coord[] {
+                new Coord(0, 0),
+                new Coord(0, 1),
+                new Coord(1, 0),
+                new Coord(1, 1)
+            }
+        ));
+
+        courseBuilding1.setType(BuildingType.COURSE);
+        courseBuilding1.setAtlasRegion("rhombus");
+        courseBuilding1.setTileCoverageOffsets(List.of(
+            new Coord[] {
+                new Coord(0, 0),
+                new Coord(0, 1),
+                new Coord(1, 0),
+                new Coord(1, 1)
+            }
+        ));
+
+        recreationalBuilding1.setType(BuildingType.RECREATIONAL);
+        recreationalBuilding1.setAtlasRegion("hex");
+        recreationalBuilding1.setTileCoverageOffsets(List.of(
+            new Coord[] {
+                new Coord(0, 0),
+                new Coord(0, 1),
+                new Coord(1, 0),
+                new Coord(1, 1)
+            }
+        ));
+
+        buildings.add(accommodationBuilding1);
+        buildings.add(cafeteriaBuilding1);
+        buildings.add(courseBuilding1);
+        buildings.add(recreationalBuilding1);
     }
 
-    /**
-     * Parses building data from JSON and generates a map of BuildingInfo objects.
-     *
-     * @param buildingsJsonFile JSON file containing building data.
-     * @param buildingAtlas     Texture atlas for building sprites.
-     * @param unitScale         Scale factor for tiled map renderer projection
-     *                          matrix
-     * @return HashMap associating building types with their BuildingInfo data.
-     */
-    public static HashMap<String, BuildingInfo> getBuildingsFromJson(
-        FileHandle buildingsJsonFile, TextureAtlas buildingAtlas, float unitScale) {
-      HashMap<String, BuildingInfo> buildingMap = new HashMap<>();
-      JsonValue buildings = new JsonReader().parse(buildingsJsonFile);
-      for (var building : buildings) {
-        Sprite sprite = buildingAtlas.createSprite(building.get("atlasRegion").asString());
-        sprite.setScale(unitScale);
-        sprite.setOrigin(0, 0);
-        buildingMap.put(
-            building.name,
-            new BuildingInfo(
-                building.get("type").asStringArray(),
-                getTileCoverageOffsetsFromJson(building.get("tileCoverageOffsets")),
-                building.get("info").asString(),
-                sprite));
-      }
-      return buildingMap;
+    public void generateBuildingInfosFromBlueprints(TextureAtlas buildingAtlas, float unitScale){
+        buildingInfos = new ArrayList<>();
+
+        for (JSONBuilding building: buildings){
+            Sprite sprite = buildingAtlas.createSprite(building.atlasRegion);
+            sprite.setScale(unitScale);
+            sprite.setOrigin(0, 0);
+            buildingInfos.add(new BuildingInfo(building.type, building.tileCoverageOffsets, building.info, sprite ));
+        }
     }
-  }
 
   /** Factory for creating building instances. */
-  private static class BuildingFactory {
+  private class BuildingFactory {
     /**
-     * Instantiates an AbstractBuilding based on the specified class name.
+     * Instantiates a Building based on the specified class name.
      *
-     * @param buildingMap       Map of building data.
-     * @param buildingClassName Name of the building class.
-     * @return New AbstractBuilding instance.
+     *
+     *
+     * @return New Building instance.
      * @throws IllegalArgumentException If the building class cannot be
      *                                  instantiated.
      */
-    public static AbstractBuilding createBuilding(
-        HashMap<String, BuildingInfo> buildingMap, String buildingClassName) {
-      AbstractBuilding building = null;
-      try {
-        Class<?> buildingClass = Class.forName("com.backlogged.univercity." + buildingClassName);
-        building = (AbstractBuilding) buildingClass
-            .getConstructor(BuildingInfo.class)
-            .newInstance(buildingMap.get(buildingClassName));
-      } catch (Exception e) {
-        throw new IllegalArgumentException(
-            String.format("%s\nBuilding %s does not exist", e.toString(), buildingClassName));
-      }
-      return building;
+    public Building createBuilding(int indexInBlueprintArray) {
+      return new Building(buildingInfos.get(indexInBlueprintArray));
     }
   }
 
-  private final HashMap<String, BuildingInfo> buildingMap;
+  BuildingFactory buildingFactory = new BuildingFactory();
   private IBuildingRenderer renderer;
   private IBuildingPlacementManager placementManager;
   private boolean isChoosingLocation = false;
-  private AbstractBuilding buildingToBePlaced;
-  private String buildingToBePlacedType;
+  private Building buildingToBePlaced;
   private int currentRow;
   private int currentColumn;
   private BuildingState buildingState = BuildingState.NOT_BUILDING;
   private OrthographicCamera camera;
-  private HashMap<String, Integer> buildingCounts = new HashMap<>() {
-    @Override
-    public String toString() {
-      String out = "";
-      for (var entry : this.entrySet()) {
-        out += String.format("%s : %d\n", entry.getKey(), entry.getValue());
-      }
-      return out;
-    }
-  };
+
+  private HashMap<BuildingType, Integer> buildingCounts = new HashMap<>();
   private boolean canBePlacedAtCurrentLocation;
 
   /**
@@ -140,8 +139,11 @@ public class BuildingManager {
     if (renderer == null || placementManager == null) {
       throw new IllegalArgumentException("renderer and placement manager MUST both be initialized");
     }
-    buildingMap = BuildingInfoFromJsonFactory.getBuildingsFromJson(
-        Gdx.files.internal("buildings/Buildings.json"), renderer.getAtlas(), unitScale);
+    generateBuildingBlueprints();
+    generateBuildingInfosFromBlueprints(renderer.getAtlas(), unitScale);
+
+    System.out.println(buildings.size());
+    System.out.println(buildingInfos.size());
     initBuildingCounters();
     this.renderer = renderer;
     this.placementManager = placementManager;
@@ -149,7 +151,7 @@ public class BuildingManager {
 
   /** Initialises counters for all building types to zero. */
   private void initBuildingCounters() {
-    for (var buildingType : buildingMap.keySet()) {
+    for (BuildingType buildingType : BuildingType.values()) {
       buildingCounts.put(buildingType, 0);
     }
   }
@@ -168,13 +170,12 @@ public class BuildingManager {
    *
    * @return Set of map entries associating building names with BuildingInfo data.
    */
-  public Set<Entry<String, BuildingInfo>> getBuildings() {
-    return buildingMap.entrySet();
+  public List<JSONBuilding> getBuildings() {
+    return buildings;
   }
 
   /** Resets building placement state. */
   private void resetState() {
-    buildingToBePlacedType = null;
     buildingToBePlaced = null;
     isChoosingLocation = false;
   }
@@ -196,21 +197,19 @@ public class BuildingManager {
    */
   private void placeBuilding(int row, int column) {
     placementManager.placeBuilding(row, column, buildingToBePlaced);
-    var countForBuildingTypePlaced = buildingCounts.get(buildingToBePlacedType);
-    buildingCounts.put(buildingToBePlacedType, ++countForBuildingTypePlaced);
+    var countForBuildingTypePlaced = buildingCounts.get(buildingToBePlaced.getType());
+    buildingCounts.put(buildingToBePlaced.getType(), ++countForBuildingTypePlaced);
     resetState();
   }
 
   /**
    * Initiates location choosing state for placing a building.
    *
-   * @param buildingType Name of the building type to place.
+   * @param
    */
-  public void chooseLocationOfBuilding(String buildingType) {
-    AbstractBuilding building = BuildingFactory.createBuilding(buildingMap, buildingType);
-    buildingToBePlacedType = buildingType;
-    buildingToBePlaced = building;
-    isChoosingLocation = true;
+  public void chooseLocationOfBuilding(int indexInBlueprintArray) {
+      buildingToBePlaced = buildingFactory.createBuilding(indexInBlueprintArray);
+      isChoosingLocation = true;
   }
 
   /**
@@ -248,12 +247,12 @@ public class BuildingManager {
         }
       }
         break;
-      case DELETING: 
+      case DELETING:
         {
         // TODO: UNIMPLEMENTED
         }
         break;
-      case MOVING: 
+      case MOVING:
         {
         // TODO: UNIMPLEMENTEDt
         }

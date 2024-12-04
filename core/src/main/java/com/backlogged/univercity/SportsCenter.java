@@ -1,7 +1,7 @@
 package com.backlogged.univercity;
 
 /** This class represents a basic sports center. */
-public class SportsCenter extends AbstractBuilding {
+public class SportsCenter extends Building {
   /**
    * Constructs a SportsCenter instance.
    *

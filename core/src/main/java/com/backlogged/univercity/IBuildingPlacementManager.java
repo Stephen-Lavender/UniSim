@@ -18,7 +18,7 @@ public interface IBuildingPlacementManager {
    * @param row    The row to place the building.
    * @param column The column to place the building.
    */
-  public void placeBuilding(int row, int column, AbstractBuilding building);
+  public void placeBuilding(int row, int column, Building building);
 
   /**
    * Determines if its possible to place a building at the location of the cursor
@@ -32,7 +32,7 @@ public interface IBuildingPlacementManager {
    * @param building The building to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocation(int row, int column, AbstractBuilding building);
+  public boolean canBePlacedAtLocation(int row, int column, Building building);
 
   /** Resets the count to zero and clears any placed buildings. */
   public void reset();
@@ -49,7 +49,7 @@ public interface IBuildingPlacementManager {
    *
    * @return A collection of the currently placed buildings.
    */
-  public Collection<AbstractBuilding> getPlacedBuildings();
+  public Collection<Building> getPlacedBuildings();
 
   /**
    * Determines if its possible to place a building at the location of the cursor
@@ -58,8 +58,8 @@ public interface IBuildingPlacementManager {
    *
    * @param row      The row to start checking from.
    * @param column   The column to start checking from.
-   * @param building The {@link AbstractBuilding} to check.
+   * @param building The {@link Building} to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocationIgnoreTerrain(int row, int column, AbstractBuilding building);
+  public boolean canBePlacedAtLocationIgnoreTerrain(int row, int column, Building building);
 }

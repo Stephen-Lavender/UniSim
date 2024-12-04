@@ -2,6 +2,7 @@ package com.backlogged.univercity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Encapsulates essential information about a building, including its type, tile
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class BuildingInfo {
   final BuildingType type;
-  final ArrayList<Coord> tileCoverageOffsets;
+  final List<Coord> tileCoverageOffsets;
   final String info;
   final Sprite buildingSprite;
 
@@ -32,7 +33,7 @@ public class BuildingInfo {
    *                            building.
    */
   public BuildingInfo(
-      BuildingType type, ArrayList<Coord> tileCoverageOffsets, String info, Sprite buildingSprite) {
+      BuildingType type, List<Coord> tileCoverageOffsets, String info, Sprite buildingSprite) {
     this.type = type;
     this.tileCoverageOffsets = tileCoverageOffsets;
     this.info = info;
