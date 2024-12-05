@@ -26,19 +26,22 @@ public class BuildingManager {
     MOVING
   }
 
-    List<JSONBuilding> buildings;
-    List<BuildingInfo> buildingInfos;
+    List<Building> buildings;
 
-    public void generateBuildingBlueprints() {
+    public void generateBuildingBlueprints(TextureAtlas textureAtlas, float unitScale) {
         buildings = new ArrayList<>();
-        JSONBuilding accommodationBuilding1 = new JSONBuilding();
-        JSONBuilding cafeteriaBuilding1 = new JSONBuilding();
-        JSONBuilding courseBuilding1 = new JSONBuilding();
-        JSONBuilding recreationalBuilding1 = new JSONBuilding();
 
-        accommodationBuilding1.setType(BuildingType.ACCOMMODATION);
-        accommodationBuilding1.setAtlasRegion("square");
-        accommodationBuilding1.setTileCoverageOffsets(List.of(
+        List<BuildingInstance> upgrades = new ArrayList<>();
+        BuildingInstance accommodationBuilding1 = new BuildingInstance("square");
+        accommodationBuilding1.addType(BuildingType.ACCOMMODATION);
+
+        Sprite sprite = textureAtlas.createSprite(accommodationBuilding1.atlasRegion);
+        sprite.setScale(unitScale);
+        sprite.setOrigin(0, 0);
+        accommodationBuilding1.sprite = sprite;
+
+        upgrades.add(accommodationBuilding1);
+        Building accommodationBuilding = new Building(upgrades, List.of(
             new Coord[] {
                 new Coord(0, 0),
                 new Coord(0, 1),
@@ -47,9 +50,18 @@ public class BuildingManager {
             }
         ));
 
-        cafeteriaBuilding1.setType(BuildingType.CAFETERIA);
-        cafeteriaBuilding1.setAtlasRegion("circle");
-        cafeteriaBuilding1.setTileCoverageOffsets(List.of(
+
+        upgrades = new ArrayList<>();
+        BuildingInstance cafeteriaBuilding1 = new BuildingInstance("circle");
+        cafeteriaBuilding1.addType(BuildingType.CAFETERIA);
+
+        sprite = textureAtlas.createSprite(cafeteriaBuilding1.atlasRegion);
+        sprite.setScale(unitScale);
+        sprite.setOrigin(0, 0);
+        cafeteriaBuilding1.sprite = sprite;
+
+        upgrades.add(cafeteriaBuilding1);
+        Building cafeteriaBuilding = new Building(upgrades, List.of(
             new Coord[] {
                 new Coord(0, 0),
                 new Coord(0, 1),
@@ -58,9 +70,17 @@ public class BuildingManager {
             }
         ));
 
-        courseBuilding1.setType(BuildingType.COURSE);
-        courseBuilding1.setAtlasRegion("rhombus");
-        courseBuilding1.setTileCoverageOffsets(List.of(
+        upgrades = new ArrayList<>();
+        BuildingInstance courseBuilding1 = new BuildingInstance("rhombus");
+        courseBuilding1.addType(BuildingType.COURSE);
+
+        sprite = textureAtlas.createSprite(courseBuilding1.atlasRegion);
+        sprite.setScale(unitScale);
+        sprite.setOrigin(0, 0);
+        courseBuilding1.sprite = sprite;
+
+        upgrades.add(courseBuilding1);
+        Building courseBuilding = new Building(upgrades, List.of(
             new Coord[] {
                 new Coord(0, 0),
                 new Coord(0, 1),
@@ -69,9 +89,17 @@ public class BuildingManager {
             }
         ));
 
-        recreationalBuilding1.setType(BuildingType.RECREATIONAL);
-        recreationalBuilding1.setAtlasRegion("hex");
-        recreationalBuilding1.setTileCoverageOffsets(List.of(
+        upgrades = new ArrayList<>();
+        BuildingInstance recreationalBuilding1 = new BuildingInstance("hex");
+        recreationalBuilding1.addType(BuildingType.RECREATIONAL);
+
+        sprite = textureAtlas.createSprite(recreationalBuilding1.atlasRegion);
+        sprite.setScale(unitScale);
+        sprite.setOrigin(0, 0);
+        recreationalBuilding1.sprite = sprite;
+
+        upgrades.add(recreationalBuilding1);
+        Building recreationalBuilding = new Building(upgrades, List.of(
             new Coord[] {
                 new Coord(0, 0),
                 new Coord(0, 1),
@@ -80,21 +108,10 @@ public class BuildingManager {
             }
         ));
 
-        buildings.add(accommodationBuilding1);
-        buildings.add(cafeteriaBuilding1);
-        buildings.add(courseBuilding1);
-        buildings.add(recreationalBuilding1);
-    }
-
-    public void generateBuildingInfosFromBlueprints(TextureAtlas buildingAtlas, float unitScale){
-        buildingInfos = new ArrayList<>();
-
-        for (JSONBuilding building: buildings){
-            Sprite sprite = buildingAtlas.createSprite(building.atlasRegion);
-            sprite.setScale(unitScale);
-            sprite.setOrigin(0, 0);
-            buildingInfos.add(new BuildingInfo(building.type, building.tileCoverageOffsets, building.info, sprite ));
-        }
+        buildings.add(accommodationBuilding);
+        buildings.add(cafeteriaBuilding);
+        buildings.add(courseBuilding);
+        buildings.add(recreationalBuilding);
     }
 
   /** Factory for creating building instances. */
@@ -109,7 +126,7 @@ public class BuildingManager {
      *                                  instantiated.
      */
     public Building createBuilding(int indexInBlueprintArray) {
-      return new Building(buildingInfos.get(indexInBlueprintArray));
+      return buildings.get(indexInBlueprintArray).copy();
     }
   }
 
@@ -139,11 +156,7 @@ public class BuildingManager {
     if (renderer == null || placementManager == null) {
       throw new IllegalArgumentException("renderer and placement manager MUST both be initialized");
     }
-    generateBuildingBlueprints();
-    generateBuildingInfosFromBlueprints(renderer.getAtlas(), unitScale);
-
-    System.out.println(buildings.size());
-    System.out.println(buildingInfos.size());
+    generateBuildingBlueprints(renderer.getAtlas(), unitScale);
     initBuildingCounters();
     this.renderer = renderer;
     this.placementManager = placementManager;
@@ -170,7 +183,7 @@ public class BuildingManager {
    *
    * @return Set of map entries associating building names with BuildingInfo data.
    */
-  public List<JSONBuilding> getBuildings() {
+  public List<Building> getBuildings() {
     return buildings;
   }
 
@@ -197,8 +210,13 @@ public class BuildingManager {
    */
   private void placeBuilding(int row, int column) {
     placementManager.placeBuilding(row, column, buildingToBePlaced);
-    var countForBuildingTypePlaced = buildingCounts.get(buildingToBePlaced.getType());
-    buildingCounts.put(buildingToBePlaced.getType(), ++countForBuildingTypePlaced);
+
+    for (BuildingType type: buildingCounts.keySet()){
+        if (buildingToBePlaced.isOfType(type)){
+            buildingCounts.put(type, buildingCounts.get(type) + 1);
+        }
+    }
+
     resetState();
   }
 

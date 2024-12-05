@@ -4,19 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class JSONBuilding {
-    BuildingType type;
+    Set<BuildingType> type;
+
+    int level;
     String atlasRegion;
     List<Coord> tileCoverageOffsets;
     String info;
 
-    Sprite sprite;
 
     public JSONBuilding(){}
 
     public void setType(BuildingType type){
-        this.type = type;
+        this.type.add(type);
     }
 
     public void setAtlasRegion(String atlasRegion){
@@ -29,5 +31,9 @@ public class JSONBuilding {
 
     public void setInfo(String info){
         this.info = info;
+    }
+
+    public int getCapacity(){
+        return level * 80;
     }
 }
