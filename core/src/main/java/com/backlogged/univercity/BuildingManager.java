@@ -35,10 +35,7 @@ public class BuildingManager {
         BuildingInstance accommodationBuilding1 = new BuildingInstance("square");
         accommodationBuilding1.addType(BuildingType.ACCOMMODATION);
 
-        Sprite sprite = textureAtlas.createSprite(accommodationBuilding1.atlasRegion);
-        sprite.setScale(unitScale);
-        sprite.setOrigin(0, 0);
-        accommodationBuilding1.sprite = sprite;
+        accommodationBuilding1.setSprite(textureAtlas, unitScale);
 
         upgrades.add(accommodationBuilding1);
         Building accommodationBuilding = new Building(upgrades, List.of(
@@ -55,10 +52,7 @@ public class BuildingManager {
         BuildingInstance cafeteriaBuilding1 = new BuildingInstance("circle");
         cafeteriaBuilding1.addType(BuildingType.CAFETERIA);
 
-        sprite = textureAtlas.createSprite(cafeteriaBuilding1.atlasRegion);
-        sprite.setScale(unitScale);
-        sprite.setOrigin(0, 0);
-        cafeteriaBuilding1.sprite = sprite;
+        cafeteriaBuilding1.setSprite(textureAtlas, unitScale);
 
         upgrades.add(cafeteriaBuilding1);
         Building cafeteriaBuilding = new Building(upgrades, List.of(
@@ -74,10 +68,7 @@ public class BuildingManager {
         BuildingInstance courseBuilding1 = new BuildingInstance("rhombus");
         courseBuilding1.addType(BuildingType.COURSE);
 
-        sprite = textureAtlas.createSprite(courseBuilding1.atlasRegion);
-        sprite.setScale(unitScale);
-        sprite.setOrigin(0, 0);
-        courseBuilding1.sprite = sprite;
+        courseBuilding1.setSprite(textureAtlas, unitScale);
 
         upgrades.add(courseBuilding1);
         Building courseBuilding = new Building(upgrades, List.of(
@@ -93,10 +84,7 @@ public class BuildingManager {
         BuildingInstance recreationalBuilding1 = new BuildingInstance("hex");
         recreationalBuilding1.addType(BuildingType.RECREATIONAL);
 
-        sprite = textureAtlas.createSprite(recreationalBuilding1.atlasRegion);
-        sprite.setScale(unitScale);
-        sprite.setOrigin(0, 0);
-        recreationalBuilding1.sprite = sprite;
+        recreationalBuilding1.setSprite(textureAtlas, unitScale);
 
         upgrades.add(recreationalBuilding1);
         Building recreationalBuilding = new Building(upgrades, List.of(

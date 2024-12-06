@@ -39,7 +39,7 @@ public class Building {
      * @return The {@code Sprite} representing the building's visual appearance.
      */
     public final Sprite getSprite() {
-        return getCurrentBuildingInstance().sprite;
+        return getCurrentBuildingInstance().getSprite();
     }
 
     /**
@@ -85,9 +85,9 @@ public class Building {
      * @param batch The {@code SpriteBatch} used to draw the building's sprite.
      */
     public final void draw(SpriteBatch batch) {
-        getCurrentBuildingInstance().sprite.setPosition(this.mapPos.getRow(), this.mapPos.getColumn());
-        getCurrentBuildingInstance().sprite.draw(batch);
-        getCurrentBuildingInstance().sprite.setPosition(0, 0);
+        getCurrentBuildingInstance().getSprite().setPosition(this.mapPos.getRow(), this.mapPos.getColumn());
+        getCurrentBuildingInstance().getSprite().draw(batch);
+        getCurrentBuildingInstance().getSprite().setPosition(0, 0);
     }
 
     public boolean exists(){
