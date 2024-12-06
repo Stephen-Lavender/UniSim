@@ -84,8 +84,8 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
    */
   public void renderPlacementFeedback(
       boolean canBePlacedAtLocation,
-      int row,
       int column,
+      int row,
       OrthographicCamera camera,
       Building building) {
     shapeRenderer.setProjectionMatrix(camera.combined);
@@ -95,8 +95,8 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
       shapeRenderer.setColor(Color.GREEN);
 
       for (var tileOffset : building.getTileCoverageOffsets()) {
-        int offsetX = row + tileOffset.getRow();
-        int offsetY = column + tileOffset.getColumn();
+        int offsetX = column + tileOffset.getColumn();
+        int offsetY = row + tileOffset.getRow();
         shapeRenderer.line(0.f + offsetX, 0.5f + offsetY, 0.25f + offsetX, 0.f + offsetY);
         shapeRenderer.line(0.25f + offsetX, 0.f + offsetY, 1.f + offsetX, 1.f + offsetY);
       }
@@ -105,7 +105,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
       shapeRenderer.setColor(Color.RED);
       for (var tileOffset : building.getTileCoverageOffsets()) {
         int offsetX = row + tileOffset.getRow();
-        int offsetY = column + tileOffset.getColumn();
+        int offsetY = row + tileOffset.getRow();
         shapeRenderer.line(0.f + offsetX, 1.f + offsetY, 1.f + offsetX, 0.f + offsetY);
         shapeRenderer.line(0.f + offsetX, 0.f + offsetY, 1.f + offsetX, 1.f + offsetY);
       }

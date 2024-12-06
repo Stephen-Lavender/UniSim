@@ -85,13 +85,13 @@ public class Building {
      * @param batch The {@code SpriteBatch} used to draw the building's sprite.
      */
     public final void draw(SpriteBatch batch) {
-        getCurrentBuildingInstance().getSprite().setPosition(this.mapPos.getRow(), this.mapPos.getColumn());
+        getCurrentBuildingInstance().getSprite().setPosition(this.mapPos.getColumn(), this.mapPos.getRow());
         getCurrentBuildingInstance().getSprite().draw(batch);
         getCurrentBuildingInstance().getSprite().setPosition(0, 0);
     }
 
     public boolean exists(){
-        return (mapPos.getRow() != -1 && mapPos.getColumn() != -1);
+        return (mapPos.getRow() != -1 && mapPos.getRow() != -1);
     }
 
     public Building copy(){
