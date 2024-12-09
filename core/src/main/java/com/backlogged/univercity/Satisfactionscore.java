@@ -1,7 +1,7 @@
 package com.backlogged.univercity;
 
 
-public class SatisfactionScore {
+public class Satisfactionscore {
 
 
     public double calc_Satisfaction(int distanceClosestBuilding, int distanceBoost, BuildingType type) {
