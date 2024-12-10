@@ -1,6 +1,7 @@
 package com.backlogged.univercity;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Manages the placement of buildings on the map, including checking if
@@ -18,7 +19,7 @@ public interface IBuildingPlacementManager {
    * @param row    The row to place the building.
    * @param column The column to place the building.
    */
-  public void placeBuilding(int row, int column, Building building);
+  public void placeBuilding(int column, int row, Building building);
 
   /**
    * Determines if its possible to place a building at the location of the cursor
@@ -32,7 +33,7 @@ public interface IBuildingPlacementManager {
    * @param building The building to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocation(int row, int column, Building building);
+  public boolean canBePlacedAtLocation(int column, int row, Building building);
 
   /** Resets the count to zero and clears any placed buildings. */
   public void reset();
@@ -50,7 +51,7 @@ public interface IBuildingPlacementManager {
    * @return A collection of the currently placed buildings.
    */
   public Collection<Building> getPlacedBuildings();
-
+  HashMap<Coord, Building> getBuildingMap();
   /**
    * Determines if its possible to place a building at the location of the cursor
    * by checking if any
@@ -61,5 +62,5 @@ public interface IBuildingPlacementManager {
    * @param building The {@link Building} to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocationIgnoreTerrain(int row, int column, Building building);
+  public boolean canBePlacedAtLocationIgnoreTerrain(int column, int row , Building building);
 }

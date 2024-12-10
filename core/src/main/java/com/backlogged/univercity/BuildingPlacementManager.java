@@ -35,7 +35,7 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    * @param building The {@link Building} to check.
    * @return Returns true its possible and false if not.
    */
-  public boolean canBePlacedAtLocation(int row, int column, Building building) {
+  public boolean canBePlacedAtLocation(int column, int row, Building building) {
 
     for (var tileOffset : building.getTileCoverageOffsets()) {
       TiledMapTileLayer.Cell terrainCell = terrainLayer.getCell(column + tileOffset.getColumn(),
@@ -59,10 +59,10 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    * @return Returns true its possible and false if not.
    */
   public boolean canBePlacedAtLocationIgnoreTerrain(
-      int row, int column, Building building) {
+      int column, int row, Building building) {
     for (var tileOffset : building.getTileCoverageOffsets()) {
       if (placedBuildings.containsKey(
-          new Coord(tileOffset.getRow() + row, tileOffset.getColumn() + column))) {
+          new Coord(tileOffset.getColumn() + column, tileOffset.getRow() + row))) {
         return false;
       }
     }
@@ -75,13 +75,13 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    * @param row    The row to place the building.
    * @param column The column to place the building.
    */
-  public void placeBuilding(int row, int column, Building building) {
+  public void placeBuilding(int column, int row, Building building) {
 
     for (var tileOffset : building.getTileCoverageOffsets()) {
       placedBuildings.put(
-          new Coord(row + tileOffset.getRow(), column + tileOffset.getColumn()), building);
+          new Coord(column + tileOffset.getColumn(), row + tileOffset.getRow()), building);
     }
-    building.setMapPosition(new Coord(row, column));
+    building.setMapPosition(new Coord(column, row));
     count++;
   }
 
@@ -92,6 +92,10 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    */
   public Collection<Building> getPlacedBuildings() {
     return placedBuildings.values();
+  }
+
+  public HashMap<Coord, Building> getBuildingMap(){
+      return placedBuildings;
   }
 
   /**

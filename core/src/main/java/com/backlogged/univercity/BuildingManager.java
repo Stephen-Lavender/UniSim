@@ -3,12 +3,12 @@ package com.backlogged.univercity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,10 +26,10 @@ public class BuildingManager {
     MOVING
   }
 
-    List<Building> buildings;
+    List<Building> buildingBlueprints;
 
     public void generateBuildingBlueprints(TextureAtlas textureAtlas, float unitScale) {
-        buildings = new ArrayList<>();
+        buildingBlueprints = new ArrayList<>();
 
         List<BuildingInstance> upgrades = new ArrayList<>();
         BuildingInstance accommodationBuilding1 = new BuildingInstance("square");
@@ -96,10 +96,10 @@ public class BuildingManager {
             }
         ));
 
-        buildings.add(accommodationBuilding);
-        buildings.add(cafeteriaBuilding);
-        buildings.add(courseBuilding);
-        buildings.add(recreationalBuilding);
+        buildingBlueprints.add(accommodationBuilding);
+        buildingBlueprints.add(cafeteriaBuilding);
+        buildingBlueprints.add(courseBuilding);
+        buildingBlueprints.add(recreationalBuilding);
     }
 
   /** Factory for creating building instances. */
@@ -114,7 +114,7 @@ public class BuildingManager {
      *                                  instantiated.
      */
     public Building createBuilding(int indexInBlueprintArray) {
-      return buildings.get(indexInBlueprintArray).copy();
+      return buildingBlueprints.get(indexInBlueprintArray).copy();
     }
   }
 
@@ -171,8 +171,8 @@ public class BuildingManager {
    *
    * @return Set of map entries associating building names with BuildingInfo data.
    */
-  public List<Building> getBuildings() {
-    return buildings;
+  public List<Building> getBuildingBlueprints() {
+    return buildingBlueprints;
   }
 
   /** Resets building placement state. */
@@ -196,8 +196,8 @@ public class BuildingManager {
    * @param row    Row coordinate for placement.
    * @param column Column coordinate for placement.
    */
-  private void placeBuilding(int row, int column) {
-    placementManager.placeBuilding(row, column, buildingToBePlaced);
+  private void placeBuilding(int column, int row) {
+    placementManager.placeBuilding(column, row, buildingToBePlaced);
 
     for (BuildingType type: buildingCounts.keySet()){
         if (buildingToBePlaced.isOfType(type)){
@@ -247,7 +247,7 @@ public class BuildingManager {
         break;
       case BUILDING: {
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && canBePlacedAtCurrentLocation) {
-          placeBuilding(currentRow, currentColumn);
+          placeBuilding(currentColumn, currentRow);
           resetState();
           buildingState = BuildingState.NOT_BUILDING;
         }
@@ -280,10 +280,10 @@ public class BuildingManager {
   public void update() {
     if (isChoosingLocation) {
       var worldCoordinates = getWorldCoordinates();
-      currentRow = (int) worldCoordinates.x;
-      currentColumn = (int) worldCoordinates.y;
+      currentColumn = (int) worldCoordinates.x;
+      currentRow = (int) worldCoordinates.y;
       canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
-          currentRow, currentColumn, buildingToBePlaced);
+          currentColumn, currentRow, buildingToBePlaced);
     }
   }
 
@@ -305,12 +305,20 @@ public class BuildingManager {
    * Renders buildings, and the placement squares if {@code buildingState ==
    * BuildingState.BUILDING}.
    */
+
+  public HashMap<Coord, Building> getMapBuildings(){
+      return placementManager.getBuildingMap();
+  }
+
+  public Collection<Building> getPlacedBuildings(){
+      return placementManager.getPlacedBuildings();
+  }
   public void render() {
 
     renderer.renderBuildings(placementManager.getPlacedBuildings(), camera);
     if (isChoosingLocation) {
       renderer.renderPlacementFeedback(
-          canBePlacedAtCurrentLocation, currentRow, currentColumn, camera, buildingToBePlaced);
+          canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, buildingToBePlaced);
     }
   }
 }
