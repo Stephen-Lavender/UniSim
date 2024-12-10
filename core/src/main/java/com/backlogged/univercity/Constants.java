@@ -73,7 +73,7 @@ public final class Constants {
   /**
    * Path to the game soundtrack.
    */
-  public static final String SOUNDTRACK_PATH = "n-o-t-i-f-y-c-a-r-69566.wav";
+  public static final String SOUNDTRACK_PATH = "gameover.mp3";
 
   /**
    * Path to the game over sound.
