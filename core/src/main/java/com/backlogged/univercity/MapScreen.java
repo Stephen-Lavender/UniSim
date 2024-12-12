@@ -58,7 +58,8 @@ public class MapScreen implements Screen {
     private final BuildingManager buildingManager;
     private final TextButton buildingCounterLabel;
     private final TextTooltip detailedBuildingCounter;
-
+    private Events world;
+    private int eventcount;
     private Building selectedBuilding;
 
 
@@ -70,6 +71,8 @@ public class MapScreen implements Screen {
      */
     public MapScreen(Game game) {
         this.game = game;
+        world = new Events();
+        eventcount = 0;
         map = new TmxMapLoader().load(Constants.MAP_PATH);
         renderer = new OrthogonalTiledMapRenderer(map, UNIT_SCALE);
         camera = new OrthographicCamera();
@@ -262,6 +265,13 @@ public class MapScreen implements Screen {
 
         if (elapsedTime > Constants.ONE_MONTH) {
             timer.updateTimerValues();
+        }
+
+        if(elapsedTime > 20f && eventcount == 0 )
+        {
+            world.WorldEvent(buildingManager.getPlacedBuildings());
+            eventcount++;
+
         }
 
         if (timeLeft < 1) {
