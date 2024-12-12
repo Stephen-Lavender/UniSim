@@ -23,7 +23,7 @@ public class BuildingManager {
     private final IBuildingRenderer renderer;
     private final IBuildingPlacementManager placementManager;
     private boolean isChoosingLocation = false;
-    private Building buildingToBePlaced;
+    private Building selectedBuilding;
     private int currentRow;
     private int currentColumn;
     private BuildingState buildingState = BuildingState.NOT_BUILDING;
@@ -152,8 +152,8 @@ public class BuildingManager {
         buildingState = newState;
     }
 
-    public void setBuildingToBePlaced(Building buildingToBePlaced) {
-        this.buildingToBePlaced = buildingToBePlaced;
+    public void setSelectedBuilding(Building selectedBuilding) {
+        this.selectedBuilding = selectedBuilding;
     }
 
     /**
@@ -169,7 +169,7 @@ public class BuildingManager {
      * Resets building placement state.
      */
     private void resetState() {
-        buildingToBePlaced = null;
+        selectedBuilding = null;
         isChoosingLocation = false;
     }
 
@@ -189,10 +189,10 @@ public class BuildingManager {
      * @param column Column coordinate for placement.
      */
     private void placeBuilding(int column, int row) {
-        placementManager.placeBuilding(column, row, buildingToBePlaced);
+        placementManager.placeBuilding(column, row, selectedBuilding);
 
         for (BuildingType type : buildingCounts.keySet()) {
-            if (buildingToBePlaced.isOfType(type)) {
+            if (selectedBuilding.isOfType(type)) {
                 buildingCounts.put(type, buildingCounts.get(type) + 1);
             }
         }
@@ -204,7 +204,7 @@ public class BuildingManager {
      * @param
      */
     public void chooseLocationOfBuilding(int indexInBlueprintArray) {
-        buildingToBePlaced = buildingFactory.createBuilding(indexInBlueprintArray);
+        selectedBuilding = buildingFactory.createBuilding(indexInBlueprintArray);
         isChoosingLocation = true;
     }
 
@@ -246,14 +246,16 @@ public class BuildingManager {
             }
             break;
             case DELETING: {
-                // TODO: UNIMPLEMENTED
+                selectedBuilding.remove();
+                resetState();
+                buildingState = BuildingState.NOT_BUILDING;
             }
             break;
             case MOVING: {
                 isChoosingLocation = true;
 
                 if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && canBePlacedAtCurrentLocation) {
-                    buildingToBePlaced.setMapPosition(new Coord(currentColumn, currentRow));
+                    selectedBuilding.setMapPosition(new Coord(currentColumn, currentRow));
                     resetState();
                     buildingState = BuildingState.NOT_BUILDING;
                 }
@@ -279,7 +281,7 @@ public class BuildingManager {
             currentColumn = (int) worldCoordinates.x;
             currentRow = (int) worldCoordinates.y;
             canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
-                currentColumn, currentRow, buildingToBePlaced);
+                currentColumn, currentRow, selectedBuilding);
         }
     }
 
@@ -304,10 +306,6 @@ public class BuildingManager {
      * BuildingState.BUILDING}.
      */
 
-    public HashMap<Coord, Building> getMapBuildings() {
-        return placementManager.getBuildingMap();
-    }
-
     public List<Building> getPlacedBuildings() {
         return placementManager.getPlacedBuildings();
     }
@@ -317,7 +315,7 @@ public class BuildingManager {
         renderer.renderBuildings(placementManager.getPlacedBuildings(), camera);
         if (isChoosingLocation) {
             renderer.renderPlacementFeedback(
-                canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, buildingToBePlaced);
+                canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, selectedBuilding);
         }
     }
 

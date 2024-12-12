@@ -98,6 +98,10 @@ public class Building {
         return (mapPos.getRow() != -1 && mapPos.getRow() != -1);
     }
 
+    public void remove(){
+        setMapPosition(new Coord(-1, -1));
+    }
+
     public Building copy(){
         Building newBuilding = new Building(upgrades, tileCoverageOffsets);
         return newBuilding;

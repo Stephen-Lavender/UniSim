@@ -51,7 +51,7 @@ public interface IBuildingPlacementManager {
    * @return A List of the currently placed buildings.
    */
   public List<Building> getPlacedBuildings();
-  HashMap<Coord, Building> getBuildingMap();
+
   /**
    * Determines if its possible to place a building at the location of the cursor
    * by checking if any

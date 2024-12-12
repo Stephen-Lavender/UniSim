@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * BuildingPlacementManager manages what buildings are currently placed on the
@@ -93,11 +94,7 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
    * @return A List of the currently placed buildings.
    */
   public List<Building> getPlacedBuildings() {
-    return new ArrayList<>(placedBuildings.values());
-  }
-
-  public HashMap<Coord, Building> getBuildingMap(){
-      return placedBuildings;
+    return placedBuildings.values().stream().filter(Building::exists).collect(Collectors.toList());
   }
 
   /**

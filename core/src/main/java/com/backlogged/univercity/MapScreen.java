@@ -205,7 +205,15 @@ public class MapScreen implements Screen {
         moveButton.addListener(new ClickListener(){
             public void clicked(InputEvent e, float x, float y){
                 buildingManager.setBuildingState(BuildingState.MOVING);
-                buildingManager.setBuildingToBePlaced(selectedBuilding);
+                buildingManager.setSelectedBuilding(selectedBuilding);
+            }
+        });
+
+        TextButton deleteButton = new TextButton("DELETE", skin);
+        deleteButton.addListener(new ClickListener(){
+            public void clicked(InputEvent e, float x, float y){
+                buildingManager.setBuildingState(BuildingState.DELETING);
+                buildingManager.setSelectedBuilding(selectedBuilding);
             }
         });
 
@@ -221,7 +229,8 @@ public class MapScreen implements Screen {
             .height(Value.percentWidth(0.1f, popUpTable));
         popUpTable.add(moveButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
             .height(Value.percentWidth(0.1f, popUpTable));
-
+        popUpTable.add(deleteButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
+            .height(Value.percentWidth(0.1f, popUpTable));
 
         stage.addActor(table);
         stage.addActor(popUpTable);
