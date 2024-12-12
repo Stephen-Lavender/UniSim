@@ -2,7 +2,7 @@ package com.backlogged.univercity;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import java.util.Collection;
+import java.util.List;
 
 /** Handles rendering placement feedback and currently placed buildings. */
 public interface IBuildingRenderer {
@@ -13,7 +13,7 @@ public interface IBuildingRenderer {
    * @param camera          The projection matrix for the sprite batch.
    */
   public void renderBuildings(
-      Collection<Building> placedBuildings, OrthographicCamera camera);
+      List<Building> placedBuildings, OrthographicCamera camera);
 
   /**
    * Renders visual feedback for the placement area of a building, indicating

@@ -39,6 +39,8 @@ public class MapScreen implements Screen {
     private final Skin skin;
     private final Stage stage;
     private final Table table;
+
+    private final Table popUpTable;
     private final TextButton timerLabel;
     private final Button pauseButton;
     private final Button settingsButton;
@@ -56,6 +58,10 @@ public class MapScreen implements Screen {
     private final BuildingManager buildingManager;
     private final TextButton buildingCounterLabel;
     private final TextTooltip detailedBuildingCounter;
+
+    private Building selectedBuilding;
+
+
 
     /**
      * Setup the main game window (map).
@@ -187,8 +193,28 @@ public class MapScreen implements Screen {
             .height(Value.percentWidth(0.1f, table));
 
 
-        stage.addActor(table);
+        TextButton upgradeButton = new TextButton("UPGRADE", skin);
+        upgradeButton.addListener(new ClickListener(){
+            public void clicked(InputEvent e, float x, float y){
+                System.out.println(selectedBuilding.getMapPos());
+                selectedBuilding.upgrade();
+            }
+        });
 
+
+
+        popUpTable = new Table(skin);
+        popUpTable.setVisible(false);
+        popUpTable.setFillParent(true);
+        popUpTable.setDebug(false);
+        popUpTable.setTouchable(Touchable.enabled);
+
+        popUpTable.add(upgradeButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
+            .height(Value.percentWidth(0.1f, popUpTable));
+
+
+        stage.addActor(table);
+        stage.addActor(popUpTable);
         timer.initialiseTimerValues();
         timer.userStartTime();
     }
@@ -244,8 +270,20 @@ public class MapScreen implements Screen {
             for (Building building: buildingManager.getPlacedBuildings()){
                 int buildingX = building.getMapPos().getColumn();
                 int buildingY = building.getMapPos().getRow();
-                System.out.println("MOUSE: " + touchPoint);
-                System.out.println(building.getSprite().getBoundingRectangle().setPosition(buildingX, buildingY));
+
+                if (building.getSprite().getBoundingRectangle().setPosition(buildingX, buildingY).contains(touchPoint.x, touchPoint.y)){
+                    System.out.println("MOUSE: " + touchPoint);
+                    System.out.println(building.getSprite().getBoundingRectangle().setPosition(buildingX, buildingY));
+                    popUpTable.setVisible(true);
+                    table.setVisible(false);
+                    selectedBuilding = building;
+                    break;
+                }
+                else{
+                    table.setVisible(true);
+                    popUpTable.setVisible(false);
+
+                }
             }
         }
 

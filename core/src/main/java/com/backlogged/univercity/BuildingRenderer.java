@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Building Renderer handles rendering valid and invalid loactions for a
@@ -121,7 +121,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
    * @param camera          The projection matrix for the sprite batch.
    */
   public void renderBuildings(
-      Collection<Building> placedBuildings, OrthographicCamera camera) {
+      List<Building> placedBuildings, OrthographicCamera camera) {
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for (var building : placedBuildings) {

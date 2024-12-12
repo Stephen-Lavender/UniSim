@@ -1,7 +1,9 @@
 package com.backlogged.univercity;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import java.util.Collection;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -88,10 +90,10 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
   /**
    * Retrives all the currently placed buildings.
    *
-   * @return A collection of the currently placed buildings.
+   * @return A List of the currently placed buildings.
    */
-  public Collection<Building> getPlacedBuildings() {
-    return placedBuildings.values();
+  public List<Building> getPlacedBuildings() {
+    return new ArrayList<>(placedBuildings.values());
   }
 
   public HashMap<Coord, Building> getBuildingMap(){

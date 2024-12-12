@@ -1,5 +1,6 @@
 package com.backlogged.univercity;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -34,6 +35,11 @@ public class BuildingInstance {
         sprite.setScale(unitScale);
         sprite.setOrigin(0, 0);
     }
+
+    public void setSpriteColour(Color colour){
+        sprite.setColor(colour);
+    }
+
     public Sprite getSprite(){
         return sprite;
     }

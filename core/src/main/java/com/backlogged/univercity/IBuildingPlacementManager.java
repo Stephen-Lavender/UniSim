@@ -1,6 +1,6 @@
 package com.backlogged.univercity;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -48,9 +48,9 @@ public interface IBuildingPlacementManager {
   /**
    * Retrives all the currently placed buildings.
    *
-   * @return A collection of the currently placed buildings.
+   * @return A List of the currently placed buildings.
    */
-  public Collection<Building> getPlacedBuildings();
+  public List<Building> getPlacedBuildings();
   HashMap<Coord, Building> getBuildingMap();
   /**
    * Determines if its possible to place a building at the location of the cursor

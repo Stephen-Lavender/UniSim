@@ -20,6 +20,10 @@ public class Building {
         this.upgrades = upgrades;
         this.tileCoverageOffsets = tileCoverageOffsets;
     }
+
+    public void upgrade(){
+        level++;
+    }
     private BuildingInstance getCurrentBuildingInstance(){
         return upgrades.get(level);
     }

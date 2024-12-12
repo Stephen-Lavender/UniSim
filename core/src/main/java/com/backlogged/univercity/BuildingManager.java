@@ -2,13 +2,14 @@ package com.backlogged.univercity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,11 +34,23 @@ public class BuildingManager {
 
         List<BuildingInstance> upgrades = new ArrayList<>();
         BuildingInstance accommodationBuilding1 = new BuildingInstance("square");
+        BuildingInstance accommodationBuilding2 = new BuildingInstance("square");
+        BuildingInstance accommodationBuilding3 = new BuildingInstance("circle");
         accommodationBuilding1.addType(BuildingType.ACCOMMODATION);
+        accommodationBuilding2.addType(BuildingType.ACCOMMODATION);
+        accommodationBuilding3.addType(BuildingType.ACCOMMODATION);
+        accommodationBuilding3.addType(BuildingType.CAFETERIA);
+
 
         accommodationBuilding1.setSprite(textureAtlas, unitScale);
-
+        accommodationBuilding2.setSprite(textureAtlas, unitScale);
+        accommodationBuilding2.setSpriteColour(Color.BLACK);
+        accommodationBuilding3.setSprite(textureAtlas, unitScale * 2);
+        accommodationBuilding3.setSpriteColour(Color.FIREBRICK);
         upgrades.add(accommodationBuilding1);
+        upgrades.add(accommodationBuilding2);
+        upgrades.add(accommodationBuilding3);
+
         Building accommodationBuilding = new Building(upgrades, List.of(
             new Coord[] {
                 new Coord(0, 0),
@@ -310,7 +323,7 @@ public class BuildingManager {
       return placementManager.getBuildingMap();
   }
 
-  public Collection<Building> getPlacedBuildings(){
+  public List<Building> getPlacedBuildings(){
       return placementManager.getPlacedBuildings();
   }
   public void render() {
