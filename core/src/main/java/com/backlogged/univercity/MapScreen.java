@@ -123,7 +123,7 @@ public class MapScreen implements Screen {
         bed.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
-                buildingManager.setBuildingState();
+                buildingManager.setBuildingState(BuildingState.BUILDING);
                 buildingManager.chooseLocationOfBuilding(0);
             }
         });
@@ -132,7 +132,7 @@ public class MapScreen implements Screen {
         football.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
-                buildingManager.setBuildingState();
+                buildingManager.setBuildingState(BuildingState.BUILDING);
                 buildingManager.chooseLocationOfBuilding(3);
             }
         });
@@ -141,7 +141,7 @@ public class MapScreen implements Screen {
         book.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
-                buildingManager.setBuildingState();
+                buildingManager.setBuildingState(BuildingState.BUILDING);
                 buildingManager.chooseLocationOfBuilding(2);
             }
         });
@@ -150,7 +150,7 @@ public class MapScreen implements Screen {
         food.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
-                buildingManager.setBuildingState();
+                buildingManager.setBuildingState(BuildingState.BUILDING);
                 buildingManager.chooseLocationOfBuilding(1);
             }
         });
@@ -201,6 +201,14 @@ public class MapScreen implements Screen {
             }
         });
 
+        TextButton moveButton = new TextButton("MOVE", skin);
+        moveButton.addListener(new ClickListener(){
+            public void clicked(InputEvent e, float x, float y){
+                buildingManager.setBuildingState(BuildingState.MOVING);
+                buildingManager.setBuildingToBePlaced(selectedBuilding);
+            }
+        });
+
 
 
         popUpTable = new Table(skin);
@@ -210,6 +218,8 @@ public class MapScreen implements Screen {
         popUpTable.setTouchable(Touchable.enabled);
 
         popUpTable.add(upgradeButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
+            .height(Value.percentWidth(0.1f, popUpTable));
+        popUpTable.add(moveButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
             .height(Value.percentWidth(0.1f, popUpTable));
 
 
