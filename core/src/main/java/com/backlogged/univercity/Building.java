@@ -91,7 +91,6 @@ public class Building {
     public final void draw(SpriteBatch batch) {
         getCurrentBuildingInstance().getSprite().setPosition(this.mapPos.getColumn(), this.mapPos.getRow());
         getCurrentBuildingInstance().getSprite().draw(batch);
-        getCurrentBuildingInstance().getSprite().setPosition(0, 0);
     }
 
     public boolean exists(){

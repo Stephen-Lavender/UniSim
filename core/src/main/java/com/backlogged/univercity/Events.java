@@ -6,12 +6,13 @@ public class Events {
 
         int picker;
         Random rand = new Random();
-        public void WorldEvent(List<Building> city)
-        {
-            picker = rand.nextInt(0, city.size());
-            city.get(picker).remove();
-            city.remove(picker);
-
-
+        public boolean WorldEvent(List<Building> buildings) {
+            if (buildings.isEmpty()){
+                return false;
+            }
+            picker = rand.nextInt(0, buildings.size());
+            buildings.get(picker).remove();
+            buildings.remove(picker);
+            return true;
         }
 }

@@ -261,17 +261,12 @@ public class MapScreen implements Screen {
         renderer.render();
         buildingManager.render();
         float timeLeft = timer.updateTime(delta);
-        float elapsedTime = timer.timeElapsed(delta);
+        float elapsedTime = timer.getTimeElapsed(delta);
 
-        if (elapsedTime > Constants.ONE_MONTH) {
-            timer.updateTimerValues();
-        }
-
-        if(elapsedTime > 20f && eventcount == 0 )
-        {
-            world.WorldEvent(buildingManager.getPlacedBuildings());
-            eventcount++;
-
+        if ((elapsedTime > (Constants.ONE_MONTH + 2)) && eventcount == 0) {
+            if (world.WorldEvent(buildingManager.getPlacedBuildings())){
+                eventcount++;
+            }
         }
 
         if (timeLeft < 1) {

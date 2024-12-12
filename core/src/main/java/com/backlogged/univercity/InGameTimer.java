@@ -17,8 +17,8 @@ public class InGameTimer {
   private String semester;
   private boolean userInvokedPause = true;
   private boolean systemInvokedPause = false;
-  private float timeElapse = 0.f;
-
+  private float timeElapsed = 0f;
+  private float timeElapsedSinceLastMonth = 0f;
   /**
    * Constructor for the class which assigns the length of the game in seconds
    * to the currentTimeRemaining attribute.
@@ -113,7 +113,7 @@ public class InGameTimer {
    * Resets the elapsed time to 0 each time the month is updated in-game.
    */
   public void resetElapse() {
-    timeElapse = 0;
+    timeElapsed = 0;
   }
 
   /**
@@ -124,13 +124,25 @@ public class InGameTimer {
    * @param delta the time in seconds since the last render.
    * @return the time since the last month update.
    */
-  public float timeElapsed(float delta) {
+  public float getTimeElapsed(float delta) {
     if (userInvokedPause || systemInvokedPause) {
-      return timeElapse;
+      return timeElapsed;
     }
-    timeElapse = timeElapse + delta;
-    return timeElapse;
+    timeElapsed = timeElapsed + delta;
+    timeElapsedSinceLastMonth = timeElapsedSinceLastMonth + delta;
+
+    if (timeElapsedSinceLastMonth > Constants.ONE_MONTH){
+        updateTimerValues();
+        timeElapsedSinceLastMonth = 0;
+    }
+    return timeElapsed;
   }
+
+  public float getTimeElapsedSinceLastMonth(){
+      return timeElapsed % Constants.ONE_MONTH;
+  }
+
+
 
   /**
    * Resets the value of the year at the beginning of the game.
@@ -213,7 +225,6 @@ public class InGameTimer {
     updateMonth();
     updateYear();
     updateSemester();
-    resetElapse();
   }
 
   /**
