@@ -138,9 +138,7 @@ public class InGameTimer {
     return timeElapsed;
   }
 
-  public float getTimeElapsedSinceLastMonth(){
-      return timeElapsed % Constants.ONE_MONTH;
-  }
+
 
 
 
