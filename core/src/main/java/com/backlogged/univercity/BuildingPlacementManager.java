@@ -1,5 +1,6 @@
 package com.backlogged.univercity;
 
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import java.util.ArrayList;
@@ -14,17 +15,17 @@ import java.util.stream.Collectors;
  * you can place a building at a certain location and placing a building.
  */
 public class BuildingPlacementManager implements IBuildingPlacementManager {
-    private final TiledMapTileLayer terrainLayer;
-    private HashMap<Coord, Building> placedBuildingTiles = new HashMap<>();
+    private final MapLayer objectLayer;
     private List<Building> placedBuildings = new ArrayList<>();
 
     /**
      * Constructs a BuildingPlacementManager instance.
      *
-     * @param terrainLayer The layer containing terrain information within the map.
+     * @param objectLayer The layer containing terrain information within the map.
      */
-    public BuildingPlacementManager(TiledMapTileLayer terrainLayer) {
-        this.terrainLayer = terrainLayer;
+    public BuildingPlacementManager(MapLayer objectLayer) {
+        System.out.println(objectLayer);
+        this.objectLayer = objectLayer;
     }
 
     /**
@@ -40,14 +41,14 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
      * @return Returns true its possible and false if not.
      */
     public boolean canBePlacedAtLocation(int column, int row, Building building) {
-        for (var tileOffset : building.getTileCoverageOffsets()) {
-            TiledMapTileLayer.Cell terrainCell = terrainLayer.getCell(column + tileOffset.getColumn(),
-                row + tileOffset.getRow());
-            if (!terrainCell.getTile().getProperties().get("canBeBuiltOn", Boolean.class)
-                || placedBuildingTiles.containsKey(tileOffset)) {
-                return false;
-            }
-        }
+//        for (var tileOffset : building.getTileCoverageOffsets()) {
+//            TiledMapTileLayer.Cell terrainCell = objectLayer.getCell(column + tileOffset.getColumn(),
+//                row + tileOffset.getRow());
+//            if (!terrainCell.getTile().getProperties().get("canBeBuiltOn", Boolean.class)
+//                || placedBuildingTiles.containsKey(tileOffset)) {
+//                return false;
+//            }
+//        }
         return true;
     }
 
@@ -63,9 +64,9 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
      */
     public boolean canBePlacedAtLocationIgnoreTerrain(
         int column, int row, Building building) {
+        List<Coord> placedBuildingTiles = getPlacedBuildingTiles();
         for (var tileOffset : building.getTileCoverageOffsets()) {
-            if (placedBuildingTiles.containsKey(
-                new Coord(tileOffset.getColumn() + column, tileOffset.getRow() + row))) {
+            if (placedBuildingTiles.contains(tileOffset.translate(new Coord(column, row)))){
                 return false;
             }
         }
@@ -79,10 +80,6 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
      * @param column The column to place the building.
      */
     public void placeBuilding(int column, int row, Building building) {
-        for (var tileOffset : building.getTileCoverageOffsets()) {
-            placedBuildingTiles.put(
-                new Coord(column + tileOffset.getColumn(), row + tileOffset.getRow()), building);
-        }
         placedBuildings.add(building);
         building.setMapPosition(new Coord(column, row));
     }
@@ -96,8 +93,15 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
         return placedBuildings.stream().filter(Building::exists).collect(Collectors.toList());
     }
 
-    public List<Building> getPlacedBuildingTiles(){
-        return placedBuildingTiles.values().stream().filter(Building::exists).collect(Collectors.toList());
+    public List<Coord> getPlacedBuildingTiles(){
+        List<Coord> buildingTiles = new ArrayList<>();
+        for (Building building: getPlacedBuildings()){
+            for (Coord coverageOffset: building.getTileCoverageOffsets()){
+                buildingTiles.add(coverageOffset.translate(building.getMapPos()));
+            }
+        }
+
+        return buildingTiles;
     }
 
     /**
@@ -112,17 +116,4 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
     /**
      * Resets the count to zero and clears any placed buildings.
      */
-    public void reset() {
-        placedBuildingTiles.clear();
-    }
-
-    public void updateBuildings(){
-        placedBuildingTiles = (HashMap<Coord, Building>) placedBuildingTiles.entrySet()
-            .stream()
-            .filter(entry -> entry.getValue().exists())
-            .collect(Collectors.toMap(
-                    Map.Entry::getKey,  // Use lambda for getKey
-                    Map.Entry::getValue // Use lambda for getValue
-            ));
-    }
 }

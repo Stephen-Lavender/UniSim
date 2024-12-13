@@ -21,6 +21,9 @@ public class Coord {
         this.row = row;
 
     }
+    public Coord translate(Coord translation){
+        return new Coord(this.column + translation.getColumn(), this.row + translation.getRow());
+    }
 
     /**
      * Computes a hash code for this {@code Coord} based on its row and column

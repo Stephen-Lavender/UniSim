@@ -36,7 +36,6 @@ public interface IBuildingPlacementManager {
   public boolean canBePlacedAtLocation(int column, int row, Building building);
 
   /** Resets the count to zero and clears any placed buildings. */
-  public void reset();
 
   /**
    * Retrives the current number of buildings.
@@ -51,7 +50,7 @@ public interface IBuildingPlacementManager {
    * @return A List of the currently placed buildings.
    */
   public List<Building> getPlacedBuildings();
-  List<Building> getPlacedBuildingTiles();
+  List<Coord> getPlacedBuildingTiles();
 
   /**
    * Determines if its possible to place a building at the location of the cursor
@@ -64,5 +63,4 @@ public interface IBuildingPlacementManager {
    * @return Returns true its possible and false if not.
    */
   public boolean canBePlacedAtLocationIgnoreTerrain(int column, int row , Building building);
-  void updateBuildings();
 }

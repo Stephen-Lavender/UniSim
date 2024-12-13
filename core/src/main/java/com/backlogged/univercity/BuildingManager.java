@@ -305,7 +305,6 @@ public class BuildingManager {
      * building.
      */
     public void update() {
-        placementManager.updateBuildings();
         if (isChoosingLocation) {
             var worldCoordinates = getWorldCoordinates();
             currentColumn = (int) worldCoordinates.x;
@@ -314,14 +313,6 @@ public class BuildingManager {
                 currentColumn, currentRow, selectedBuilding);
         }
     }
-
-    /**
-     * Resets the building placement manager, clearing all placed buildings.
-     */
-    public void reset() {
-        placementManager.reset();
-    }
-
     /**
      * Gets the total count of buildings currently placed.
      *
@@ -342,7 +333,7 @@ public class BuildingManager {
 
     public void render() {
 
-        renderer.renderBuildings(placementManager.getPlacedBuildingTiles(), camera);
+        renderer.renderBuildings(placementManager.getPlacedBuildings(), camera);
         if (isChoosingLocation) {
             renderer.renderPlacementFeedback(
                 canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, selectedBuilding);
