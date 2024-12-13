@@ -66,7 +66,7 @@ public class BuildingManager {
         accommodationBuilding1.setSprite(textureAtlas, unitScale);
         accommodationBuilding2.setSprite(textureAtlas, unitScale);
         accommodationBuilding2.setSpriteColour(Color.BLACK);
-        accommodationBuilding3.setSprite(textureAtlas, unitScale * 2);
+        accommodationBuilding3.setSprite(textureAtlas, unitScale);
         accommodationBuilding3.setSpriteColour(Color.FIREBRICK);
         upgrades.add(accommodationBuilding1);
         upgrades.add(accommodationBuilding2);
@@ -84,11 +84,22 @@ public class BuildingManager {
 
         upgrades = new ArrayList<>();
         BuildingInstance cafeteriaBuilding1 = new BuildingInstance("circle");
+        BuildingInstance cafeteriaBuilding2 = new BuildingInstance("circle");
+        BuildingInstance cafeteriaBuilding3 = new BuildingInstance("rhombus");
         cafeteriaBuilding1.addType(BuildingType.CAFETERIA);
+        cafeteriaBuilding2.addType(BuildingType.CAFETERIA);
+        cafeteriaBuilding3.addType(BuildingType.CAFETERIA);
+        cafeteriaBuilding3.addType(BuildingType.COURSE);
 
         cafeteriaBuilding1.setSprite(textureAtlas, unitScale);
-
+        cafeteriaBuilding2.setSprite(textureAtlas, unitScale);
+        cafeteriaBuilding2.setSpriteColour(Color.CORAL);
+        cafeteriaBuilding3.setSprite(textureAtlas, unitScale);
+        cafeteriaBuilding3.setSpriteColour(Color.LIME);
         upgrades.add(cafeteriaBuilding1);
+        upgrades.add(cafeteriaBuilding2);
+        upgrades.add(cafeteriaBuilding3);
+
         Building cafeteriaBuilding = new Building(upgrades, List.of(
             new Coord[]{
                 new Coord(0, 0),
@@ -100,11 +111,22 @@ public class BuildingManager {
 
         upgrades = new ArrayList<>();
         BuildingInstance courseBuilding1 = new BuildingInstance("rhombus");
+        BuildingInstance courseBuilding2 = new BuildingInstance("rhombus");
+        BuildingInstance courseBuilding3 = new BuildingInstance("square");
         courseBuilding1.addType(BuildingType.COURSE);
+        courseBuilding2.addType(BuildingType.COURSE);
+        courseBuilding3.addType(BuildingType.COURSE);
+        courseBuilding3.addType(BuildingType.CAFETERIA);
 
         courseBuilding1.setSprite(textureAtlas, unitScale);
+        courseBuilding2.setSprite(textureAtlas, unitScale);
+        courseBuilding2.setSpriteColour(Color.SCARLET);
+        courseBuilding3.setSprite(textureAtlas, unitScale);
+        courseBuilding2.setSpriteColour(Color.SALMON);
 
         upgrades.add(courseBuilding1);
+        upgrades.add(courseBuilding2);
+        upgrades.add(courseBuilding3);
         Building courseBuilding = new Building(upgrades, List.of(
             new Coord[]{
                 new Coord(0, 0),
@@ -116,11 +138,22 @@ public class BuildingManager {
 
         upgrades = new ArrayList<>();
         BuildingInstance recreationalBuilding1 = new BuildingInstance("hex");
+        BuildingInstance recreationalBuilding2 = new BuildingInstance("hex");
+        BuildingInstance recreationalBuilding3 = new BuildingInstance("square");
         recreationalBuilding1.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding2.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding3.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding3.addType(BuildingType.CAFETERIA);
 
         recreationalBuilding1.setSprite(textureAtlas, unitScale);
+        recreationalBuilding2.setSprite(textureAtlas, unitScale);
+        recreationalBuilding2.setSpriteColour(Color.MAGENTA);
+        recreationalBuilding3.setSprite(textureAtlas, unitScale);
+        recreationalBuilding3.setSpriteColour(Color.FOREST);
 
         upgrades.add(recreationalBuilding1);
+        upgrades.add(recreationalBuilding2);
+        upgrades.add(recreationalBuilding3);
         Building recreationalBuilding = new Building(upgrades, List.of(
             new Coord[]{
                 new Coord(0, 0),

@@ -22,6 +22,9 @@ public class Building {
     }
 
     public void upgrade(){
+        if (level + 1 >= upgrades.size()){
+            return;
+        }
         level++;
     }
     private BuildingInstance getCurrentBuildingInstance(){
