@@ -309,8 +309,14 @@ public class BuildingManager {
             var worldCoordinates = getWorldCoordinates();
             currentColumn = (int) worldCoordinates.x;
             currentRow = (int) worldCoordinates.y;
-            canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
-                currentColumn, currentRow, selectedBuilding);
+            switch (buildingState){
+                case BUILDING -> canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
+                    currentColumn, currentRow, selectedBuilding);
+
+                case MOVING -> canBePlacedAtCurrentLocation = placementManager.canBeMovedToCurrentLocation(
+                    currentColumn, currentRow, selectedBuilding);
+            }
+
         }
     }
     /**

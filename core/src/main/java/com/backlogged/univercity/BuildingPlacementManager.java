@@ -73,6 +73,25 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
         return true;
     }
 
+    @Override
+    public boolean canBeMovedToCurrentLocation(int column, int row, Building building) {
+        List<Coord> placedBuildingTiles = new ArrayList<>();
+        for (Building b: getPlacedBuildings()){
+            if (b == building){
+                continue;
+            }
+            for (Coord coverageOffset: b.getTileCoverageOffsets()){
+                placedBuildingTiles.add(coverageOffset.translate(b.getMapPos()));
+            }
+        }
+        for (var tileOffset : building.getTileCoverageOffsets()) {
+            if (placedBuildingTiles.contains(tileOffset.translate(new Coord(column, row)))){
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Places a building at a given location.
      *

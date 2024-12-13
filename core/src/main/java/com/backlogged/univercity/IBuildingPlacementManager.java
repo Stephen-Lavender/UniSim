@@ -34,7 +34,7 @@ public interface IBuildingPlacementManager {
    * @return Returns true its possible and false if not.
    */
   public boolean canBePlacedAtLocation(int column, int row, Building building);
-
+    boolean canBeMovedToCurrentLocation(int column, int row, Building building);
   /** Resets the count to zero and clears any placed buildings. */
 
   /**
