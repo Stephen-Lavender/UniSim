@@ -28,7 +28,6 @@ public class BuildingManager {
     private int currentColumn;
     private BuildingState buildingState = BuildingState.NOT_BUILDING;
     private OrthographicCamera camera;
-    private final HashMap<BuildingType, Integer> buildingCounts = new HashMap<>();
     private boolean canBePlacedAtCurrentLocation;
 
     /**
@@ -45,7 +44,8 @@ public class BuildingManager {
             throw new IllegalArgumentException("renderer and placement manager MUST both be initialized");
         }
         generateBuildingBlueprints(renderer.getAtlas(), unitScale);
-        initBuildingCounters();
+
+
         this.renderer = renderer;
         this.placementManager = placementManager;
     }
@@ -137,15 +137,6 @@ public class BuildingManager {
     }
 
     /**
-     * Initialises counters for all building types to zero.
-     */
-    private void initBuildingCounters() {
-        for (BuildingType buildingType : BuildingType.values()) {
-            buildingCounts.put(buildingType, 0);
-        }
-    }
-
-    /**
      * Transitions the BuildingManager to building mode if not currently building.
      */
     public void setBuildingState(BuildingState newState) {
@@ -179,7 +170,18 @@ public class BuildingManager {
      * @return A string of all building types in the form: BuildingType : Count.
      */
     public String getBuildingTypeCounts() {
-        return buildingCounts.toString();
+        HashMap<BuildingType, Integer> buildingTypeCounts = new HashMap<BuildingType, Integer>(4);
+        for (Building building: getPlacedBuildings()){
+            for (BuildingType type: building.getType()){
+                if (buildingTypeCounts.containsKey(type)){
+                    buildingTypeCounts.replace(type, buildingTypeCounts.get(type) + 1);
+                }
+                else{
+                    buildingTypeCounts.put(type, 1);
+                }
+            }
+        }
+        return buildingTypeCounts.toString();
     }
 
     /**
@@ -190,12 +192,6 @@ public class BuildingManager {
      */
     private void placeBuilding(int column, int row) {
         placementManager.placeBuilding(column, row, selectedBuilding);
-
-        for (BuildingType type : buildingCounts.keySet()) {
-            if (selectedBuilding.isOfType(type)) {
-                buildingCounts.put(type, buildingCounts.get(type) + 1);
-            }
-        }
     }
 
     /**
@@ -276,6 +272,7 @@ public class BuildingManager {
      * building.
      */
     public void update() {
+        placementManager.updateBuildings();
         if (isChoosingLocation) {
             var worldCoordinates = getWorldCoordinates();
             currentColumn = (int) worldCoordinates.x;
@@ -312,7 +309,7 @@ public class BuildingManager {
 
     public void render() {
 
-        renderer.renderBuildings(placementManager.getPlacedBuildings(), camera);
+        renderer.renderBuildings(placementManager.getPlacedBuildingTiles(), camera);
         if (isChoosingLocation) {
             renderer.renderPlacementFeedback(
                 canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, selectedBuilding);

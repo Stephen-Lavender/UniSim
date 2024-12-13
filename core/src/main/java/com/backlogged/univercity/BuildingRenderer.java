@@ -104,7 +104,7 @@ public class BuildingRenderer implements Disposable, IBuildingRenderer {
     } else {
       shapeRenderer.setColor(Color.RED);
       for (var tileOffset : building.getTileCoverageOffsets()) {
-        int offsetX = row + tileOffset.getRow();
+        int offsetX = column + tileOffset.getColumn();
         int offsetY = row + tileOffset.getRow();
         shapeRenderer.line(0.f + offsetX, 1.f + offsetY, 1.f + offsetX, 0.f + offsetY);
         shapeRenderer.line(0.f + offsetX, 0.f + offsetY, 1.f + offsetX, 1.f + offsetY);
