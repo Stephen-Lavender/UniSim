@@ -263,10 +263,28 @@ public class MapScreen implements Screen {
         float timeLeft = timer.updateTime(delta);
         float elapsedTime = timer.getTimeElapsed(delta);
 
-        if ((elapsedTime > (Constants.ONE_MONTH * 2)) && eventcount == 0) {
+        if ((elapsedTime > (Constants.ONE_MONTH * 3)) && eventcount == 0) {
             if (world.WorldEvent(buildingManager.getPlacedBuildings())){
                 eventcount++;
             }
+        }
+
+        if ((elapsedTime > Constants.ONE_MONTH * 14 ) && eventcount < 3)
+        {
+            if(world.ChooseEvent() == 1)
+            {
+                // do the visuals for a positive event
+
+                // event logic
+            }
+            else
+            {
+                // negative event
+
+                // event logic
+
+            }
+            eventcount++;
         }
 
         if (timeLeft < 1) {
