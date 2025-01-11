@@ -51,10 +51,11 @@ public class MapScreen implements Screen {
     private float oldMouseX;
     private float oldMouseY;
     // Buildings
-    private final Button bed;
-    private final Button football;
-    private final Button book;
-    private final Button food;
+    private final Button accommodationButton;
+    private final Button recreationalBuilding1;
+    private final Button recreationalBuilding2;
+    private final Button courseBuilding;
+    private final Button cafateriaBuilding;
     private final BuildingManager buildingManager;
     private final TextButton buildingCounterLabel;
     private final TextTooltip detailedBuildingCounter;
@@ -122,8 +123,8 @@ public class MapScreen implements Screen {
 
         //////////////// BUILDINGS
 
-        bed = new Button(skin, "bedIcon");
-        bed.addListener(new ClickListener() {
+        accommodationButton = new Button(skin, "bedIcon");
+        accommodationButton.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
                 buildingManager.setBuildingState(BuildingState.BUILDING);
@@ -131,8 +132,8 @@ public class MapScreen implements Screen {
             }
         });
 
-        football = new Button(skin, "sportIcon");
-        football.addListener(new ClickListener() {
+        recreationalBuilding1 = new Button(skin, "sportIcon");
+        recreationalBuilding1.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
                 buildingManager.setBuildingState(BuildingState.BUILDING);
@@ -140,8 +141,17 @@ public class MapScreen implements Screen {
             }
         });
 
-        book = new Button(skin, "bookIcon");
-        book.addListener(new ClickListener() {
+        recreationalBuilding2 = new Button(skin, "sportIcon");
+        recreationalBuilding2.addListener(new ClickListener() {
+            public void clicked(InputEvent e, float x, float y) {
+                // Deal with clicking later
+                buildingManager.setBuildingState(BuildingState.BUILDING);
+                buildingManager.chooseLocationOfBuilding(4);
+            }
+        });
+
+        courseBuilding = new Button(skin, "bookIcon");
+        courseBuilding.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
                 buildingManager.setBuildingState(BuildingState.BUILDING);
@@ -149,8 +159,8 @@ public class MapScreen implements Screen {
             }
         });
 
-        food = new Button(skin, "foodIcon");
-        food.addListener(new ClickListener() {
+        cafateriaBuilding = new Button(skin, "foodIcon");
+        cafateriaBuilding.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 // Deal with clicking later
                 buildingManager.setBuildingState(BuildingState.BUILDING);
@@ -165,35 +175,53 @@ public class MapScreen implements Screen {
         });
 
         detailedBuildingCounter.setInstant(true);
+        // Create the main table
         table = new Table(skin);
         table.setFillParent(true);
         table.setDebug(false);
         table.setTouchable(Touchable.enabled);
-        table.add(timerLabel).top().left().width(Value.percentWidth(0.3f, table))
-            .height(Value.percentWidth(0.072f, table));
-        table.add(buildingCounterLabel).expandX().top().left().width(Value.percentWidth(0.1f, table))
-            .height(Value.percentWidth(0.072f, table));
+        stage.addActor(table);
 
-        table.add(pauseButton).expandX().top().right().spaceRight(10)
+        Table topRow = new Table(skin);
+        topRow.add(timerLabel).top().left().width(Value.percentWidth(0.3f, table))
+            .height(Value.percentWidth(0.072f, table));
+        topRow.add(buildingCounterLabel).expandX().top().left().width(Value.percentWidth(0.1f, table))
+            .height(Value.percentWidth(0.072f, table));
+        topRow.add().colspan(5).expandX().top().left();
+        topRow.add(pauseButton).expandX().top().right().spaceRight(10)
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
-        table.add(settingsButton).top().left()
+        topRow.add(settingsButton).top().left()
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
+        table.add(topRow).colspan(5).expandX().expandY().top().padTop(10);
+
         table.row();
-        table.add(pauseOverlay)
-            .width(Value.percentWidth(0.05f, table))
-            .height(Value.percentWidth(0.05f, table));
-        table.row();
-        // Buildings
-        table.add(bed).expandY().bottom().left().width(Value.percentWidth(0.1f, table))
+
+
+// Bottom row: evenly distribute building icons
+        Table bottomRow = new Table(skin);
+        bottomRow.add(accommodationButton).grow().width(Value.percentWidth(0.1f, table))
             .height(Value.percentWidth(0.1f, table));
-        table.add(football).expandY().bottom().left().width(Value.percentWidth(0.1f, table))
+        bottomRow.add(cafateriaBuilding).grow().width(Value.percentWidth(0.1f, table))
             .height(Value.percentWidth(0.1f, table));
-        table.add(book).expandY().bottom().left().width(Value.percentWidth(0.1f, table))
+        bottomRow.add(courseBuilding).grow().width(Value.percentWidth(0.1f, table))
             .height(Value.percentWidth(0.1f, table));
-        table.add(food).expandY().bottom().left().width(Value.percentWidth(0.1f, table))
+        bottomRow.add(recreationalBuilding1).grow().width(Value.percentWidth(0.1f, table))
             .height(Value.percentWidth(0.1f, table));
+        bottomRow.add(recreationalBuilding2).grow().width(Value.percentWidth(0.1f, table))
+            .height(Value.percentWidth(0.1f, table));
+
+// Add bottom row to the main table
+        table.add(bottomRow).colspan(5).expandX().expandY().bottom().padBottom(10);
+
+// Enable debug lines for layout visualization during development
+        table.debug();
+
+
+
+
+
 
 
         TextButton upgradeButton = new TextButton("UPGRADE", skin);
@@ -223,6 +251,7 @@ public class MapScreen implements Screen {
 
 
         popUpTable = new Table(skin);
+        stage.addActor(popUpTable);
         popUpTable.setVisible(false);
         popUpTable.setFillParent(true);
         popUpTable.setDebug(false);
@@ -235,8 +264,8 @@ public class MapScreen implements Screen {
         popUpTable.add(deleteButton).expandY().bottom().left().width(Value.percentWidth(0.1f, popUpTable))
             .height(Value.percentWidth(0.1f, popUpTable));
 
-        stage.addActor(table);
-        stage.addActor(popUpTable);
+
+
         timer.initialiseTimerValues();
         timer.userStartTime();
     }

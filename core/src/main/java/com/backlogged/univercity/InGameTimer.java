@@ -125,17 +125,17 @@ public class InGameTimer {
    * @return the time since the last month update.
    */
   public float getTimeElapsed(float delta) {
-    if (userInvokedPause || systemInvokedPause) {
-      return timeElapsed;
-    }
-    timeElapsed = timeElapsed + delta;
-    timeElapsedSinceLastMonth = timeElapsedSinceLastMonth + delta;
+      if (userInvokedPause || systemInvokedPause) {
+          return timeElapsed;
+      }
+      timeElapsed = timeElapsed + delta;
+      timeElapsedSinceLastMonth = timeElapsedSinceLastMonth + delta;
 
-    if (timeElapsedSinceLastMonth > Constants.ONE_MONTH){
-        updateTimerValues();
-        timeElapsedSinceLastMonth = 0;
-    }
-    return timeElapsed;
+      if (timeElapsedSinceLastMonth > Constants.ONE_MONTH){
+          updateTimerValues();
+          timeElapsedSinceLastMonth = 0;
+      }
+      return timeElapsed;
   }
 
 
@@ -173,7 +173,6 @@ public class InGameTimer {
    * @return the current semester associated with the in-game time.
    */
   public String updateSemester() {
-
     if (userInvokedPause || systemInvokedPause) {
       return semester;
     }
@@ -242,7 +241,11 @@ public class InGameTimer {
    * @return the formatted string displaying the semester, month and year in-game.
    */
   public String output() {
-    return String.format("%s:%s \n\n Year %d", semester, months[monthIndex], year);
+    return String.format("%s:%s\n\nYear %d", semester, months[monthIndex], year);
   }
 
+//    @Override
+//    public String toString() {
+//        return ""
+//    }
 }
