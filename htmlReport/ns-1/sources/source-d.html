@@ -1,0 +1,355 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > InGameTimer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: InGameTimer (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InGameTimer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84.2%
+  </span>
+  <span class="absValue">
+    (16/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.9%
+  </span>
+  <span class="absValue">
+    (55/64)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the timer used for the game.
+&nbsp; *
+&nbsp; * @author @Josh-White14 @nk-t14
+&nbsp; * @version %I%, %G%
+&nbsp; */
+&nbsp;public class InGameTimer {
+&nbsp;
+<b class="fc">&nbsp;  private String[] months = { &quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,</b>
+&nbsp;      &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot; };
+<b class="fc">&nbsp;  private int monthIndex = 7;</b>
+&nbsp;  private float currentTimeRemaining;
+&nbsp;  private int year;
+&nbsp;  private int timeInMinutes;
+&nbsp;  private String semester;
+<b class="fc">&nbsp;  private boolean userInvokedPause = true;</b>
+<b class="fc">&nbsp;  private boolean systemInvokedPause = false;</b>
+<b class="fc">&nbsp;  private float timeElapsed = 0f;</b>
+<b class="fc">&nbsp;  private float timeElapsedSinceLastMonth = 0f;</b>
+&nbsp;  /**
+&nbsp;   * Constructor for the class which assigns the length of the game in seconds
+&nbsp;   * to the currentTimeRemaining attribute.
+&nbsp;   *
+&nbsp;   * @param timeInMinutes the length of the game specified in minutes.
+&nbsp;   */
+<b class="fc">&nbsp;  public InGameTimer(int timeInMinutes) {</b>
+<b class="fc">&nbsp;    currentTimeRemaining = (float) timeInMinutes * 60.f;</b>
+<b class="fc">&nbsp;    this.timeInMinutes = timeInMinutes;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * An alternative constructor for the class that defaults the
+&nbsp;   * timeInMinutes value to 5 if no input is received.
+&nbsp;   */
+<b class="nc">&nbsp;  public InGameTimer() {</b>
+<b class="nc">&nbsp;    this.timeInMinutes = 5;</b>
+<b class="nc">&nbsp;    currentTimeRemaining = (float) timeInMinutes * 60.f;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * userStartTime changes value of the userInvokedPause flag to false to indicate
+&nbsp;   * the beginning of the game.
+&nbsp;   */
+&nbsp;  public void userStartTime() {
+<b class="fc">&nbsp;    userInvokedPause = false;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Compliment of the userStartTime() method. In this method the
+&nbsp;   * flag indicating the user invoked pausing of the game is set to true.
+&nbsp;   */
+&nbsp;  public void userStopTime() {
+<b class="fc">&nbsp;    userInvokedPause = true;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * systemStartTime changes value of the systemInvokedPause flag to false to
+&nbsp;   * indicate
+&nbsp;   * the end of the system invoked pause.
+&nbsp;   */
+&nbsp;  public void systemStartTime() {
+<b class="nc">&nbsp;    systemInvokedPause = false;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Compliment of the systemStartTime() method. In this method the
+&nbsp;   * flag indicating the system invoked pausing of the game is set to true.
+&nbsp;   */
+&nbsp;  public void systemStopTime() {
+<b class="fc">&nbsp;    systemInvokedPause = true;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns the current state of the game.
+&nbsp;   *
+&nbsp;   * @return the boolean flag stating whether the game is user paused or not.
+&nbsp;   */
+&nbsp;  public boolean isUserStopped() {
+<b class="nc">&nbsp;    return userInvokedPause;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * This method resets the time values at the beginning of the game and
+&nbsp;   * assigns the currentTimeRemaining attribute the time (in seconds) left
+&nbsp;   * in the game.
+&nbsp;   */
+&nbsp;  public void resetTime() {
+<b class="fc">&nbsp;    userStopTime();</b>
+<b class="fc">&nbsp;    currentTimeRemaining = (float) timeInMinutes * 60.f;</b>
+<b class="fc">&nbsp;    monthIndex = 8; // Game begins from September</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates the currentTimeRemaining value every time the render() method
+&nbsp;   * is called in the Screen class. If the game is paused, the current value
+&nbsp;   * is returned, otherwise it is updated by subtracting the delta value.
+&nbsp;   *
+&nbsp;   * @param delta the time elapsed since the last render.
+&nbsp;   * @return the value in seconds of the time left in the game.
+&nbsp;   */
+&nbsp;  public float updateTime(float delta) {
+<b class="fc">&nbsp;    if (userInvokedPause || systemInvokedPause) {</b>
+<b class="nc">&nbsp;      return currentTimeRemaining;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    currentTimeRemaining = currentTimeRemaining - delta &lt;= 0.f ? 0.f : currentTimeRemaining - delta;</b>
+&nbsp;
+<b class="fc">&nbsp;    return currentTimeRemaining;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Resets the elapsed time to 0 each time the month is updated in-game.
+&nbsp;   */
+&nbsp;  public void resetElapse() {
+<b class="fc">&nbsp;    timeElapsed = 0;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates the timeElapse attribute with delta time since the last
+&nbsp;   * render. This method is used to update the value of the month at
+&nbsp;   * a set interval.
+&nbsp;   *
+&nbsp;   * @param delta the time in seconds since the last render.
+&nbsp;   * @return the time since the last month update.
+&nbsp;   */
+&nbsp;  public float getTimeElapsed(float delta) {
+<b class="fc">&nbsp;      if (userInvokedPause || systemInvokedPause) {</b>
+<b class="fc">&nbsp;          return timeElapsed;</b>
+&nbsp;      }
+<b class="fc">&nbsp;      timeElapsed = timeElapsed + delta;</b>
+<b class="fc">&nbsp;      timeElapsedSinceLastMonth = timeElapsedSinceLastMonth + delta;</b>
+&nbsp;
+<b class="fc">&nbsp;      if (timeElapsedSinceLastMonth &gt; Constants.ONE_MONTH){</b>
+<b class="fc">&nbsp;          updateTimerValues();</b>
+<b class="fc">&nbsp;          timeElapsedSinceLastMonth = 0;</b>
+&nbsp;      }
+<b class="fc">&nbsp;      return timeElapsed;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Resets the value of the year at the beginning of the game.
+&nbsp;   */
+&nbsp;  public void resetYear() {
+<b class="fc">&nbsp;    year = 1;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates the year in-game each September in correspondence
+&nbsp;   * with a standard academic timetable. If the game is paused
+&nbsp;   * the current value is returned.
+&nbsp;   */
+&nbsp;  public Integer updateYear() {
+<b class="fc">&nbsp;    if (userInvokedPause || systemInvokedPause) {</b>
+<b class="nc">&nbsp;      return year;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (monthIndex == 8) {</b>
+<b class="fc">&nbsp;      year += 1; // Academic year increase every September</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    return year;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Sets the semester values dependant on the month. September - December
+&nbsp;   * is Semester 1, January - May is Semester 2 and Summer Holidays June
+&nbsp;   * - August. If the game is paused the current value is returned.
+&nbsp;   *
+&nbsp;   * @return the current semester associated with the in-game time.
+&nbsp;   */
+&nbsp;  public String updateSemester() {
+<b class="fc">&nbsp;    if (userInvokedPause || systemInvokedPause) {</b>
+<b class="nc">&nbsp;      return semester;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (monthIndex == 8) {</b>
+<b class="fc">&nbsp;      semester = &quot;Semester 1&quot;;</b>
+<b class="fc">&nbsp;    } else if (monthIndex &gt; 4 &amp; monthIndex &lt; 8) {</b>
+<b class="fc">&nbsp;      semester = &quot;Summer Holiday&quot;;</b>
+<b class="fc">&nbsp;    } else if (monthIndex == 0) {</b>
+<b class="fc">&nbsp;      semester = &quot;Semester 2&quot;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    return semester;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Resets the value of the semester at the start of the game.
+&nbsp;   */
+&nbsp;  public void resetSemester() {
+<b class="fc">&nbsp;    semester = &quot;Semester 1&quot;;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates the index value of the months array when called. If the
+&nbsp;   * game is paused, the current month is returned.
+&nbsp;   *
+&nbsp;   * @return the index of the current month.
+&nbsp;   */
+&nbsp;  public Integer updateMonth() {
+<b class="fc">&nbsp;    if (userInvokedPause || systemInvokedPause) {</b>
+<b class="nc">&nbsp;      return monthIndex;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (monthIndex == 11) {</b>
+<b class="fc">&nbsp;      monthIndex = 0;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      monthIndex += 1;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    return monthIndex;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates all values associated with the timer display used in the
+&nbsp;   * MapScreen class.
+&nbsp;   */
+&nbsp;  public void updateTimerValues() {
+&nbsp;    // one source for all updates when method is called
+<b class="fc">&nbsp;    updateMonth();</b>
+<b class="fc">&nbsp;    updateYear();</b>
+<b class="fc">&nbsp;    updateSemester();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Initialises all timer values at the start of the game.
+&nbsp;   */
+&nbsp;  public void initialiseTimerValues() {
+<b class="fc">&nbsp;    resetTime();</b>
+<b class="fc">&nbsp;    resetElapse();</b>
+<b class="fc">&nbsp;    resetYear();</b>
+<b class="fc">&nbsp;    resetSemester();</b>
+<b class="fc">&nbsp;    userStartTime();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Formats the class attributes to be displayed on the timer.
+&nbsp;   *
+&nbsp;   * @return the formatted string displaying the semester, month and year in-game.
+&nbsp;   */
+&nbsp;  public String output() {
+<b class="fc">&nbsp;    return String.format(&quot;%s:%s\n\nYear %d&quot;, semester, months[monthIndex], year);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;//    @Override
+&nbsp;//    public String toString() {
+&nbsp;//        return &quot;&quot;
+&nbsp;//    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

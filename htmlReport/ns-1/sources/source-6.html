@@ -1,0 +1,257 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BuildingRenderer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: BuildingRenderer (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BuildingRenderer</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.utils.Disposable;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Building Renderer handles rendering valid and invalid loactions for a
+&nbsp; * building that is about to
+&nbsp; * be placed and buildings that are already placed.
+&nbsp; */
+&nbsp;public class BuildingRenderer implements Disposable, IBuildingRenderer {
+<b class="nc">&nbsp;  private SpriteBatch batch = new SpriteBatch();</b>
+<b class="nc">&nbsp;  private ShapeRenderer shapeRenderer = new ShapeRenderer();</b>
+&nbsp;  private TextureAtlas buildingAtlas;
+<b class="nc">&nbsp;  private boolean debugGridEnabled = false;</b>
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Contructs a BuildingRenderer.
+&nbsp;   *
+&nbsp;   * @param buildingAtlas This is the atlas that contains all the building sprites
+&nbsp;   *                      that are able to
+&nbsp;   *                      be rendered if placed on the map.
+&nbsp;   */
+<b class="nc">&nbsp;  public BuildingRenderer(TextureAtlas buildingAtlas) {</b>
+<b class="nc">&nbsp;    this.buildingAtlas = buildingAtlas;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Enables or disables the debug grid.
+&nbsp;   *
+&nbsp;   * @param shouldEnable Boolean for enabling or disabling the grid.
+&nbsp;   */
+&nbsp;  public void enableDebugGrid(boolean shouldEnable) {
+<b class="nc">&nbsp;    debugGridEnabled = shouldEnable;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Draws a debug grid for visually checking the alignment of buildings on the
+&nbsp;   * map.
+&nbsp;   *
+&nbsp;   * @param camera The projection Matrix for the shapeRenderer
+&nbsp;   */
+&nbsp;  public void drawDebugGrid(OrthographicCamera camera) {
+<b class="nc">&nbsp;    shapeRenderer.setProjectionMatrix(camera.combined);</b>
+<b class="nc">&nbsp;    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);</b>
+<b class="nc">&nbsp;    shapeRenderer.setColor(Color.BLACK);</b>
+<b class="nc">&nbsp;    var h = Gdx.graphics.getHeight();</b>
+<b class="nc">&nbsp;    var w = Gdx.graphics.getWidth();</b>
+&nbsp;
+<b class="nc">&nbsp;    for (float y = 0; y &lt;= h; y++) {</b>
+<b class="nc">&nbsp;      shapeRenderer.line(0, y, w, y);</b>
+&nbsp;    }
+<b class="nc">&nbsp;    for (float x = 0; x &lt;= w; x++) {</b>
+<b class="nc">&nbsp;      shapeRenderer.line(x, 0, x, h);</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    shapeRenderer.end();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Renders visual feedback for the placement area of a building, indicating
+&nbsp;   * whether it can be
+&nbsp;   * placed at the specified location. If valid, ticks are rendered in green;
+&nbsp;   * otherwise, crosses are
+&nbsp;   * rendered in red.
+&nbsp;   *
+&nbsp;   * @param canBePlacedAtLocation Indicates whether the building can be placed at
+&nbsp;   *                              the specified row
+&nbsp;   *                              and column.
+&nbsp;   * @param row                   The row coordinate for placement feedback to
+&nbsp;   *                              start from.
+&nbsp;   * @param column                The column coordinate for placement feedback ro
+&nbsp;   *                              start from.
+&nbsp;   * @param camera                The camera used for projection, providing the
+&nbsp;   *                              matrix for the shape renderer.
+&nbsp;   * @param building              The {@link Building} to be placed for
+&nbsp;   *                              placement.
+&nbsp;   */
+&nbsp;  public void renderPlacementFeedback(
+&nbsp;      boolean canBePlacedAtLocation,
+&nbsp;      int column,
+&nbsp;      int row,
+&nbsp;      OrthographicCamera camera,
+&nbsp;      Building building) {
+<b class="nc">&nbsp;    shapeRenderer.setProjectionMatrix(camera.combined);</b>
+<b class="nc">&nbsp;    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);</b>
+<b class="nc">&nbsp;    Gdx.gl.glLineWidth(5);</b>
+<b class="nc">&nbsp;    if (canBePlacedAtLocation) {</b>
+<b class="nc">&nbsp;      shapeRenderer.setColor(Color.GREEN);</b>
+&nbsp;
+<b class="nc">&nbsp;      for (var tileOffset : building.getTileCoverageOffsets()) {</b>
+<b class="nc">&nbsp;        int offsetX = column + tileOffset.getColumn();</b>
+<b class="nc">&nbsp;        int offsetY = row + tileOffset.getRow();</b>
+<b class="nc">&nbsp;        shapeRenderer.line(0.f + offsetX, 0.5f + offsetY, 0.25f + offsetX, 0.f + offsetY);</b>
+<b class="nc">&nbsp;        shapeRenderer.line(0.25f + offsetX, 0.f + offsetY, 1.f + offsetX, 1.f + offsetY);</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;
+&nbsp;    } else {
+<b class="nc">&nbsp;      shapeRenderer.setColor(Color.RED);</b>
+<b class="nc">&nbsp;      for (var tileOffset : building.getTileCoverageOffsets()) {</b>
+<b class="nc">&nbsp;        int offsetX = column + tileOffset.getColumn();</b>
+<b class="nc">&nbsp;        int offsetY = row + tileOffset.getRow();</b>
+<b class="nc">&nbsp;        shapeRenderer.line(0.f + offsetX, 1.f + offsetY, 1.f + offsetX, 0.f + offsetY);</b>
+<b class="nc">&nbsp;        shapeRenderer.line(0.f + offsetX, 0.f + offsetY, 1.f + offsetX, 1.f + offsetY);</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+<b class="nc">&nbsp;    shapeRenderer.end();</b>
+<b class="nc">&nbsp;    Gdx.gl.glLineWidth(1);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Renders all currently placed buildings.
+&nbsp;   *
+&nbsp;   * @param placedBuildings Currently placed buildings to be rendered.
+&nbsp;   * @param camera          The projection matrix for the sprite batch.
+&nbsp;   */
+&nbsp;  public void renderBuildings(
+&nbsp;      List&lt;Building&gt; placedBuildings, OrthographicCamera camera) {
+<b class="nc">&nbsp;    batch.setProjectionMatrix(camera.combined);</b>
+<b class="nc">&nbsp;    batch.begin();</b>
+<b class="nc">&nbsp;    for (var building : placedBuildings) {</b>
+<b class="nc">&nbsp;      building.draw(batch);</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;    batch.end();</b>
+<b class="nc">&nbsp;    if (debugGridEnabled) {</b>
+<b class="nc">&nbsp;      drawDebugGrid(camera);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Retrieves the {@code TextureAtlas} for the building sprites.
+&nbsp;   *
+&nbsp;   * @return The {@code TextureAtlas} for the buildling sprites.
+&nbsp;   */
+&nbsp;  public TextureAtlas getAtlas() {
+<b class="nc">&nbsp;    return buildingAtlas;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /** Releases GPU resources used by the BuildingRenderer. */
+&nbsp;  public void dispose() {
+<b class="nc">&nbsp;    if (buildingAtlas != null) {</b>
+<b class="nc">&nbsp;      buildingAtlas.dispose();</b>
+&nbsp;    }
+<b class="nc">&nbsp;    batch.dispose();</b>
+<b class="nc">&nbsp;    shapeRenderer.dispose();</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

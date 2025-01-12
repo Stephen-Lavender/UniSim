@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Building</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: Building (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Building</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.7%
+  </span>
+  <span class="absValue">
+    (5/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47.6%
+  </span>
+  <span class="absValue">
+    (10/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Set;
+&nbsp;
+&nbsp;public class Building {
+&nbsp;    private int level;
+&nbsp;    private List&lt;BuildingInstance&gt; upgrades;
+&nbsp;
+&nbsp;    private Coord mapPos;
+&nbsp;
+&nbsp;    final List&lt;Coord&gt; tileCoverageOffsets;
+&nbsp;
+<b class="fc">&nbsp;    public Building(List&lt;BuildingInstance&gt; upgrades, List&lt;Coord&gt; tileCoverageOffsets) {</b>
+<b class="fc">&nbsp;        mapPos = new Coord(-1, -1);</b>
+<b class="fc">&nbsp;        level = 0;</b>
+<b class="fc">&nbsp;        this.upgrades = upgrades;</b>
+<b class="fc">&nbsp;        this.tileCoverageOffsets = tileCoverageOffsets;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void upgrade(){
+<b class="fc">&nbsp;        if (level + 1 &gt;= upgrades.size()){</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="fc">&nbsp;        level++;</b>
+&nbsp;    }
+&nbsp;    private BuildingInstance getCurrentBuildingInstance(){
+<b class="fc">&nbsp;        return upgrades.get(level);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Set&lt;BuildingType&gt; getType(){
+<b class="nc">&nbsp;        return getCurrentBuildingInstance().getType();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getLevel(){
+<b class="fc">&nbsp;        return level;</b>
+&nbsp;    }
+&nbsp;    public boolean isOfType(BuildingType type){
+<b class="fc">&nbsp;        return getCurrentBuildingInstance().isOfType(type);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the sprite associated with this building, used for rendering the
+&nbsp;     * building on the map.
+&nbsp;     *
+&nbsp;     * @return The {@code Sprite} representing the building&#39;s visual appearance.
+&nbsp;     */
+&nbsp;    public final Sprite getSprite() {
+<b class="nc">&nbsp;        return getCurrentBuildingInstance().getSprite();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the tile coverage offsets for this building. These offsets specify
+&nbsp;     * the tiles that
+&nbsp;     * this building occupies relative to its bottom-left most tile.
+&nbsp;     *
+&nbsp;     * @return An {@code ArrayList} of {@code Coord} representing the tile coverage
+&nbsp;     *         offsets for this
+&nbsp;     *         building.
+&nbsp;     */
+&nbsp;    public final List&lt;Coord&gt; getTileCoverageOffsets() {
+<b class="nc">&nbsp;        return tileCoverageOffsets;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the position of this building on the map.
+&nbsp;     *
+&nbsp;     * @param mapPos The {@code Coord} representing the building&#39;s position on the
+&nbsp;     *               map grid.
+&nbsp;     */
+&nbsp;    public final void setMapPosition(Coord mapPos) {
+<b class="nc">&nbsp;        this.mapPos = mapPos;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the position of this building on the map.
+&nbsp;     *
+&nbsp;     * @return The {@code Coord} representing the building&#39;s position on the map
+&nbsp;     *         grid.
+&nbsp;     */
+&nbsp;    public final Coord getMapPos() {
+<b class="nc">&nbsp;        return mapPos;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Draws the building&#39;s sprite at its current map position using the specified
+&nbsp;     * {@code
+&nbsp;     * SpriteBatch}. This method sets the position of the sprite to the map
+&nbsp;     * coordinates, renders it,
+&nbsp;     * and then resets the sprite position to (0,0).
+&nbsp;     *
+&nbsp;     * @param batch The {@code SpriteBatch} used to draw the building&#39;s sprite.
+&nbsp;     */
+&nbsp;    public final void draw(SpriteBatch batch) {
+<b class="nc">&nbsp;        getCurrentBuildingInstance().getSprite().setPosition(this.mapPos.getColumn(), this.mapPos.getRow());</b>
+<b class="nc">&nbsp;        getCurrentBuildingInstance().getSprite().draw(batch);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean exists(){
+<b class="nc">&nbsp;        return (mapPos.getRow() != -1 &amp;&amp; mapPos.getColumn() != -1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void remove(){
+<b class="nc">&nbsp;        setMapPosition(new Coord(-1, -1));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Building copy(){
+<b class="nc">&nbsp;        Building newBuilding = new Building(upgrades, tileCoverageOffsets);</b>
+<b class="nc">&nbsp;        return newBuilding;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

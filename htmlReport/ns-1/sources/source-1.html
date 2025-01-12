@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Achievements</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: Achievements (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Achievements</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/34)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Achievements$Achievement</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/43)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the Achievements system in a game.
+&nbsp; */
+&nbsp;public class Achievements {
+&nbsp;    Collection&lt;Building&gt; buildings;
+&nbsp;    long satScore;
+&nbsp;
+&nbsp;    public void updateData(List&lt;Building&gt; buildings, long satScore) {
+<b class="nc">&nbsp;        this.buildings = buildings;</b>
+<b class="nc">&nbsp;        this.satScore = satScore;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void checkall() {
+<b class="nc">&nbsp;        for (Achievement Achievement: achievements) {</b>
+<b class="nc">&nbsp;            if (!Achievement.unlocked) {</b>
+<b class="nc">&nbsp;                switch (Achievement.name) {</b>
+&nbsp;                    case &quot;Building Master&quot;:
+<b class="nc">&nbsp;                        if(this.buildings.size() &gt;= 1) {</b>
+<b class="nc">&nbsp;                            Achievement.unlocked = true;</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;BuildingMaster unlocked&quot;);</b>
+&nbsp;                        }
+&nbsp;                        break;
+&nbsp;                
+&nbsp;                    default:
+&nbsp;                        break;
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // Inner class representing a single Achievement
+&nbsp;    public static class Achievement {
+&nbsp;        private String name;
+&nbsp;        private String description;
+&nbsp;        private boolean unlocked;
+&nbsp;
+<b class="nc">&nbsp;        public Achievement(String name, String description) {</b>
+<b class="nc">&nbsp;            this.name = name;</b>
+<b class="nc">&nbsp;            this.description = description;</b>
+<b class="nc">&nbsp;            this.unlocked = false;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public String getName() {
+<b class="nc">&nbsp;            return name;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public String getDescription() {
+<b class="nc">&nbsp;            return description;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public boolean isUnlocked() {
+<b class="nc">&nbsp;            return unlocked;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public void unlock() {
+<b class="nc">&nbsp;            this.unlocked = true;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public String toString() {
+<b class="nc">&nbsp;            return &quot;Achievement{&quot; +</b>
+&nbsp;                   &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+&nbsp;                   &quot;, description=&#39;&quot; + description + &#39;\&#39;&#39; +
+&nbsp;                   &quot;, unlocked=&quot; + unlocked +
+&nbsp;                   &#39;}&#39;;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;Achievement&gt; achievements;
+&nbsp;
+&nbsp;    // Constructor
+<b class="nc">&nbsp;    public Achievements(Collection&lt;Building&gt; buildings, long satScore) {</b>
+<b class="nc">&nbsp;        this.buildings = buildings;</b>
+<b class="nc">&nbsp;        this.satScore = satScore;</b>
+&nbsp;
+<b class="nc">&nbsp;        achievements = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        achievements.add(new Achievement(&quot;Building Master&quot;,&quot;Max buildings placed&quot;));</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    // Unlock an achievement by name
+&nbsp;    public boolean unlockAchievement(String name) {
+<b class="nc">&nbsp;        for (Achievement achievement : achievements) {</b>
+<b class="nc">&nbsp;            if (achievement.getName().equalsIgnoreCase(name) &amp;&amp; !achievement.isUnlocked()) {</b>
+<b class="nc">&nbsp;                achievement.unlock();</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Get a list of all achievements
+&nbsp;    public List&lt;Achievement&gt; getAllAchievements() {
+<b class="nc">&nbsp;        return achievements;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Get a list of unlocked achievements
+&nbsp;    public List&lt;Achievement&gt; getUnlockedAchievements() {
+<b class="nc">&nbsp;        List&lt;Achievement&gt; unlockedAchievements = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Achievement achievement : achievements) {</b>
+<b class="nc">&nbsp;            if (achievement.isUnlocked()) {</b>
+<b class="nc">&nbsp;                unlockedAchievements.add(achievement);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return unlockedAchievements;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Get a list of locked achievements
+&nbsp;    public List&lt;Achievement&gt; getLockedAchievements() {
+<b class="nc">&nbsp;        List&lt;Achievement&gt; lockedAchievements = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Achievement achievement : achievements) {</b>
+<b class="nc">&nbsp;            if (!achievement.isUnlocked()) {</b>
+<b class="nc">&nbsp;                lockedAchievements.add(achievement);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return lockedAchievements;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Achievements{&quot; +</b>
+&nbsp;               &quot;achievements=&quot; + achievements +
+&nbsp;               &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

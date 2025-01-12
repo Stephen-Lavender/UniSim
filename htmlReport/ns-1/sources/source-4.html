@@ -1,0 +1,546 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BuildingManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: BuildingManager (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BuildingManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/152)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BuildingManager$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">BuildingManager$BuildingFactory</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/155)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.badlogic.gdx.math.Vector3;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Manages building placement etc. within the game and Handles input, rendering,
+&nbsp; * and state
+&nbsp; * transitions for buildings.
+&nbsp; */
+&nbsp;public class BuildingManager {
+&nbsp;    List&lt;Building&gt; buildingBlueprints;
+<b class="nc">&nbsp;    BuildingFactory buildingFactory = new BuildingFactory();</b>
+&nbsp;    private final IBuildingRenderer renderer;
+&nbsp;    private final IBuildingPlacementManager placementManager;
+<b class="nc">&nbsp;    private boolean isChoosingLocation = false;</b>
+&nbsp;    private Building selectedBuilding;
+&nbsp;    private int currentRow;
+&nbsp;    private int currentColumn;
+<b class="nc">&nbsp;    private BuildingState buildingState = BuildingState.NOT_BUILDING;</b>
+&nbsp;    private OrthographicCamera camera;
+&nbsp;    private boolean canBePlacedAtCurrentLocation;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a building manager instance.
+&nbsp;     *
+&nbsp;     * @param unitScale        Scale factor to match with tiled map renderer
+&nbsp;     *                         projection matrix
+&nbsp;     * @param renderer         Renderer for displaying buildings.
+&nbsp;     * @param placementManager Manager for handling building placements.
+&nbsp;     */
+&nbsp;    public BuildingManager(
+<b class="nc">&nbsp;        float unitScale, IBuildingRenderer renderer, IBuildingPlacementManager placementManager) {</b>
+<b class="nc">&nbsp;        if (renderer == null || placementManager == null) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;renderer and placement manager MUST both be initialized&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        generateBuildingBlueprints(renderer.getAtlas(), unitScale);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        this.renderer = renderer;</b>
+<b class="nc">&nbsp;        this.placementManager = placementManager;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void generateBuildingBlueprints(TextureAtlas textureAtlas, float unitScale) {
+<b class="nc">&nbsp;        buildingBlueprints = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;BuildingInstance&gt; upgrades = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        BuildingInstance accommodationBuilding1 = new BuildingInstance(&quot;square&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance accommodationBuilding2 = new BuildingInstance(&quot;square&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance accommodationBuilding3 = new BuildingInstance(&quot;circle&quot;);</b>
+<b class="nc">&nbsp;        accommodationBuilding1.addType(BuildingType.ACCOMMODATION);</b>
+<b class="nc">&nbsp;        accommodationBuilding2.addType(BuildingType.ACCOMMODATION);</b>
+<b class="nc">&nbsp;        accommodationBuilding3.addType(BuildingType.ACCOMMODATION);</b>
+<b class="nc">&nbsp;        accommodationBuilding3.addType(BuildingType.CAFETERIA);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        accommodationBuilding1.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        accommodationBuilding2.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        accommodationBuilding2.setSpriteColour(Color.BLACK);</b>
+<b class="nc">&nbsp;        accommodationBuilding3.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        accommodationBuilding3.setSpriteColour(Color.FIREBRICK);</b>
+<b class="nc">&nbsp;        upgrades.add(accommodationBuilding1);</b>
+<b class="nc">&nbsp;        upgrades.add(accommodationBuilding2);</b>
+<b class="nc">&nbsp;        upgrades.add(accommodationBuilding3);</b>
+&nbsp;
+<b class="nc">&nbsp;        Building accommodationBuilding = new Building(upgrades, List.of(</b>
+&nbsp;            new Coord[]{
+&nbsp;                new Coord(0, 0),
+&nbsp;                new Coord(0, 1),
+&nbsp;                new Coord(1, 0),
+&nbsp;                new Coord(1, 1)
+&nbsp;            }
+&nbsp;        ));
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        upgrades = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        BuildingInstance cafeteriaBuilding1 = new BuildingInstance(&quot;circle&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance cafeteriaBuilding2 = new BuildingInstance(&quot;circle&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance cafeteriaBuilding3 = new BuildingInstance(&quot;rhombus&quot;);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding1.addType(BuildingType.CAFETERIA);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding2.addType(BuildingType.CAFETERIA);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding3.addType(BuildingType.CAFETERIA);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding3.addType(BuildingType.COURSE);</b>
+&nbsp;
+<b class="nc">&nbsp;        cafeteriaBuilding1.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding2.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding2.setSpriteColour(Color.CORAL);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding3.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        cafeteriaBuilding3.setSpriteColour(Color.LIME);</b>
+<b class="nc">&nbsp;        upgrades.add(cafeteriaBuilding1);</b>
+<b class="nc">&nbsp;        upgrades.add(cafeteriaBuilding2);</b>
+<b class="nc">&nbsp;        upgrades.add(cafeteriaBuilding3);</b>
+&nbsp;
+<b class="nc">&nbsp;        Building cafeteriaBuilding = new Building(upgrades, List.of(</b>
+&nbsp;            new Coord[]{
+&nbsp;                new Coord(0, 0),
+&nbsp;                new Coord(0, 1),
+&nbsp;                new Coord(1, 0),
+&nbsp;                new Coord(1, 1)
+&nbsp;            }
+&nbsp;        ));
+&nbsp;
+<b class="nc">&nbsp;        upgrades = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        BuildingInstance courseBuilding1 = new BuildingInstance(&quot;rhombus&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance courseBuilding2 = new BuildingInstance(&quot;rhombus&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance courseBuilding3 = new BuildingInstance(&quot;square&quot;);</b>
+<b class="nc">&nbsp;        courseBuilding1.addType(BuildingType.COURSE);</b>
+<b class="nc">&nbsp;        courseBuilding2.addType(BuildingType.COURSE);</b>
+<b class="nc">&nbsp;        courseBuilding3.addType(BuildingType.COURSE);</b>
+<b class="nc">&nbsp;        courseBuilding3.addType(BuildingType.CAFETERIA);</b>
+&nbsp;
+<b class="nc">&nbsp;        courseBuilding1.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        courseBuilding2.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        courseBuilding2.setSpriteColour(Color.SCARLET);</b>
+<b class="nc">&nbsp;        courseBuilding3.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        courseBuilding2.setSpriteColour(Color.SALMON);</b>
+&nbsp;
+<b class="nc">&nbsp;        upgrades.add(courseBuilding1);</b>
+<b class="nc">&nbsp;        upgrades.add(courseBuilding2);</b>
+<b class="nc">&nbsp;        upgrades.add(courseBuilding3);</b>
+<b class="nc">&nbsp;        Building courseBuilding = new Building(upgrades, List.of(</b>
+&nbsp;            new Coord[]{
+&nbsp;                new Coord(0, 0),
+&nbsp;                new Coord(0, 1),
+&nbsp;                new Coord(1, 0),
+&nbsp;                new Coord(1, 1)
+&nbsp;            }
+&nbsp;        ));
+&nbsp;        //Recreational Building 1
+<b class="nc">&nbsp;        upgrades = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        BuildingInstance recreationalBuilding1 = new BuildingInstance(&quot;hex&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance recreationalBuilding2 = new BuildingInstance(&quot;hex&quot;);</b>
+<b class="nc">&nbsp;        BuildingInstance recreationalBuilding3 = new BuildingInstance(&quot;square&quot;);</b>
+<b class="nc">&nbsp;        recreationalBuilding1.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.addType(BuildingType.CAFETERIA);</b>
+&nbsp;
+<b class="nc">&nbsp;        recreationalBuilding1.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.setSpriteColour(Color.MAGENTA);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.setSpriteColour(Color.FOREST);</b>
+&nbsp;
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding1);</b>
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding2);</b>
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding3);</b>
+<b class="nc">&nbsp;        Building recreationalBuilding = new Building(upgrades, List.of(</b>
+&nbsp;            new Coord[]{
+&nbsp;                new Coord(0, 0),
+&nbsp;                new Coord(0, 1),
+&nbsp;                new Coord(1, 0),
+&nbsp;                new Coord(1, 1)
+&nbsp;            }
+&nbsp;        ));
+&nbsp;
+<b class="nc">&nbsp;        buildingBlueprints.add(accommodationBuilding);</b>
+<b class="nc">&nbsp;        buildingBlueprints.add(cafeteriaBuilding);</b>
+<b class="nc">&nbsp;        buildingBlueprints.add(courseBuilding);</b>
+<b class="nc">&nbsp;        buildingBlueprints.add(recreationalBuilding);</b>
+&nbsp;
+&nbsp;
+&nbsp;        //Recreational Building 2
+<b class="nc">&nbsp;        upgrades = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        recreationalBuilding1 = new BuildingInstance(&quot;hex&quot;);</b>
+<b class="nc">&nbsp;        recreationalBuilding2 = new BuildingInstance(&quot;hex&quot;);</b>
+<b class="nc">&nbsp;        recreationalBuilding3 = new BuildingInstance(&quot;square&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        recreationalBuilding1.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.addType(BuildingType.RECREATIONAL);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.addType(BuildingType.CAFETERIA);</b>
+&nbsp;
+<b class="nc">&nbsp;        recreationalBuilding1.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding1.setSpriteColour(Color.FOREST);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding2.setSpriteColour(Color.MAGENTA);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.setSprite(textureAtlas, unitScale);</b>
+<b class="nc">&nbsp;        recreationalBuilding3.setSpriteColour(Color.MAGENTA);</b>
+&nbsp;
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding1);</b>
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding2);</b>
+<b class="nc">&nbsp;        upgrades.add(recreationalBuilding3);</b>
+<b class="nc">&nbsp;        recreationalBuilding = new Building(upgrades, List.of(</b>
+&nbsp;            new Coord[]{
+&nbsp;                new Coord(0, 0),
+&nbsp;                new Coord(0, 1),
+&nbsp;                new Coord(1, 0),
+&nbsp;                new Coord(1, 1)
+&nbsp;            }
+&nbsp;        ));
+&nbsp;
+<b class="nc">&nbsp;        buildingBlueprints.add(recreationalBuilding);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Transitions the BuildingManager to building mode if not currently building.
+&nbsp;     */
+&nbsp;    public void setBuildingState(BuildingState newState) {
+<b class="nc">&nbsp;        buildingState = newState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSelectedBuilding(Building selectedBuilding) {
+<b class="nc">&nbsp;        this.selectedBuilding = selectedBuilding;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all available building information.
+&nbsp;     *
+&nbsp;     * @return Set of map entries associating building names with BuildingInfo data.
+&nbsp;     */
+&nbsp;    public List&lt;Building&gt; getBuildingBlueprints() {
+<b class="nc">&nbsp;        return buildingBlueprints;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resets building placement state.
+&nbsp;     */
+&nbsp;    private void resetState() {
+<b class="nc">&nbsp;        selectedBuilding = null;</b>
+<b class="nc">&nbsp;        isChoosingLocation = false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the count of each type of building currently placed.
+&nbsp;     *
+&nbsp;     * @return A string of all building types in the form: BuildingType : Count.
+&nbsp;     */
+&nbsp;    public String getBuildingTypeCounts() {
+<b class="nc">&nbsp;        HashMap&lt;BuildingType, Integer&gt; buildingTypeCounts = new HashMap&lt;BuildingType, Integer&gt;(4);</b>
+<b class="nc">&nbsp;        for (Building building: getPlacedBuildings()){</b>
+<b class="nc">&nbsp;            for (BuildingType type: building.getType()){</b>
+<b class="nc">&nbsp;                if (buildingTypeCounts.containsKey(type)){</b>
+<b class="nc">&nbsp;                    buildingTypeCounts.replace(type, buildingTypeCounts.get(type) + 1);</b>
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    buildingTypeCounts.put(type, 1);</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return buildingTypeCounts.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Places the building at the specified coordinates.
+&nbsp;     *
+&nbsp;     * @param row    Row coordinate for placement.
+&nbsp;     * @param column Column coordinate for placement.
+&nbsp;     */
+&nbsp;    private void placeBuilding(int column, int row) {
+<b class="nc">&nbsp;        placementManager.placeBuilding(column, row, selectedBuilding);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initiates location choosing state for placing a building.
+&nbsp;     *
+&nbsp;     * @param
+&nbsp;     */
+&nbsp;    public void chooseLocationOfBuilding(int indexInBlueprintArray) {
+<b class="nc">&nbsp;        selectedBuilding = buildingFactory.createBuilding(indexInBlueprintArray);</b>
+<b class="nc">&nbsp;        isChoosingLocation = true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the camera used for projecting world coordinates.
+&nbsp;     *
+&nbsp;     * @param camera Camera instance to set.
+&nbsp;     */
+&nbsp;    public void setCamera(OrthographicCamera camera) {
+<b class="nc">&nbsp;        this.camera = camera;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converts screen coordinates to world coordinates, adjusted for the camera&#39;s
+&nbsp;     * perspective.
+&nbsp;     *
+&nbsp;     * @return Vector2 representing world coordinates of the cursor position.
+&nbsp;     */
+&nbsp;    private Vector2 getWorldCoordinates() {
+<b class="nc">&nbsp;        var cursorPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);</b>
+<b class="nc">&nbsp;        var worldCoordinates = camera.unproject(cursorPos);</b>
+<b class="nc">&nbsp;        return new Vector2(worldCoordinates.x, worldCoordinates.y);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes input based on the current building state.
+&nbsp;     */
+&nbsp;    public void handleInput() {
+<b class="nc">&nbsp;        switch (buildingState) {</b>
+&nbsp;            case NOT_BUILDING: {
+&nbsp;            }
+<b class="nc">&nbsp;            break;</b>
+&nbsp;            case BUILDING: {
+<b class="nc">&nbsp;                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &amp;&amp; canBePlacedAtCurrentLocation) {</b>
+<b class="nc">&nbsp;                    placeBuilding(currentColumn, currentRow);</b>
+<b class="nc">&nbsp;                    resetState();</b>
+<b class="nc">&nbsp;                    buildingState = BuildingState.NOT_BUILDING;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            break;
+&nbsp;            case DELETING: {
+<b class="nc">&nbsp;                selectedBuilding.remove();</b>
+<b class="nc">&nbsp;                resetState();</b>
+<b class="nc">&nbsp;                buildingState = BuildingState.NOT_BUILDING;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            break;</b>
+&nbsp;            case MOVING: {
+<b class="nc">&nbsp;                isChoosingLocation = true;</b>
+&nbsp;
+<b class="nc">&nbsp;                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) &amp;&amp; canBePlacedAtCurrentLocation) {</b>
+<b class="nc">&nbsp;                    selectedBuilding.setMapPosition(new Coord(currentColumn, currentRow));</b>
+<b class="nc">&nbsp;                    resetState();</b>
+<b class="nc">&nbsp;                    buildingState = BuildingState.NOT_BUILDING;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            break;
+&nbsp;            default:
+&nbsp;                break;
+&nbsp;        }
+<b class="nc">&nbsp;        if (buildingState != BuildingState.NOT_BUILDING &amp;&amp; Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {</b>
+<b class="nc">&nbsp;            resetState();</b>
+<b class="nc">&nbsp;            buildingState = BuildingState.NOT_BUILDING;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates the BuildingManager, updating the row and column based on cursor
+&nbsp;     * location if placing a
+&nbsp;     * building.
+&nbsp;     */
+&nbsp;    public void update() {
+<b class="nc">&nbsp;        if (isChoosingLocation) {</b>
+<b class="nc">&nbsp;            var worldCoordinates = getWorldCoordinates();</b>
+<b class="nc">&nbsp;            currentColumn = (int) worldCoordinates.x;</b>
+<b class="nc">&nbsp;            currentRow = (int) worldCoordinates.y;</b>
+<b class="nc">&nbsp;            switch (buildingState){</b>
+<b class="nc">&nbsp;                case BUILDING -&gt; canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(</b>
+&nbsp;                    currentColumn, currentRow, selectedBuilding);
+&nbsp;
+<b class="nc">&nbsp;                case MOVING -&gt; canBePlacedAtCurrentLocation = placementManager.canBeMovedToCurrentLocation(</b>
+&nbsp;                    currentColumn, currentRow, selectedBuilding);
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Gets the total count of buildings currently placed.
+&nbsp;     *
+&nbsp;     * @return Integer count of placed buildings.
+&nbsp;     */
+&nbsp;    public int getBuildingCount() {
+<b class="nc">&nbsp;        return placementManager.getCount();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Renders buildings, and the placement squares if {@code buildingState ==
+&nbsp;     * BuildingState.BUILDING}.
+&nbsp;     */
+&nbsp;
+&nbsp;    public List&lt;Building&gt; getPlacedBuildings() {
+<b class="nc">&nbsp;        return placementManager.getPlacedBuildings();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void render() {
+&nbsp;
+<b class="nc">&nbsp;        renderer.renderBuildings(placementManager.getPlacedBuildings(), camera);</b>
+<b class="nc">&nbsp;        if (isChoosingLocation) {</b>
+<b class="nc">&nbsp;            renderer.renderPlacementFeedback(</b>
+&nbsp;                canBePlacedAtCurrentLocation, currentColumn, currentRow, camera, selectedBuilding);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Factory for creating building instances.
+&nbsp;     */
+<b class="nc">&nbsp;    private class BuildingFactory {</b>
+&nbsp;        /**
+&nbsp;         * Instantiates a Building based on the specified class name.
+&nbsp;         *
+&nbsp;         * @return New Building instance.
+&nbsp;         * @throws IllegalArgumentException If the building class cannot be
+&nbsp;         *                                  instantiated.
+&nbsp;         */
+&nbsp;        public Building createBuilding(int indexInBlueprintArray) {
+<b class="nc">&nbsp;            return buildingBlueprints.get(indexInBlueprintArray).copy();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

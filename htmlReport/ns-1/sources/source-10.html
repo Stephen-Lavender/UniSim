@@ -1,0 +1,359 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SatisfactionScore</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: SatisfactionScore (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SatisfactionScore</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/81)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SatisfactionScore$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SatisfactionScore$Pair</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/96)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;    
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;public class SatisfactionScore {</b>
+<b class="nc">&nbsp;    long score = 0;</b>
+<b class="nc">&nbsp;    List&lt;Coord&gt; sceneryCoords = new ArrayList&lt;&gt;();</b>
+&nbsp;    Collection&lt;Building&gt; buildings;
+&nbsp;
+&nbsp;    //simple class to hold coordinates and type of each building
+&nbsp;    
+&nbsp;    private class Pair&lt;T, U&gt; {
+&nbsp;        
+&nbsp;        private Coord coord;
+&nbsp;        private BuildingType type;
+&nbsp;
+<b class="nc">&nbsp;        public Pair(Coord coord, BuildingType type) {</b>
+<b class="nc">&nbsp;            this.coord = coord;</b>
+<b class="nc">&nbsp;            this.type = type;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public Coord getMapPos() {
+<b class="nc">&nbsp;            return this.coord;</b>
+&nbsp;        }
+&nbsp;        
+&nbsp;        public BuildingType getType() {
+<b class="nc">&nbsp;            return this.type;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public boolean isboostType(BuildingType type) {
+&nbsp;
+<b class="nc">&nbsp;            if (type == null) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;            else {
+<b class="nc">&nbsp;                return getBoostType() == type;   </b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;        public BuildingType getBoostType(){
+<b class="nc">&nbsp;            switch (this.type) {</b>
+&nbsp;                case ACCOMMODATION:
+<b class="nc">&nbsp;                    return BuildingType.COURSE;</b>
+&nbsp;                case CAFETERIA:
+<b class="nc">&nbsp;                    return BuildingType.RECREATIONAL;</b>
+&nbsp;                case COURSE:
+<b class="nc">&nbsp;                    return BuildingType.CAFETERIA;</b>
+&nbsp;                case RECREATIONAL:
+<b class="nc">&nbsp;                    return null;</b>
+&nbsp;                default:
+<b class="nc">&nbsp;                    return null;</b>
+&nbsp;            }
+&nbsp;    }
+&nbsp;
+&nbsp;    
+&nbsp;    }
+&nbsp;
+&nbsp;    public void updateSatisfaction(Collection&lt;Building&gt; buildings) {
+<b class="nc">&nbsp;        List&lt;Double&gt; scores = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        long total = 0;</b>
+<b class="nc">&nbsp;        this.buildings = buildings;</b>
+&nbsp;
+&nbsp;
+&nbsp;        
+<b class="nc">&nbsp;        for (Pair&lt;Coord,BuildingType&gt; pair : convertToPairList(buildings)) {</b>
+<b class="nc">&nbsp;            double test2 = calc_Satisfaction(convertToPairList(buildings), pair);</b>
+<b class="nc">&nbsp;            scores.add(test2);</b>
+<b class="nc">&nbsp;            total += test2;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;                
+<b class="nc">&nbsp;        score = total;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    //returns the score of a building
+&nbsp;    public long getScore(Building building) {
+<b class="nc">&nbsp;        long total = 0;</b>
+<b class="nc">&nbsp;        for (Pair&lt;Coord,BuildingType&gt; pair : convertToPairList(building)) {</b>
+<b class="nc">&nbsp;            double test2 = calc_Satisfaction(convertToPairList(buildings), pair);</b>
+<b class="nc">&nbsp;            total += test2;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return total;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Pair&lt;Coord, BuildingType&gt;&gt; convertToPairList(Collection&lt;Building&gt; buildings) {
+&nbsp;        
+<b class="nc">&nbsp;        List&lt;Pair&lt;Coord, BuildingType&gt;&gt; pairList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Building building : buildings) {</b>
+<b class="nc">&nbsp;            for (BuildingType type :building.getType()) {                </b>
+<b class="nc">&nbsp;                pairList.add(new Pair&lt;&gt;(building.getMapPos(),type));</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return pairList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Pair&lt;Coord, BuildingType&gt;&gt; convertToPairList(Building building) {
+&nbsp;        
+<b class="nc">&nbsp;        List&lt;Pair&lt;Coord, BuildingType&gt;&gt; pairList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;            for (BuildingType type :building.getType()) {                </b>
+<b class="nc">&nbsp;                pairList.add(new Pair&lt;&gt;(building.getMapPos(),type));</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return pairList;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    public double calcDistanceClosestBoostBuilding(List&lt;Pair&lt;Coord,BuildingType&gt;&gt; buildings, Pair&lt;Coord,BuildingType&gt; BuildingPair) {
+<b class="nc">&nbsp;        double distance = 1000;</b>
+<b class="nc">&nbsp;            for (Pair&lt;Coord,BuildingType&gt; building : buildings) {</b>
+<b class="nc">&nbsp;                if (!building.getMapPos().equals(BuildingPair.getMapPos()) &amp;&amp; BuildingPair.isboostType(building.getType())) {</b>
+<b class="nc">&nbsp;                    if (distanceCalc(BuildingPair.getMapPos(), building.getMapPos()) &lt; distance) {</b>
+<b class="nc">&nbsp;                        distance = distanceCalc(BuildingPair.getMapPos(), building.getMapPos());</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            System.out.println(&quot;boost...&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;dis: &quot; + distance);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;type: &quot; + BuildingPair.getType());</b>
+&nbsp;
+<b class="nc">&nbsp;        return Math.round(distance);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double calcDistanceClosestScenery(Pair&lt;Coord,BuildingType&gt; BuildingPair) {
+<b class="nc">&nbsp;        double distance = 1000;</b>
+<b class="nc">&nbsp;        sceneryCoords.add(new Coord(1, 1));</b>
+<b class="nc">&nbsp;        for (Coord scenery : sceneryCoords) {</b>
+<b class="nc">&nbsp;            if (distanceCalc(BuildingPair.getMapPos(),scenery) &lt; distance)  {</b>
+<b class="nc">&nbsp;                distance = distanceCalc(BuildingPair.getMapPos(),scenery);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return Math.round(distance);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double calcDistanceClosestBuilding(List&lt;Pair&lt;Coord,BuildingType&gt;&gt; buildings, Pair&lt;Coord,BuildingType&gt; BuildingPair) {
+<b class="nc">&nbsp;        double distance = 1000;</b>
+<b class="nc">&nbsp;        for (Pair&lt;Coord,BuildingType&gt; building : buildings) {</b>
+<b class="nc">&nbsp;            if (!building.getMapPos().equals(BuildingPair.getMapPos()) &amp;&amp; !BuildingPair.isboostType(building.getType())) {</b>
+<b class="nc">&nbsp;                if (distanceCalc(BuildingPair.getMapPos(), building.getMapPos()) &lt; distance) {</b>
+<b class="nc">&nbsp;                    distance = distanceCalc(BuildingPair.getMapPos(), building.getMapPos());</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;            System.out.println(&quot;building...&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;dis: &quot; + distance);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;type: &quot; + BuildingPair.getType());</b>
+<b class="nc">&nbsp;        return Math.round(distance);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public double distanceCalc(Coord locA, Coord locB) {        
+<b class="nc">&nbsp;        return Math.sqrt(Math.pow(locB.getColumn() - locA.getColumn(), 2) + Math.pow(locB.getRow() - locA.getRow(), 2));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double calc_Satisfaction(List&lt;Pair&lt;Coord,BuildingType&gt;&gt; buildings,Pair&lt;Coord,BuildingType&gt; currentBuilding) {
+&nbsp;        
+<b class="nc">&nbsp;        double distanceClosestBoost = 1000;</b>
+<b class="nc">&nbsp;        double distanceClosestBuilding = calcDistanceClosestBuilding(buildings, currentBuilding);</b>
+<b class="nc">&nbsp;        if (currentBuilding.getType() == BuildingType.RECREATIONAL) {</b>
+<b class="nc">&nbsp;            distanceClosestBoost = calcDistanceClosestScenery(currentBuilding);</b>
+&nbsp;           }
+&nbsp;        else {
+<b class="nc">&nbsp;            distanceClosestBoost = calcDistanceClosestBoostBuilding(buildings, currentBuilding);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (distanceClosestBuilding &gt; 10) {</b>
+<b class="nc">&nbsp;            distanceClosestBuilding = 10;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (distanceClosestBoost &gt; 10) {</b>
+<b class="nc">&nbsp;            distanceClosestBoost = 10;</b>
+&nbsp;        }
+&nbsp;        //does this formula -2/5(x^2) + 4(x) + (bonus)
+<b class="nc">&nbsp;        double result = (-2.0 / 5.0) * Math.pow(distanceClosestBuilding, 2) + 4 * distanceClosestBuilding + calc_bonus(currentBuilding.getType(), distanceClosestBoost);</b>
+&nbsp;
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Calculates bonus for score based on what type of building it is
+&nbsp;    public double calc_bonus(BuildingType type, double distanceBoost) {
+<b class="nc">&nbsp;        double bonusVal = 0;</b>
+<b class="nc">&nbsp;        switch (type) {</b>
+&nbsp;            case ACCOMMODATION:
+<b class="nc">&nbsp;                bonusVal = (10 - distanceBoost);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            case CAFETERIA:
+<b class="nc">&nbsp;                bonusVal = (10 - distanceBoost);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            case COURSE:
+<b class="nc">&nbsp;                bonusVal = (10 - distanceBoost);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            case RECREATIONAL:
+<b class="nc">&nbsp;                bonusVal = (10 - distanceBoost);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;                bonusVal = 0;</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return bonusVal;</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

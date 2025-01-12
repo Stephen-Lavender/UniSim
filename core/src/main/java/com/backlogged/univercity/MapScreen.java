@@ -191,7 +191,7 @@ public class MapScreen implements Screen {
         topRow.add(pauseButton).expandX().top().right().spaceRight(10)
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
-        topRow.add(settingsButton).top().left()
+        topRow.add(settingsButton).top().right()
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
         table.add(topRow).colspan(5).expandX().expandY().top().padTop(10);

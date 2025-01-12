@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * you can place a building at a certain location and placing a building.
  */
 public class BuildingPlacementManager implements IBuildingPlacementManager {
-    private final MapLayer objectLayer;
+    private MapLayer objectLayer;
     private List<Building> placedBuildings = new ArrayList<>();
 
     /**
@@ -26,6 +26,10 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
     public BuildingPlacementManager(MapLayer objectLayer) {
         System.out.println(objectLayer);
         this.objectLayer = objectLayer;
+    }
+
+    public BuildingPlacementManager(){
+
     }
 
     /**

@@ -1,0 +1,134 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > IBuildingPlacementManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: IBuildingPlacementManager (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IBuildingPlacementManager</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * Manages the placement of buildings on the map, including checking if
+&nbsp; * placement is possible,
+&nbsp; * handling actual placement, tracking placed buildings, and resetting any
+&nbsp; * placed buildings and the
+&nbsp; * building count. This interface provides methods to check both terrain and
+&nbsp; * existing buildings to
+&nbsp; * ensure buildings are placed in valid locations.
+&nbsp; */
+&nbsp;public interface IBuildingPlacementManager {
+&nbsp;  /**
+&nbsp;   * Places a building at the given location.
+&nbsp;   *
+&nbsp;   * @param row    The row to place the building.
+&nbsp;   * @param column The column to place the building.
+&nbsp;   */
+&nbsp;  public void placeBuilding(int column, int row, Building building);
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if its possible to place a building at the location of the cursor
+&nbsp;   * by checking if any
+&nbsp;   * of the tiles that the building will take up contain either a terrain type
+&nbsp;   * that cant be built on
+&nbsp;   * or another building.
+&nbsp;   *
+&nbsp;   * @param row      The row to start checking from.
+&nbsp;   * @param column   The column to start checking from.
+&nbsp;   * @param building The building to check.
+&nbsp;   * @return Returns true its possible and false if not.
+&nbsp;   */
+&nbsp;  public boolean canBePlacedAtLocation(int column, int row, Building building);
+&nbsp;    boolean canBeMovedToCurrentLocation(int column, int row, Building building);
+&nbsp;  /** Resets the count to zero and clears any placed buildings. */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Retrives the current number of buildings.
+&nbsp;   *
+&nbsp;   * @return The number of buildings currently placed on the map.
+&nbsp;   */
+&nbsp;  public int getCount();
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Retrives all the currently placed buildings.
+&nbsp;   *
+&nbsp;   * @return A List of the currently placed buildings.
+&nbsp;   */
+&nbsp;  public List&lt;Building&gt; getPlacedBuildings();
+&nbsp;  List&lt;Coord&gt; getPlacedBuildingTiles();
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if its possible to place a building at the location of the cursor
+&nbsp;   * by checking if any
+&nbsp;   * of the tiles that the building will take up contain another building.
+&nbsp;   *
+&nbsp;   * @param row      The row to start checking from.
+&nbsp;   * @param column   The column to start checking from.
+&nbsp;   * @param building The {@link Building} to check.
+&nbsp;   * @return Returns true its possible and false if not.
+&nbsp;   */
+&nbsp;  public boolean canBePlacedAtLocationIgnoreTerrain(int column, int row , Building building);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

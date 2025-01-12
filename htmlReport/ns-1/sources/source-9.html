@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Coord</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: Coord (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Coord</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    14.3%
+  </span>
+  <span class="absValue">
+    (1/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (3/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a coordinate with a row and column. Provides functionality for
+&nbsp; * equality checking,
+&nbsp; * hashing, and string representation.
+&nbsp; */
+&nbsp;public class Coord {
+&nbsp;
+&nbsp;    private final int row;
+&nbsp;    private final int column;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a {@code Coord} instance with the specified row and column.
+&nbsp;     *
+&nbsp;     * @param row    The row index of the coordinate.
+&nbsp;     * @param column The column index of the coordinate.
+&nbsp;     */
+<b class="fc">&nbsp;    public Coord(int column, int row) {</b>
+<b class="fc">&nbsp;        this.column = column;</b>
+<b class="fc">&nbsp;        this.row = row;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    public Coord translate(Coord translation){
+<b class="nc">&nbsp;        return new Coord(this.column + translation.getColumn(), this.row + translation.getRow());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Computes a hash code for this {@code Coord} based on its row and column
+&nbsp;     * values.
+&nbsp;     *
+&nbsp;     * @return An integer hash code based on the row and column values.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        int result = row ^ (row &gt;&gt;&gt; 32);</b>
+<b class="nc">&nbsp;        result = 31 * result + Integer.hashCode(column);</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares this {@code Coord} with another object for equality. Two
+&nbsp;     * {@code Coord} objects are
+&nbsp;     * considered equal if they have the same row and column values.
+&nbsp;     *
+&nbsp;     * @param other The object to compare with this {@code Coord} for equality.
+&nbsp;     * @return {@code true} if the specified object is also a {@code Coord} with the
+&nbsp;     * same row and
+&nbsp;     * column values; {@code false} otherwise.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object other) {
+<b class="nc">&nbsp;        if (other == this) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (other == null || !(other instanceof Coord o)) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return o.getColumn() == this.column &amp;&amp; o.getRow() == this.row;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a string representation of this {@code Coord} in the format &quot;(row,
+&nbsp;     * column)&quot;.
+&nbsp;     *
+&nbsp;     * @return A string representation of this coordinate.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return String.format(&quot;(%d, %d)&quot;, row, row);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the row index of this {@code Coord}.
+&nbsp;     *
+&nbsp;     * @return The row index.
+&nbsp;     */
+&nbsp;    public int getRow() {
+<b class="nc">&nbsp;        return row;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the column index of this {@code Coord}.
+&nbsp;     *
+&nbsp;     * @return The column index.
+&nbsp;     */
+&nbsp;    public int getColumn() {
+<b class="nc">&nbsp;        return column;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > IBuildingRenderer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: IBuildingRenderer (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IBuildingRenderer</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/** Handles rendering placement feedback and currently placed buildings. */
+&nbsp;public interface IBuildingRenderer {
+&nbsp;  /**
+&nbsp;   * Renders all currently placed buildings.
+&nbsp;   *
+&nbsp;   * @param placedBuildings Currently placed buildings to be rendered.
+&nbsp;   * @param camera          The projection matrix for the sprite batch.
+&nbsp;   */
+&nbsp;  public void renderBuildings(
+&nbsp;      List&lt;Building&gt; placedBuildings, OrthographicCamera camera);
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Renders visual feedback for the placement area of a building, indicating
+&nbsp;   * whether it can be
+&nbsp;   * placed at the specified location.
+&nbsp;   *
+&nbsp;   * @param canBePlacedAtLocation Indicates whether the building can be placed at
+&nbsp;   *                              the specified row
+&nbsp;   *                              and column.
+&nbsp;   * @param row                   The row coordinate for placement feedback to
+&nbsp;   *                              start from.
+&nbsp;   * @param column                The column coordinate for placement feedback ro
+&nbsp;   *                              start from.
+&nbsp;   * @param camera                The camera used for projection, providing the
+&nbsp;   *                              matrix for the renderer.
+&nbsp;   * @param building              The {@link Building} to be placed for
+&nbsp;   *                              placement.
+&nbsp;   */
+&nbsp;  public void renderPlacementFeedback(
+&nbsp;      boolean canBePlacedAtLocation,
+&nbsp;      int row,
+&nbsp;      int column,
+&nbsp;      OrthographicCamera camera,
+&nbsp;      Building building);
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Retrieves the {@code TextureAtlas} for the building sprites.
+&nbsp;   *
+&nbsp;   * @return The {@code TextureAtlas} for the buildling sprites.
+&nbsp;   */
+&nbsp;  public TextureAtlas getAtlas();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

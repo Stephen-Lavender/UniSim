@@ -1,0 +1,265 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > GameOverScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: GameOverScreen (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameOverScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GameOverScreen$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">GameOverScreen$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Game;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.audio.Sound;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.InputEvent;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Label;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Value;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+&nbsp;import com.badlogic.gdx.utils.ScreenUtils;
+&nbsp;import com.badlogic.gdx.utils.viewport.ScreenViewport;
+&nbsp;
+&nbsp;/**
+&nbsp; * Handles the rendering and logic for the game over screen.
+&nbsp; */
+&nbsp;public class GameOverScreen implements Screen {
+&nbsp;  private Skin skin;
+&nbsp;  private Stage stage;
+&nbsp;  private Table table;
+&nbsp;  private Label gameOverLabel;
+&nbsp;  private TextButton startAgainButton;
+&nbsp;  private TextButton quitButton;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Sets up the game over screen.
+&nbsp;   *
+&nbsp;   * @param game the current instance of the game
+&nbsp;   */
+<b class="nc">&nbsp;  public GameOverScreen(Game game) {</b>
+<b class="nc">&nbsp;    skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));</b>
+<b class="nc">&nbsp;    stage = new Stage(new ScreenViewport());</b>
+<b class="nc">&nbsp;    table = new Table(skin);</b>
+<b class="nc">&nbsp;    table.setFillParent(true);</b>
+<b class="nc">&nbsp;    table.setDebug(true);</b>
+&nbsp;
+<b class="nc">&nbsp;    stage.addActor(table);</b>
+&nbsp;
+<b class="nc">&nbsp;    gameOverLabel = new Label(&quot;GAME OVER!&quot;, skin, &quot;lightOrangeFont&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;    startAgainButton = new TextButton(&quot;TRY AGAIN&quot;, skin);</b>
+<b class="nc">&nbsp;    startAgainButton.addListener(new ClickListener() {</b>
+&nbsp;      public void clicked(InputEvent e, float x, float y) {
+<b class="nc">&nbsp;        game.setScreen(new MapScreen(game));</b>
+&nbsp;      }
+&nbsp;    });
+&nbsp;
+<b class="nc">&nbsp;    quitButton = new TextButton(&quot;QUIT&quot;, skin, &quot;redTextButton&quot;);</b>
+<b class="nc">&nbsp;    quitButton.addListener(new ClickListener() {</b>
+&nbsp;      public void clicked(InputEvent e, float x, float y) {
+<b class="nc">&nbsp;        Gdx.app.exit();</b>
+&nbsp;      }
+&nbsp;    });
+&nbsp;
+<b class="nc">&nbsp;    table.add(gameOverLabel).top().padTop(100);</b>
+<b class="nc">&nbsp;    table.row();</b>
+<b class="nc">&nbsp;    table.add(startAgainButton).top().padTop(100).width(Value.percentWidth(0.3f, table))</b>
+<b class="nc">&nbsp;        .height(Value.percentHeight(0.1f, table));</b>
+<b class="nc">&nbsp;    table.row();</b>
+<b class="nc">&nbsp;    table.add(quitButton).top().padTop(50).width(Value.percentWidth(0.3f, table))</b>
+<b class="nc">&nbsp;        .height(Value.percentHeight(0.1f, table));</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void render(float delta) {
+<b class="nc">&nbsp;    ScreenUtils.clear(0, 0, 0, 0);</b>
+<b class="nc">&nbsp;    stage.act();</b>
+<b class="nc">&nbsp;    stage.draw();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void resize(int width, int height) {
+<b class="nc">&nbsp;    if (width == 0 || height == 0) {</b>
+&nbsp;      return;
+&nbsp;    }
+<b class="nc">&nbsp;    gameOverLabel.setFontScale(width / Constants.GAME_OVER_FONT_SCALING_FACTOR);</b>
+<b class="nc">&nbsp;    startAgainButton.getStyle().font.getData()</b>
+<b class="nc">&nbsp;        .setScale(width / Constants.TEXT_BUTTON_FONT_SCALING_FACTOR);</b>
+<b class="nc">&nbsp;    quitButton.getStyle().font.getData()</b>
+<b class="nc">&nbsp;        .setScale(width / Constants.TEXT_BUTTON_FONT_SCALING_FACTOR);</b>
+<b class="nc">&nbsp;    stage.getViewport().update(width, height, true);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void pause() {
+<b class="nc">&nbsp;  }</b>
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void show() {
+<b class="nc">&nbsp;    Soundtrack.pause();</b>
+<b class="nc">&nbsp;    Sound gameOverSound = Gdx.audio.newSound(Gdx.files.internal(Constants.GAME_OVER_SOUND_PATH));</b>
+<b class="nc">&nbsp;    if (GamePreferences.isSoundEnabled()) {</b>
+<b class="nc">&nbsp;      gameOverSound.play(GamePreferences.getSoundVolume());</b>
+&nbsp;    }
+<b class="nc">&nbsp;    Gdx.input.setInputProcessor(stage);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void resume() {
+&nbsp;
+<b class="nc">&nbsp;  }</b>
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void hide() {
+&nbsp;
+<b class="nc">&nbsp;  }</b>
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void dispose() {
+&nbsp;
+<b class="nc">&nbsp;  }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Constants</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: Constants (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">Constants</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;/**
+&nbsp; * This Class acts as a source for all constants used in the game.
+&nbsp; * The constructor has the &#39;private&#39; access modifier to restrict
+&nbsp; * instantiation from other classes in the package.
+&nbsp; */
+&nbsp;public final class Constants {
+&nbsp;
+&nbsp;  private Constants() {
+&nbsp;    // restricts instantiation of class
+&nbsp;  }
+&nbsp;
+&nbsp;  /*
+&nbsp;   * The total in-game time elapse is 3 years and total real-time
+&nbsp;   * elapse is 5 minutes, so each month is 8.33 seconds of real time.
+&nbsp;   */
+&nbsp;  public static final float ONE_MONTH = 8.33f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Font scaling factor for the Title label.
+&nbsp;   */
+&nbsp;  public static final float TITLE_FONT_SCALING_FACTOR = 1300f;
+&nbsp;  /**
+&nbsp;   * Font scaling factor for the Game Over label.
+&nbsp;   */
+&nbsp;  public static final float GAME_OVER_FONT_SCALING_FACTOR = 700f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Font scaling factor for TextButtons.
+&nbsp;   */
+&nbsp;  public static final float TEXT_BUTTON_FONT_SCALING_FACTOR = 1200f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Font scaling factor for the Settings title label.
+&nbsp;   */
+&nbsp;  public static final float SETTINGS_TITLE_FONT_SCALING_FACTOR = 1000f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Font scaling factor for the labels in the settings screen.
+&nbsp;   */
+&nbsp;  public static final float SETTINGS_LABEL_FONT_SCALING_FACTOR = 1500f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Path to the background picture.
+&nbsp;   */
+&nbsp;  public static final String BACKGROUND_PICTURE_PATH = &quot;mapBackgroundBlur.png&quot;;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Path to the UI skin.
+&nbsp;   */
+&nbsp;  public static final String UI_SKIN_PATH = &quot;uiskin.json&quot;;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Path to the preferences file.
+&nbsp;   */
+&nbsp;  public static final String PREFS_NAME = &quot;preferences&quot;;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Default mouse sensitivity value.
+&nbsp;   */
+&nbsp;  public static final float DEFAULT_MOUSE_SENSITIVITY = 0.025f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Default keyboard sensitivity value.
+&nbsp;   */
+&nbsp;  public static final float DEFAULT_KEYBOARD_SENSITIVITY = 0.02f;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Path to the game map.
+&nbsp;   */
+&nbsp;  public static final String MAP_PATH = &quot;Univer-City.tmx&quot;;
+&nbsp;  /**
+&nbsp;   * Path to the game soundtrack.
+&nbsp;   */
+&nbsp;  public static final String SOUNDTRACK_PATH = &quot;gameover.mp3&quot;;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Path to the game over sound.
+&nbsp;   */
+&nbsp;  public static final String GAME_OVER_SOUND_PATH = &quot;gameover.mp3&quot;;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>

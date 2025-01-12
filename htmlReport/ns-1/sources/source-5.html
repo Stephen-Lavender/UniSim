@@ -1,0 +1,242 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BuildingPlacementManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backlogged.univercity</a>
+</div>
+
+<h1>Coverage Summary for Class: BuildingPlacementManager (com.backlogged.univercity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BuildingPlacementManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backlogged.univercity;
+&nbsp;
+&nbsp;import com.badlogic.gdx.maps.MapLayer;
+&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;/**
+&nbsp; * BuildingPlacementManager manages what buildings are currently placed on the
+&nbsp; * map, whether or not
+&nbsp; * you can place a building at a certain location and placing a building.
+&nbsp; */
+&nbsp;public class BuildingPlacementManager implements IBuildingPlacementManager {
+&nbsp;    private final MapLayer objectLayer;
+<b class="nc">&nbsp;    private List&lt;Building&gt; placedBuildings = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a BuildingPlacementManager instance.
+&nbsp;     *
+&nbsp;     * @param objectLayer The layer containing terrain information within the map.
+&nbsp;     */
+<b class="nc">&nbsp;    public BuildingPlacementManager(MapLayer objectLayer) {</b>
+<b class="nc">&nbsp;        System.out.println(objectLayer);</b>
+<b class="nc">&nbsp;        this.objectLayer = objectLayer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if its possible to place a building at the location of the cursor
+&nbsp;     * by checking if any
+&nbsp;     * of the tiles that the building will take up contain either a terrain type
+&nbsp;     * that cant be built on
+&nbsp;     * or another building.
+&nbsp;     *
+&nbsp;     * @param row      The row to start checking from.
+&nbsp;     * @param column   The column to start checking from.
+&nbsp;     * @param building The {@link Building} to check.
+&nbsp;     * @return Returns true its possible and false if not.
+&nbsp;     */
+&nbsp;    public boolean canBePlacedAtLocation(int column, int row, Building building) {
+&nbsp;//        for (var tileOffset : building.getTileCoverageOffsets()) {
+&nbsp;//            TiledMapTileLayer.Cell terrainCell = objectLayer.getCell(column + tileOffset.getColumn(),
+&nbsp;//                row + tileOffset.getRow());
+&nbsp;//            if (!terrainCell.getTile().getProperties().get(&quot;canBeBuiltOn&quot;, Boolean.class)
+&nbsp;//                || placedBuildingTiles.containsKey(tileOffset)) {
+&nbsp;//                return false;
+&nbsp;//            }
+&nbsp;//        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if its possible to place a building at the location of the cursor
+&nbsp;     * by checking if any
+&nbsp;     * of the tiles that the building will take up contain another building.
+&nbsp;     *
+&nbsp;     * @param row      The row to start checking from.
+&nbsp;     * @param column   The column to start checking from.
+&nbsp;     * @param building The {@link Building} to check.
+&nbsp;     * @return Returns true its possible and false if not.
+&nbsp;     */
+&nbsp;    public boolean canBePlacedAtLocationIgnoreTerrain(
+&nbsp;        int column, int row, Building building) {
+<b class="nc">&nbsp;        List&lt;Coord&gt; placedBuildingTiles = getPlacedBuildingTiles();</b>
+<b class="nc">&nbsp;        for (var tileOffset : building.getTileCoverageOffsets()) {</b>
+<b class="nc">&nbsp;            if (placedBuildingTiles.contains(tileOffset.translate(new Coord(column, row)))){</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean canBeMovedToCurrentLocation(int column, int row, Building building) {
+<b class="nc">&nbsp;        List&lt;Coord&gt; placedBuildingTiles = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Building b: getPlacedBuildings()){</b>
+<b class="nc">&nbsp;            if (b == building){</b>
+<b class="nc">&nbsp;                continue;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            for (Coord coverageOffset: b.getTileCoverageOffsets()){</b>
+<b class="nc">&nbsp;                placedBuildingTiles.add(coverageOffset.translate(b.getMapPos()));</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        for (var tileOffset : building.getTileCoverageOffsets()) {</b>
+<b class="nc">&nbsp;            if (placedBuildingTiles.contains(tileOffset.translate(new Coord(column, row)))){</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Places a building at a given location.
+&nbsp;     *
+&nbsp;     * @param row    The row to place the building.
+&nbsp;     * @param column The column to place the building.
+&nbsp;     */
+&nbsp;    public void placeBuilding(int column, int row, Building building) {
+<b class="nc">&nbsp;        placedBuildings.add(building);</b>
+<b class="nc">&nbsp;        building.setMapPosition(new Coord(column, row));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrives all the currently placed buildings.
+&nbsp;     *
+&nbsp;     * @return A List of the currently placed buildings.
+&nbsp;     */
+&nbsp;    public List&lt;Building&gt; getPlacedBuildings() {
+<b class="nc">&nbsp;        return placedBuildings.stream().filter(Building::exists).collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Coord&gt; getPlacedBuildingTiles(){
+<b class="nc">&nbsp;        List&lt;Coord&gt; buildingTiles = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Building building: getPlacedBuildings()){</b>
+<b class="nc">&nbsp;            for (Coord coverageOffset: building.getTileCoverageOffsets()){</b>
+<b class="nc">&nbsp;                buildingTiles.add(coverageOffset.translate(building.getMapPos()));</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return buildingTiles;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrives the current number of buildings.
+&nbsp;     *
+&nbsp;     * @return The number of buildings currently placed on the map.
+&nbsp;     */
+&nbsp;    public int getCount() {
+<b class="nc">&nbsp;        return getPlacedBuildings().size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resets the count to zero and clears any placed buildings.
+&nbsp;     */
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-12 13:08</div>
+</div>
+</body>
+</html>
