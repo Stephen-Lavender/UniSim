@@ -35,6 +35,9 @@ public class Building {
         return getCurrentBuildingInstance().getType();
     }
 
+    public int getLevel(){
+        return level;
+    }
     public boolean isOfType(BuildingType type){
         return getCurrentBuildingInstance().isOfType(type);
     }
@@ -97,7 +100,7 @@ public class Building {
     }
 
     public boolean exists(){
-        return (mapPos.getRow() != -1 && mapPos.getRow() != -1);
+        return (mapPos.getRow() != -1 && mapPos.getColumn() != -1);
     }
 
     public void remove(){

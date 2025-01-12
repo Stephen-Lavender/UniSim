@@ -13,7 +13,6 @@ public class TimerTests {
     void setUp(){
         timer = new InGameTimer(5);
         timer.initialiseTimerValues();
-
     }
 
     @Test
@@ -30,7 +29,7 @@ public class TimerTests {
     @Test
     @DisplayName("5 Minute Timer")
     void testTiming(){
-        float timeLeft = timer.getTimeElapsed(300);
+        float timeLeft = timer.updateTime(300);
         assertEquals(0, timeLeft);
     }
 
