@@ -89,9 +89,6 @@ public class SatisfactionScore {
                     }
                 }
             }
-            //System.out.println("boost...");
-            //System.out.println("dis: " + distance);
-            //System.out.println("type: " + BuildingPair.getType());
 
         return Math.round(distance);
     }
@@ -116,9 +113,6 @@ public class SatisfactionScore {
                 }
             }
         }
-            //System.out.println("building...");
-            //System.out.println("dis: " + distance);
-            //System.out.println("type: " + BuildingPair.getType());
         return Math.round(distance);
 
     }

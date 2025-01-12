@@ -363,8 +363,7 @@ public class BuildingManager {
         }
 
         satscore.updateSatisfaction(getPlacedBuildings());
-        System.out.println(satscore.score);
-    }
+        }
     /**
      * Gets the total count of buildings currently placed.
      *

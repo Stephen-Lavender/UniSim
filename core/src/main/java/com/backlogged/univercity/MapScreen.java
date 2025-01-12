@@ -50,6 +50,8 @@ public class MapScreen implements Screen {
     private boolean dragging;
     private float oldMouseX;
     private float oldMouseY;
+    private TextButton satisfactionLabel;
+
     // Buildings
     private final Button accommodationButton;
     private final Button recreationalBuilding1;
@@ -62,6 +64,7 @@ public class MapScreen implements Screen {
     private Events world;
     private int eventcount;
     private Building selectedBuilding;
+
 
 
 
@@ -96,6 +99,13 @@ public class MapScreen implements Screen {
         detailedBuildingCounter.getContainer().getActor().setFontScale(0.75f);
         detailedBuildingCounter.getContainer().getActor().setAlignment(Align.center);
         buildingCounterLabel.addListener(detailedBuildingCounter);
+
+
+        //chris
+
+
+        satisfactionLabel  = new TextButton(String.valueOf(buildingManager.satscore.score), skin);
+        //
 
         pauseOverlay = new Button(skin, "pauseOverlay");
         pauseOverlay.setVisible(false);
@@ -195,6 +205,11 @@ public class MapScreen implements Screen {
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
         table.add(topRow).colspan(5).expandX().expandY().top().padTop(10);
+        
+
+        topRow.add(satisfactionLabel).expandX().top().right().width(Value.percentWidth(0.1f, table))
+            .height(Value.percentWidth(0.072f, table));
+
 
         table.row();
 
@@ -323,6 +338,7 @@ public class MapScreen implements Screen {
         detailedBuildingCounter.getContainer().getActor()
             .setText(buildingManager.getBuildingTypeCounts());
         buildingCounterLabel.setText(Integer.toString(buildingManager.getBuildingCount()));
+        satisfactionLabel.setText(String.valueOf(buildingManager.satscore.score));
         timerLabel.setText(timer.output());
         stage.act();
         stage.draw();

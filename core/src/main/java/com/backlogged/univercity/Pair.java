@@ -1,7 +1,8 @@
 package com.backlogged.univercity;
 
 public class Pair<T, U> {
-        
+    
+    //Satisfaction Score usage
     public Coord coord;
     public BuildingType type;
 
@@ -26,6 +27,7 @@ public class Pair<T, U> {
             return BoostType == type;   
         }
     } 
+    
     //LeaderBoard usage
     public String name;
     public int score;

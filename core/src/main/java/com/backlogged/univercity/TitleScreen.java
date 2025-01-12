@@ -30,13 +30,15 @@ public class TitleScreen implements Screen {
   private TextButton playButton;
   private TextButton optionsButton;
   private TextButton quitButton;
-  
+  private LeaderBoard leaderBoard;
+
   /**
    * Sets up the title screen.
    *
    * @param game current instance of the game
    */
   public TitleScreen(Game game) {
+    leaderBoard = new LeaderBoard();
     bgTexture = new Texture(Constants.BACKGROUND_PICTURE_PATH);
 
     // Set up UI stage, skin and table

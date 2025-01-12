@@ -19,14 +19,14 @@ public class Achievements {
         this.satScore = satScore;
     }
 
-    public void checkall() {
+    //runs all the checks for achievements
+    public void checkall() {    
         for (Achievement Achievement: achievements) {
             if (!Achievement.unlocked) {
                 switch (Achievement.name) {
                     case "Building Master":
                         if(this.buildings.size() >= 1) {
                             Achievement.unlocked = true;
-                            System.out.println("BuildingMaster unlocked");
                         }
                         break;
                 

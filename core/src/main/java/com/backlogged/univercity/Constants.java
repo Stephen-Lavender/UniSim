@@ -80,4 +80,6 @@ public final class Constants {
    */
   public static final String GAME_OVER_SOUND_PATH = "gameover.mp3";
 
+  public static final String PLAYER_SCORES_PATH = "PlayerScores.txt";
+
 }
