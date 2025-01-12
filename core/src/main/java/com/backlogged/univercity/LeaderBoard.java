@@ -17,12 +17,12 @@ import com.badlogic.gdx.Gdx;
 public class LeaderBoard {
 
     String filePath = Gdx.files.internal(Constants.PLAYER_SCORES_PATH).toString();
-    HashMap<Integer, Pair<String,Integer>> playerScores = new HashMap<>(); 
-    File scoreFile;
+    public HashMap<Integer, Pair<String,Integer>> playerScores = new HashMap<>(); 
+    private File scoreFile;
 
 
 
-
+    
     //constructer
     public LeaderBoard() {
         scoreFile = new File(this.filePath);
@@ -49,7 +49,6 @@ public class LeaderBoard {
 
             for (int i = 0; i < unSortedList.size(); i++) {
                 playerScores.put(i,unSortedList.get(i));
-
             }
 
 
@@ -79,4 +78,5 @@ public class LeaderBoard {
         }
 
     }
+
 }

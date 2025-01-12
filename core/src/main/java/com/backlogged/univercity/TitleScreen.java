@@ -9,12 +9,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles rendering title screen - first screen user sees.
@@ -41,6 +45,9 @@ public class TitleScreen implements Screen {
     leaderBoard = new LeaderBoard();
     bgTexture = new Texture(Constants.BACKGROUND_PICTURE_PATH);
 
+
+
+
     // Set up UI stage, skin and table
     stage = new Stage(new ScreenViewport());
     // TODO: edit constants to use new uiskin
@@ -50,6 +57,9 @@ public class TitleScreen implements Screen {
     table.setDebug(true);
 
     stage.addActor(table);
+    //chris
+    TextButton leaderboard = new TextButton("test", skin);
+    //
 
     // Set up the title label and buttons
     univerCityLogo = new Button(skin, "univerCityLogo");
@@ -86,6 +96,40 @@ public class TitleScreen implements Screen {
     table.row();
     table.add(quitButton).top().padTop(50).width(Value.percentWidth(0.3f, table))
         .height(Value.percentHeight(0.1f, table));
+
+    //leaderboard
+    Table leaderboardTable = new Table();
+        leaderboardTable.setDebug(true);
+        leaderboardTable.setSize(400, 1000);
+        leaderboardTable.setPosition(20,500);
+        leaderboardTable.align(Align.top);
+
+        Label titleLabel = new Label("Leaderboard", skin);
+        titleLabel.setFontScale(2.0f); // Increase text size (scales by 2x)
+        leaderboardTable.add(titleLabel)
+            .center() // Center the text within the cell
+            .width(Value.percentWidth(1f, leaderboardTable)) // Make it span the table width
+            .padBottom(30); // Add space below the title
+        leaderboardTable.row(); 
+        // Add entries for 1st to 5th place
+        for (Map.Entry<Integer,Pair<String,Integer>> playerScore : leaderBoard.playerScores.entrySet()) {
+            if (playerScore.getKey() > 4) {
+              break;
+            }
+            leaderboardTable.add(new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin)) // Customize as needed
+                .left() // Align the text to the left
+                .pad(50) // Add padding around each entry
+                .width(Value.percentWidth(0.9f, leaderboardTable)); // Adjust the width if necessary
+          leaderboardTable.row(); // Move to the next row
+        }
+
+// Add the leaderboard table to the stage
+stage.addActor(leaderboardTable);
+      
+
+
+        stage.addActor(leaderboardTable);
+
 
   }
 

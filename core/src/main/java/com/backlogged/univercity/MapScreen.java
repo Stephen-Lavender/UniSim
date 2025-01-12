@@ -94,18 +94,12 @@ public class MapScreen implements Screen {
 
         timerLabel = new TextButton("5:00", skin, "semesterTimerTextButton");
         buildingCounterLabel = new TextButton("5:00", skin, "buildingCountTextButton");
+        satisfactionLabel  = new TextButton(String.valueOf(buildingManager.satscore.score), skin);
 
         detailedBuildingCounter = new TextTooltip(buildingManager.getBuildingTypeCounts(), skin);
         detailedBuildingCounter.getContainer().getActor().setFontScale(0.75f);
         detailedBuildingCounter.getContainer().getActor().setAlignment(Align.center);
         buildingCounterLabel.addListener(detailedBuildingCounter);
-
-
-        //chris
-
-
-        satisfactionLabel  = new TextButton(String.valueOf(buildingManager.satscore.score), skin);
-        //
 
         pauseOverlay = new Button(skin, "pauseOverlay");
         pauseOverlay.setVisible(false);
@@ -205,11 +199,8 @@ public class MapScreen implements Screen {
             .width(Value.percentWidth(0.05f, table))
             .height(Value.percentWidth(0.05f, table));
         table.add(topRow).colspan(5).expandX().expandY().top().padTop(10);
-        
-
         topRow.add(satisfactionLabel).expandX().top().right().width(Value.percentWidth(0.1f, table))
             .height(Value.percentWidth(0.072f, table));
-
 
         table.row();
 
