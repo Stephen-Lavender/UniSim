@@ -135,7 +135,7 @@ public class BuildingManager {
                 new Coord(1, 1)
             }
         ));
-
+        //Recreational Building 1
         upgrades = new ArrayList<>();
         BuildingInstance recreationalBuilding1 = new BuildingInstance("hex");
         BuildingInstance recreationalBuilding2 = new BuildingInstance("hex");
@@ -166,6 +166,39 @@ public class BuildingManager {
         buildingBlueprints.add(accommodationBuilding);
         buildingBlueprints.add(cafeteriaBuilding);
         buildingBlueprints.add(courseBuilding);
+        buildingBlueprints.add(recreationalBuilding);
+
+
+        //Recreational Building 2
+        upgrades = new ArrayList<>();
+        recreationalBuilding1 = new BuildingInstance("hex");
+        recreationalBuilding2 = new BuildingInstance("hex");
+        recreationalBuilding3 = new BuildingInstance("square");
+
+        recreationalBuilding1.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding2.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding3.addType(BuildingType.RECREATIONAL);
+        recreationalBuilding3.addType(BuildingType.CAFETERIA);
+
+        recreationalBuilding1.setSprite(textureAtlas, unitScale);
+        recreationalBuilding1.setSpriteColour(Color.FOREST);
+        recreationalBuilding2.setSprite(textureAtlas, unitScale);
+        recreationalBuilding2.setSpriteColour(Color.MAGENTA);
+        recreationalBuilding3.setSprite(textureAtlas, unitScale);
+        recreationalBuilding3.setSpriteColour(Color.MAGENTA);
+
+        upgrades.add(recreationalBuilding1);
+        upgrades.add(recreationalBuilding2);
+        upgrades.add(recreationalBuilding3);
+        recreationalBuilding = new Building(upgrades, List.of(
+            new Coord[]{
+                new Coord(0, 0),
+                new Coord(0, 1),
+                new Coord(1, 0),
+                new Coord(1, 1)
+            }
+        ));
+
         buildingBlueprints.add(recreationalBuilding);
     }
 

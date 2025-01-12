@@ -15,4 +15,29 @@ public class Events {
             buildings.remove(picker);
             return true;
         }
+
+        public int ChooseEvent()
+        {
+            picker = rand.nextInt(1,11);
+
+            if (picker % 2 == 0) {
+               picker = Negative_event();
+            }
+            else
+            {
+               picker = Positive_Event();
+            }
+            return picker;
+        }
+
+        private int Negative_event()
+        {
+            return 2;
+
+        }
+
+        private int Positive_Event()
+        {
+            return 1;
+        }
 }
