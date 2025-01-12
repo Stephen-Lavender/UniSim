@@ -13,53 +13,23 @@ public class SatisfactionScore {
     Collection<Building> buildings;
 
     //simple class to hold coordinates and type of each building
-    
-    private class Pair<T, U> {
-        
-        private Coord coord;
-        private BuildingType type;
 
-        public Pair(Coord coord, BuildingType type) {
-            this.coord = coord;
-            this.type = type;
+    public BuildingType getBoostType(BuildingType type){
+        switch (type) {
+            case ACCOMMODATION:
+                return BuildingType.COURSE;
+            case CAFETERIA:
+                return BuildingType.RECREATIONAL;
+            case COURSE:
+                return BuildingType.CAFETERIA;
+            case RECREATIONAL:
+                return null;
+            default:
+                return null;
         }
-
-        public Coord getMapPos() {
-            return this.coord;
-        }
-        
-        public BuildingType getType() {
-            return this.type;
-        }
-
-        public boolean isboostType(BuildingType type) {
-
-            if (type == null) {
-                return false;
-            }
-            else {
-                return getBoostType() == type;   
-        }
-    }
-
-
-        public BuildingType getBoostType(){
-            switch (this.type) {
-                case ACCOMMODATION:
-                    return BuildingType.COURSE;
-                case CAFETERIA:
-                    return BuildingType.RECREATIONAL;
-                case COURSE:
-                    return BuildingType.CAFETERIA;
-                case RECREATIONAL:
-                    return null;
-                default:
-                    return null;
-            }
     }
 
     
-    }
 
     public void updateSatisfaction(Collection<Building> buildings) {
         List<Double> scores = new ArrayList<>();
@@ -113,15 +83,15 @@ public class SatisfactionScore {
     public double calcDistanceClosestBoostBuilding(List<Pair<Coord,BuildingType>> buildings, Pair<Coord,BuildingType> BuildingPair) {
         double distance = 1000;
             for (Pair<Coord,BuildingType> building : buildings) {
-                if (!building.getMapPos().equals(BuildingPair.getMapPos()) && BuildingPair.isboostType(building.getType())) {
+                if (!building.getMapPos().equals(BuildingPair.getMapPos()) && building.isboostType(getBoostType(BuildingPair.getType()))) {
                     if (distanceCalc(BuildingPair.getMapPos(), building.getMapPos()) < distance) {
                         distance = distanceCalc(BuildingPair.getMapPos(), building.getMapPos());
                     }
                 }
             }
-            System.out.println("boost...");
-            System.out.println("dis: " + distance);
-            System.out.println("type: " + BuildingPair.getType());
+            //System.out.println("boost...");
+            //System.out.println("dis: " + distance);
+            //System.out.println("type: " + BuildingPair.getType());
 
         return Math.round(distance);
     }
@@ -140,15 +110,15 @@ public class SatisfactionScore {
     public double calcDistanceClosestBuilding(List<Pair<Coord,BuildingType>> buildings, Pair<Coord,BuildingType> BuildingPair) {
         double distance = 1000;
         for (Pair<Coord,BuildingType> building : buildings) {
-            if (!building.getMapPos().equals(BuildingPair.getMapPos()) && !BuildingPair.isboostType(building.getType())) {
+            if (!building.getMapPos().equals(BuildingPair.getMapPos()) && !building.isboostType(getBoostType(BuildingPair.getType()))) {
                 if (distanceCalc(BuildingPair.getMapPos(), building.getMapPos()) < distance) {
                     distance = distanceCalc(BuildingPair.getMapPos(), building.getMapPos());
                 }
             }
         }
-            System.out.println("building...");
-            System.out.println("dis: " + distance);
-            System.out.println("type: " + BuildingPair.getType());
+            //System.out.println("building...");
+            //System.out.println("dis: " + distance);
+            //System.out.println("type: " + BuildingPair.getType());
         return Math.round(distance);
 
     }

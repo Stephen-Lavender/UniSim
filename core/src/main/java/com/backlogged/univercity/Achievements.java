@@ -8,9 +8,12 @@ import java.util.List;
  * Represents the Achievements system in a game.
  */
 public class Achievements {
-    Collection<Building> buildings;
-    long satScore;
+    private List<Building> buildings;
+    private long satScore;
+    private List<Achievement> achievements;
 
+
+    
     public void updateData(List<Building> buildings, long satScore) {
         this.buildings = buildings;
         this.satScore = satScore;
@@ -73,12 +76,10 @@ public class Achievements {
         }
     }
 
-    private List<Achievement> achievements;
-
     // Constructor
-    public Achievements(Collection<Building> buildings, long satScore) {
-        this.buildings = buildings;
-        this.satScore = satScore;
+    public Achievements() {
+        this.buildings = new ArrayList<>();
+        this.satScore = 0;
 
         achievements = new ArrayList<>();
         achievements.add(new Achievement("Building Master","Max buildings placed"));

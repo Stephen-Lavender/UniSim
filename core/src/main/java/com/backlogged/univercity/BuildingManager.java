@@ -30,6 +30,16 @@ public class BuildingManager {
     private OrthographicCamera camera;
     private boolean canBePlacedAtCurrentLocation;
 
+    //chris bit
+
+    public SatisfactionScore satscore = new SatisfactionScore();
+
+
+
+
+    //
+
+
     /**
      * Constructs a building manager instance.
      *
@@ -351,6 +361,9 @@ public class BuildingManager {
             }
 
         }
+
+        satscore.updateSatisfaction(getPlacedBuildings());
+        System.out.println(satscore.score);
     }
     /**
      * Gets the total count of buildings currently placed.
