@@ -62,9 +62,9 @@ public class TitleScreen implements Screen {
 
     Table leaderboardTable = new Table();
     leaderboardTable.setDebug(true);
-    leaderboardTable.setSize(400, 1000);
-    leaderboardTable.setPosition(20,500);
-    leaderboardTable.align(Align.top);
+    leaderboardTable.setFillParent(true);
+    leaderboardTable.align(Align.topLeft);
+
     
     stage.addActor(table);
     table.setVisible(true);
@@ -111,8 +111,9 @@ public class TitleScreen implements Screen {
     
     //leaderboard
     Label titleLabel = new Label("Leaderboard", skin);
+    titleLabel.setAlignment(Align.center);
     titleLabel.setFontScale(2.0f); // Increase text size (scales by 2x)
-    leaderboardTable.add(titleLabel).center().width(Value.percentWidth(1f, leaderboardTable)).padBottom(30); 
+    leaderboardTable.add(titleLabel).center().width(Value.percentWidth(0.15f, leaderboardTable)).padTop(100).padBottom(30); 
     leaderboardTable.row(); 
     // Add entries for 1st to 5th place
     for (Map.Entry<Integer,Pair<String,Integer>> playerScore : leaderBoard.playerScores.entrySet()) {
@@ -122,7 +123,7 @@ public class TitleScreen implements Screen {
         leaderboardTable.add(new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin)) // Customize as needed
             .left() // Align the text to the left
             .pad(50) // Add padding around each entry
-            .width(Value.percentWidth(0.9f, leaderboardTable)); // Adjust the width if necessary
+            .width(Value.percentWidth(0.15f, leaderboardTable)); // Adjust the width if necessary
       leaderboardTable.row(); // Move to the next row
     }
 
