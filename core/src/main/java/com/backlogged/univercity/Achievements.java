@@ -13,6 +13,17 @@ public class Achievements {
     private long satScore;
     private List<Achievement> achievements;
 
+    public String getAchievementDesc(String name) {
+        for (Achievement achievement : achievements) {
+
+            System.out.println(name + " : " + achievement.name );
+            if (achievement.name.equals(name)) {
+                return achievement.description;
+            }
+        }
+        return "";
+    }
+
 
     
     public void updateData(List<Building> buildings, long satScore) {
@@ -25,16 +36,49 @@ public class Achievements {
         for (Achievement Achievement: achievements) {
             if (!Achievement.unlocked) {
                 switch (Achievement.name) {
-                    case "Building Master":
+                    case "Building Novice":
                         if(this.buildings.size() >= 1) {
                             Achievement.unlocked = true;
-                            System.out.println("building master");
                             return Achievement.name;
                         }
                         break;
-                
-                    default:
-                        break;
+                        
+                    case "Happy Campus I":
+                        if (this.satScore>25) {
+                            return Achievement.name;
+                        }
+                    case "Happy Campus II":
+                        if (this.satScore>50) {
+                            return Achievement.name;
+                        }
+                    case "Happy Campus III":
+                        if (this.satScore>75) {
+                            return Achievement.name;
+                        }
+                    case "Happy Campus IIII":
+                        if (this.satScore>1000) {
+                            return Achievement.name;
+                        }
+                    case "Building pro":
+                    if(this.buildings.size() >= 10) {
+                        Achievement.unlocked = true;
+                        return Achievement.name;
+                    }
+                    break;
+                    case "Building No11vice":
+                    if(this.buildings.size() >= 1) {
+                        Achievement.unlocked = true;
+                        return Achievement.name;
+                    }
+                    break;
+                    case "Building No111vice":
+                    if(this.buildings.size() >= 1) {
+                        Achievement.unlocked = true;
+                        return Achievement.name;
+                    }
+                    break;
+                default:
+                    break;
                 }
             }
         }
@@ -86,7 +130,16 @@ public class Achievements {
         this.satScore = 0;
 
         achievements = new ArrayList<>();
-        achievements.add(new Achievement("Building Master","Max buildings placed"));
+        achievements.add(new Achievement("Building Novice","Place one building"));
+        achievements.add(new Achievement("Happy Campus I","25% Satisfaction score"));
+        achievements.add(new Achievement("Happy Campus II","50% Satisfaction score"));
+        achievements.add(new Achievement("Happy Campus III","75% Satisfaction score"));
+        achievements.add(new Achievement("Happy Campus IIII","100% Satisfaction score"));
+        achievements.add(new Achievement("Building Competent","Place one of each building"));
+        achievements.add(new Achievement("Building Pro","Place 10 buildings"));
+
+
+
 
     }
 

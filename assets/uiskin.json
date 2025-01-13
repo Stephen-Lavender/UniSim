@@ -1,196 +1,210 @@
 {
-	"com.badlogic.gdx.graphics.g2d.BitmapFont": {
-	  "RegularFontBlack": {
-		"file": "RegularFontBlack.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  },
-	  "RegularFontBlue": {
-		"file": "RegularFontBlue.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  },
-	  "RegularFontGreen": {
-		"file": "RegularFontGreen.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  },
-	  "RegularFontRed": {
-		"file": "RegularFontRed.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  },
-	  "RegularFontWhite": {
-		"file": "RegularFontWhite.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  },
-	  "RegularFontYellow": {
-		"file": "RegularFontYellow.fnt",
-		"scaledSize": -1,
-		"markupEnabled": false,
-		"flip": false
-	  }
-	},
-	"com.badlogic.gdx.graphics.Color": {
-	  "black": {
-		"r": 0,
-		"g": 0,
-		"b": 0,
-		"a": 1
-	  },
-	  "darkGreen": {
-		"r": 0.1254902,
-		"g": 0.27450982,
-		"b": 0.3019608,
-		"a": 1
-	  },
-	  "darkRed": {
-		"r": 0.3529412,
-		"g": 0.07450981,
-		"b": 0.105882354,
-		"a": 1
-	  },
-	  "lightBlue": {
-		"r": 0.79607844,
-		"g": 0.85882354,
-		"b": 0.9882353,
-		"a": 1
-	  },
-	  "lightOrange": {
-		"r": 1,
-		"g": 0.87058824,
-		"b": 0.78431374,
-		"a": 1
-	  },
-	  "white": {
-		"r": 1,
-		"g": 1,
-		"b": 1,
-		"a": 1
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
-	  "default": {
-		"up": "defaultButton"
-	  },
-	  "playButton": {
-		"up": "playButton"
-	  },
-	  "optionsButton": {
-		"up": "optionsButton"
-	  },
-	  "tryAgainButton": {
-		"up": "tryAgainButton"
-	  },
-	  "quitButton": {
-		"up": "quitButton"
-	  },
-	  "pauseToggle": {
-		"up": "pauseToggle",
-		"checked": "playToggle"
-	  },
-	  "semesterTimerBox": {
-		"up": "semesterTimerBox"
-	  },
-	  "timerBox": {
-		"up": "timerBox"
-	  },
-	  "buildingCountBox": {
-		"up": "buildingCountBox"
-	  },
-	  "redButtonNoText": {
-		"up": "redButtonNoText"
-	  },
-	  "univerCityLogo": {
-		"up": "univerCityLogo"
-	  },
-	  "pauseOverlay": {
-		"up": "pause_overlay"
-	  },
-	  "bedIcon": {
-		"up": "bedIcon"
-	  },
-	  "bookIcon": {
-		"up": "bookIcon"
-	  },
-	  "foodIcon": {
-		"up": "foodIcon"
-	  },
-	  "sportIcon": {
-		"up": "sportIcon"
-	  },
-	  "settingsIcon": {
-		"up": "settingsIcon"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle": {
-	  "default": {
-		"checkboxOn": "checkboxChecked",
-		"checkboxOff": "checkboxUnchecked",
-		"font": "RegularFontBlack"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-	  "default": {
-		"imageUp": "bedBackground"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
-	  "default": {
-		"font": "RegularFontBlack"
-	  },
-	  "lightBlueFont": {
-		"font": "RegularFontBlue"
-	  },
-	  "lightOrangeFont": {
-		"font": "RegularFontYellow"
-	  },
-	  "redFont": {
-		"font": "RegularFontRed"
-	  },
-	  "greenFont": {
-		"font": "RegularFontGreen"
-	  },
-	  "whiteFont": {
-		"font": "RegularFontWhite"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {
-	  "default-horizontal": {
-		"background": "slideBar",
-		"knob": "slideHangle"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
-	  "default": {
-		"parent": "default",
-		"font": "RegularFontBlue",
-		"fontColor": "white"
-	  },
-	  "redTextButton": {
-		"parent": "redButtonNoText",
-		"font": "RegularFontYellow"
-	  },
-	  "semesterTimerTextButton": {
-		"parent": "semesterTimerBox",
-		"font": "RegularFontYellow"
-	  },
-	  "buildingCountTextButton": {
-		"parent": "buildingCountBox",
-		"font": "RegularFontYellow"
-	  }
-	},
-	"com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
-	  "default": {
-		"label": "whiteFont",
-		"background": "largeBox"
-	  }
+	com.badlogic.gdx.graphics.g2d.BitmapFont: {
+		RegularFontBlack: {
+			file: RegularFontBlack.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
+		RegularFontBlue: {
+			file: RegularFontBlue.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
+		RegularFontGreen: {
+			file: RegularFontGreen.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
+		RegularFontRed: {
+			file: RegularFontRed.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
+		RegularFontWhite: {
+			file: RegularFontWhite.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
+		RegularFontYellow: {
+			file: RegularFontYellow.fnt
+			scaledSize: -1
+			markupEnabled: false
+			flip: false
+		}
 	}
-  }
-  
+	com.badlogic.gdx.graphics.Color: {
+		black: {
+			r: 0
+			g: 0
+			b: 0
+			a: 1
+		}
+		darkGreen: {
+			r: 0.1254902
+			g: 0.27450982
+			b: 0.3019608
+			a: 1
+		}
+		darkRed: {
+			r: 0.3529412
+			g: 0.07450981
+			b: 0.105882354
+			a: 1
+		}
+		lightBlue: {
+			r: 0.79607844
+			g: 0.85882354
+			b: 0.9882353
+			a: 1
+		}
+		lightOrange: {
+			r: 1
+			g: 0.87058824
+			b: 0.78431374
+			a: 1
+		}
+		white: {
+			r: 1
+			g: 1
+			b: 1
+			a: 1
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+		default: {
+			up: defaultButton
+		}
+		playButton: {
+			up: playButton
+		}
+		optionsButton: {
+			up: optionsButton
+		}
+		tryAgainButton: {
+			up: tryAgainButton
+		}
+		quitButton: {
+			up: quitButton
+		}
+		pauseToggle: {
+			up: pauseToggle
+			checked: playToggle
+		}
+		semesterTimerBox: {
+			up: semesterTimerBox
+		}
+		timerBox: {
+			up: timerBox
+		}
+		buildingCountBox: {
+			up: buildingCountBox
+		}
+		redButtonNoText: {
+			up: redButtonNoText
+		}
+		univerCityLogo: {
+			up: univerCityLogo
+		}
+		pauseOverlay: {
+			up: pause_overlay
+		}
+		bedIcon: {
+			up: bedIcon
+		}
+		bookIcon: {
+			up: bookIcon
+		}
+		foodIcon: {
+			up: foodIcon
+		}
+		sportIcon: {
+			up: sportIcon
+		}
+		settingsIcon: {
+			up: settingsIcon
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+		default: {
+			checkboxOn: checkboxChecked
+			checkboxOff: checkboxUnchecked
+			font: RegularFontBlack
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+		default: {
+			imageUp: bedBackground
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+		default: {
+			font: RegularFontBlack
+		}
+		lightBlueFont: {
+			font: RegularFontBlue
+		}
+		lightOrangeFont: {
+			font: RegularFontYellow
+		}
+		redFont: {
+			font: RegularFontRed
+		}
+		greenFont: {
+			font: RegularFontGreen
+		}
+		whiteFont: {
+			font: RegularFontWhite
+		}
+		Achievement: {
+			font: RegularFontRed
+			background: defaultButton
+		}
+		box: {
+			font: RegularFontBlack
+			background: defaultButton
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+		default-horizontal: {
+			background: slideBar
+			knob: slideHangle
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+		default: {
+			parent: default
+			font: RegularFontBlue
+			fontColor: white
+		}
+		redTextButton: {
+			parent: redButtonNoText
+			font: RegularFontYellow
+		}
+		semesterTimerTextButton: {
+			parent: semesterTimerBox
+			font: RegularFontYellow
+		}
+		buildingCountTextButton: {
+			parent: buildingCountBox
+			font: RegularFontYellow
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+		default: {
+			font: RegularFontBlack
+			fontColor: black
+			background: defaultButton
+		}
+	}
+	com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+		default: {
+			label: whiteFont
+			background: largeBox
+		}
+	}
+	}

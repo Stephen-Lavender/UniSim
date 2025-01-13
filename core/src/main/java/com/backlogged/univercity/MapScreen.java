@@ -53,8 +53,9 @@ public class MapScreen implements Screen {
     private float oldMouseX;
     private float oldMouseY;
     private TextButton satisfactionLabel;
+    private Label displayAchievementDesc;
     private Achievements achievements = new Achievements();
-    private float timestamp =-1;
+    private float timestamp = -1;
 
     // Buildings
     private final Button accommodationButton;
@@ -68,6 +69,7 @@ public class MapScreen implements Screen {
     private Events world;
     private int eventcount;
     private Building selectedBuilding;
+
 
 
 
@@ -98,7 +100,7 @@ public class MapScreen implements Screen {
 
         timerLabel = new TextButton("5:00", skin, "semesterTimerTextButton");
         buildingCounterLabel = new TextButton("5:00", skin, "buildingCountTextButton");
-        satisfactionLabel  = new TextButton(String.valueOf(buildingManager.satscore.score), skin);
+        satisfactionLabel  = new TextButton(String.valueOf(buildingManager.satscore.score) + "%", skin);
 
         detailedBuildingCounter = new TextTooltip(buildingManager.getBuildingTypeCounts(), skin);
         detailedBuildingCounter.getContainer().getActor().setFontScale(0.75f);
@@ -213,12 +215,25 @@ public class MapScreen implements Screen {
 
         achievementTable = new Table();
 
-        displayAchievement = new Label("placeholder", skin);
+        displayAchievement = new Label("placeholder", skin,"Achievement");
+        displayAchievementDesc = new Label("placeholder", skin,"Achievement");
 
-        achievementTable.setSize(500, 200);
+
+        achievementTable.setSize(700, 500);
         achievementTable.setDebug(true);
-        achievementTable.setPosition(0,stage.getHeight() - 500);
-        achievementTable.add(displayAchievement).fill(true);
+        achievementTable.setPosition(0,stage.getHeight() - 700);
+  
+        
+        achievementTable.add(displayAchievement).top().width(700).height(100);
+        displayAchievement.setAlignment(Align.center);
+        achievementTable.row();
+        achievementTable.add(displayAchievementDesc).top().width(700).height(200);
+        displayAchievementDesc.setAlignment(Align.center);
+
+
+
+
+
         stage.addActor(achievementTable);
         achievementTable.setVisible(false);
 
@@ -348,7 +363,7 @@ public class MapScreen implements Screen {
         detailedBuildingCounter.getContainer().getActor()
             .setText(buildingManager.getBuildingTypeCounts());
         buildingCounterLabel.setText(Integer.toString(buildingManager.getBuildingCount()));
-        satisfactionLabel.setText(String.valueOf(buildingManager.satscore.score));
+        satisfactionLabel.setText(String.valueOf(buildingManager.satscore.score) + "%");
         timerLabel.setText(timer.output());
         stage.act();
         stage.draw();
@@ -359,9 +374,13 @@ public class MapScreen implements Screen {
         if(!achievementTable.isVisible()) {
             displayAchievement.setText(achievements.checkall());
             if (displayAchievement.getText().toString() != "") {
+                displayAchievementDesc.setText(achievements.getAchievementDesc(displayAchievement.getText().toString()));
+                System.out.print(achievements.getAchievementDesc(displayAchievement.getText().toString()));
+                displayAchievement.setText("Achieved: " + displayAchievement.getText());
+                displayAchievementDesc.setScaleX(displayAchievement.getScaleX());;
+
                 achievementTable.setVisible(true);
-                timestamp = timeLeft - 5;
-                System.out.println(timestamp + ":" + timeLeft);
+                timestamp = timeLeft - 8;
             }
         }
         else if (timeLeft <= timestamp) {

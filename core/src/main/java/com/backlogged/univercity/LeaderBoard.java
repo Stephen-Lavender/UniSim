@@ -66,6 +66,10 @@ public class LeaderBoard {
         String playerName = name;
         int playerScore = score;
 
+        if (playerName == "") {
+            playerName = " ";
+        }
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
 

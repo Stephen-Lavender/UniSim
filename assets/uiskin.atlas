@@ -4,130 +4,109 @@ size: 1024, 1024
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-bedBackground
-  rotate: false
-  xy: 455, 81
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bedIcon
-  rotate: false
-  xy: 913, 249
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-bookIcon
-  rotate: false
-  xy: 913, 183
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-buildingCountBox
-  rotate: false
-  xy: 1, 23
-  size: 188, 128
-  orig: 188, 128
-  offset: 0, 0
-  index: -1
-checkboxChecked
-  rotate: false
-  xy: 191, 21
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-checkboxUnchecked
-  rotate: false
-  xy: 913, 51
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-defaultButton
-  rotate: false
-  xy: 609, 231
-  size: 302, 82
-  orig: 302, 82
-  offset: 0, 0
-  index: -1
 RegularFontBlack
   rotate: false
-  xy: 509, 315
+  xy: 509, 503
   size: 503, 192
   orig: 503, 192
   offset: 0, 0
   index: -1
 RegularFontBlue
   rotate: false
-  xy: 1, 509
+  xy: 1, 697
   size: 506, 186
   orig: 506, 186
   offset: 0, 0
   index: -1
 RegularFontGreen
   rotate: false
-  xy: 509, 697
+  xy: 1, 509
   size: 506, 186
   orig: 506, 186
   offset: 0, 0
   index: -1
 RegularFontRed
   rotate: false
-  xy: 509, 509
+  xy: 1, 321
   size: 506, 186
   orig: 506, 186
   offset: 0, 0
   index: -1
 RegularFontWhite
   rotate: false
-  xy: 1, 321
+  xy: 1, 133
   size: 506, 186
   orig: 506, 186
   offset: 0, 0
   index: -1
 RegularFontYellow
   rotate: false
-  xy: 1, 697
+  xy: 509, 697
   size: 506, 186
   orig: 506, 186
   offset: 0, 0
   index: -1
+bedBackground
+  rotate: false
+  xy: 813, 307
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bedIcon
+  rotate: false
+  xy: 813, 241
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bookIcon
+  rotate: false
+  xy: 879, 307
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+buildingCountBox
+  rotate: false
+  xy: 813, 373
+  size: 188, 128
+  orig: 188, 128
+  offset: 0, 0
+  index: -1
+checkboxChecked
+  rotate: false
+  xy: 813, 175
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+checkboxUnchecked
+  rotate: false
+  xy: 879, 241
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+defaultButton
+  rotate: false
+  xy: 1, 49
+  size: 302, 82
+  orig: 302, 82
+  offset: 0, 0
+  index: -1
 foodIcon
   rotate: false
-  xy: 913, 117
+  xy: 879, 175
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 largeBox
   rotate: false
-  xy: 609, 29
+  xy: 509, 301
   size: 302, 200
   orig: 302, 200
-  offset: 0, 0
-  index: -1
-pauseToggle
-  rotate: false
-  xy: 323, 81
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-pause_overlay
-  rotate: false
-  xy: 191, 87
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-playToggle
-  rotate: false
-  xy: 389, 81
-  size: 64, 64
-  orig: 64, 64
   offset: 0, 0
   index: -1
 optionsButton
@@ -137,37 +116,44 @@ optionsButton
   orig: 302, 82
   offset: 0, 0
   index: -1
+pauseToggle
+  rotate: false
+  xy: 945, 307
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+pause_overlay
+  rotate: false
+  xy: 945, 241
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 playButton
   rotate: false
-  xy: 1, 153
+  xy: 509, 217
   size: 302, 82
   orig: 302, 82
+  offset: 0, 0
+  index: -1
+playToggle
+  rotate: false
+  xy: 945, 175
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 quitButton
   rotate: false
-  xy: 305, 231
+  xy: 509, 133
   size: 302, 82
   orig: 302, 82
-  offset: 0, 0
-  index: -1
-tryAgainButton
-  rotate: false
-  xy: 1, 237
-  size: 302, 82
-  orig: 302, 82
-  offset: 0, 0
-  index: -1
-univerCityLogo
-  rotate: false
-  xy: 583, 902
-  size: 200, 27
-  orig: 200, 27
   offset: 0, 0
   index: -1
 redButtonNoText
   rotate: false
-  xy: 305, 147
+  xy: 609, 49
   size: 302, 82
   orig: 302, 82
   offset: 0, 0
@@ -181,28 +167,28 @@ semesterTimerBox
   index: -1
 settingsIcon
   rotate: false
-  xy: 521, 81
+  xy: 913, 109
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 slideBar
   rotate: false
-  xy: 887, 915
+  xy: 583, 897
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 slideHangle
   rotate: false
-  xy: 785, 897
+  xy: 713, 897
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sportIcon
   rotate: false
-  xy: 257, 81
+  xy: 913, 43
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -212,5 +198,19 @@ timerBox
   xy: 887, 949
   size: 128, 64
   orig: 128, 64
+  offset: 0, 0
+  index: -1
+tryAgainButton
+  rotate: false
+  xy: 305, 49
+  size: 302, 82
+  orig: 302, 82
+  offset: 0, 0
+  index: -1
+univerCityLogo
+  rotate: false
+  xy: 1, 20
+  size: 200, 27
+  orig: 200, 27
   offset: 0, 0
   index: -1

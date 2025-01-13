@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -31,6 +32,7 @@ public class GameOverScreen implements Screen {
   private Label gameOverLabel;
   private TextButton startAgainButton;
   private TextButton quitButton;
+  private Label satScoreLabel;
 
   /**
    * Sets up the game over screen.
@@ -50,12 +52,12 @@ public class GameOverScreen implements Screen {
     table.setVisible(false);
     gameOverLabel = new Label("GAME OVER!", skin, "lightOrangeFont");
 
-    TextField.TextFieldStyle style = new TextField.TextFieldStyle();
-    style.font = new BitmapFont();
-    style.fontColor = Color.CHARTREUSE;
-    style.font.getData().setScale(5);
-    TextField textField = new TextField("", style);
-    textField.setText("Test");
+    
+    TextField textField = new TextField("", skin);
+    textField.setMessageText("Enter Name");;
+    textField.scaleBy(3);
+    textField.setAlignment(Align.center);
+    textField.setMaxLength(15);
 
     startAgainButton = new TextButton("Submit", skin);
     startAgainButton.addListener(new ClickListener() {
@@ -73,6 +75,12 @@ public class GameOverScreen implements Screen {
       }
     });
 
+    satScoreLabel = new Label(finalScore + "%",skin, "whiteFont");
+    satScoreLabel.scaleBy(5);
+    satScoreLabel.setAlignment(Align.center);
+
+    
+
 
 
     enterName = new Table();
@@ -85,8 +93,10 @@ public class GameOverScreen implements Screen {
     
 
 
-    
     enterName.add(gameOverLabel).top().padTop(100).top().padTop(100).width(Value.percentWidth(0.3f, enterName))
+    .height(Value.percentHeight(0.1f, enterName));
+    enterName.row();
+    enterName.add(satScoreLabel).top().padTop(100).top().padTop(100).width(Value.percentWidth(0.3f, enterName))
     .height(Value.percentHeight(0.1f, enterName));
     enterName.row();
     enterName.add(textField).top().padTop(100).width(Value.percentWidth(0.3f, enterName))

@@ -33,7 +33,7 @@ public class SatisfactionScore {
 
     public void updateSatisfaction(Collection<Building> buildings) {
         List<Double> scores = new ArrayList<>();
-        long total = 0;
+        double total = 0;
         this.buildings = buildings;
 
 
@@ -43,14 +43,26 @@ public class SatisfactionScore {
             scores.add(test2);
             total += test2;
         }
-                
-        score = (int) total;
+        
+        // immposed building limit: 20x * (100 - ((x^1.4) - 15)) / 100
+        
+        
+        int x = buildings.size();
+
+        if (x >=5){
+            double multiplier = (100 - (100 * (Math.exp(0.0231 * x) - 1)) + 12)/100;
+            total = total*multiplier;
+        }
+        if (total < 0) {
+            total = 0;
+        }
+        this.score = (int) total/2;        
 
     }
 
     //returns the score of a building
-    public long getScore(Building building) {
-        long total = 0;
+    public double getScore(Building building) {
+        double total = 0;
         for (Pair<Coord,BuildingType> pair : convertToPairList(building)) {
             double test2 = calc_Satisfaction(convertToPairList(buildings), pair);
             total += test2;
