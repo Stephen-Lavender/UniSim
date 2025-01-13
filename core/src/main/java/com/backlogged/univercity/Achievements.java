@@ -1,6 +1,7 @@
 package com.backlogged.univercity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,13 +21,15 @@ public class Achievements {
     }
 
     //runs all the checks for achievements
-    public void checkall() {    
+    public String checkall() {    
         for (Achievement Achievement: achievements) {
             if (!Achievement.unlocked) {
                 switch (Achievement.name) {
                     case "Building Master":
                         if(this.buildings.size() >= 1) {
                             Achievement.unlocked = true;
+                            System.out.println("building master");
+                            return Achievement.name;
                         }
                         break;
                 
@@ -35,6 +38,7 @@ public class Achievements {
                 }
             }
         }
+        return "";
     }
 
 

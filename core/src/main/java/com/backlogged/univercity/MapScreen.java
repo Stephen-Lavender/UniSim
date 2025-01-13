@@ -39,6 +39,8 @@ public class MapScreen implements Screen {
     private final Skin skin;
     private final Stage stage;
     private final Table table;
+    private Table achievementTable;
+    private Label displayAchievement;
 
     private final Table popUpTable;
     private final TextButton timerLabel;
@@ -51,6 +53,8 @@ public class MapScreen implements Screen {
     private float oldMouseX;
     private float oldMouseY;
     private TextButton satisfactionLabel;
+    private Achievements achievements = new Achievements();
+    private float timestamp =-1;
 
     // Buildings
     private final Button accommodationButton;
@@ -205,6 +209,20 @@ public class MapScreen implements Screen {
         table.row();
 
 
+        //achivements
+
+        achievementTable = new Table();
+
+        displayAchievement = new Label("placeholder", skin);
+
+        achievementTable.setSize(500, 200);
+        achievementTable.setDebug(true);
+        achievementTable.setPosition(0,stage.getHeight() - 500);
+        achievementTable.add(displayAchievement).fill(true);
+        stage.addActor(achievementTable);
+        achievementTable.setVisible(false);
+
+
 // Bottom row: evenly distribute building icons
         Table bottomRow = new Table(skin);
         bottomRow.add(accommodationButton).grow().width(Value.percentWidth(0.1f, table))
@@ -334,6 +352,25 @@ public class MapScreen implements Screen {
         timerLabel.setText(timer.output());
         stage.act();
         stage.draw();
+
+        //achievement check
+
+        achievements.updateData(buildingManager.getPlacedBuildings(), buildingManager.satscore.score);
+        if(!achievementTable.isVisible()) {
+            displayAchievement.setText(achievements.checkall());
+            if (displayAchievement.getText().toString() != "") {
+                achievementTable.setVisible(true);
+                timestamp = timeLeft - 5;
+                System.out.println(timestamp + ":" + timeLeft);
+            }
+        }
+        else if (timeLeft <= timestamp) {
+            achievementTable.setVisible(false);
+            displayAchievement.setText("");
+            timestamp = -1;
+
+        }
+
     }
 
     /**
