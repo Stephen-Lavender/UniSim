@@ -60,6 +60,7 @@ public class BuildingManager {
         this.placementManager = placementManager;
     }
 
+
     public void generateBuildingBlueprints(TextureAtlas textureAtlas, float unitScale) {
         buildingBlueprints = new ArrayList<>();
 

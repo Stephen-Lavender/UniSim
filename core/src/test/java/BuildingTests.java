@@ -9,6 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BuildingTests{
+    private BuildingPlacementManager buildingPlacementManger;
     private Building building;
     @BeforeEach
     void setUp(){
@@ -31,7 +32,10 @@ public class BuildingTests{
                 new Coord(1, 1)
             }
         ));
+        buildingPlacementManger = new BuildingPlacementManager();
+
     }
+
 
     @Test
     @DisplayName("Testing Upgrade")
@@ -47,5 +51,11 @@ public class BuildingTests{
         assertFalse(building.isOfType(BuildingType.RECREATIONAL));
         assertTrue(building.isOfType(BuildingType.CAFETERIA));
         assertTrue(building.isOfType(BuildingType.ACCOMMODATION));
+    }
+    @Test
+    void testPlacing(){
+        buildingPlacementManger.placeBuilding(0, 0, building.copy());
+        assertTrue(buildingPlacementManger.canBePlacedAtLocationIgnoreTerrain(5, 5, building));
+        assertFalse(buildingPlacementManger.canBePlacedAtLocationIgnoreTerrain(0, 1, building));
     }
 }

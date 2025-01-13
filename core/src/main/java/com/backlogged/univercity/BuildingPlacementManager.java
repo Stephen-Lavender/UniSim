@@ -103,8 +103,8 @@ public class BuildingPlacementManager implements IBuildingPlacementManager {
      * @param column The column to place the building.
      */
     public void placeBuilding(int column, int row, Building building) {
-        placedBuildings.add(building);
         building.setMapPosition(new Coord(column, row));
+        placedBuildings.add(building);
     }
 
     /**
