@@ -217,17 +217,18 @@ public class MapScreen implements Screen {
 
         displayAchievement = new Label("placeholder", skin,"Achievement");
         displayAchievementDesc = new Label("placeholder", skin,"Achievement");
+        displayAchievement.setFontScale(0.5f);
+        displayAchievementDesc.setFontScale(0.5f);
 
-
-        achievementTable.setSize(700, 500);
+        achievementTable.setSize(stage.getWidth()/10, stage.getHeight()/10);
         achievementTable.setDebug(true);
-        achievementTable.setPosition(0,stage.getHeight() - 700);
-  
-        
-        achievementTable.add(displayAchievement).top().width(700).height(100);
+        achievementTable.setPosition(0,stage.getHeight()/2);
+
+        achievementTable.align(Align.left);
+        achievementTable.add(displayAchievement).size(stage.getWidth()/4, stage.getHeight()/10);
         displayAchievement.setAlignment(Align.center);
         achievementTable.row();
-        achievementTable.add(displayAchievementDesc).top().width(700).height(200);
+        achievementTable.add(displayAchievementDesc).size(stage.getWidth()/4, stage.getHeight()/10);
         displayAchievementDesc.setAlignment(Align.center);
 
 
@@ -377,8 +378,6 @@ public class MapScreen implements Screen {
                 displayAchievementDesc.setText(achievements.getAchievementDesc(displayAchievement.getText().toString()));
                 System.out.print(achievements.getAchievementDesc(displayAchievement.getText().toString()));
                 displayAchievement.setText("Achieved: " + displayAchievement.getText());
-                displayAchievementDesc.setScaleX(displayAchievement.getScaleX());;
-
                 achievementTable.setVisible(true);
                 timestamp = timeLeft - 8;
             }

@@ -65,7 +65,7 @@ public class TitleScreen implements Screen {
     leaderboardTable.setFillParent(true);
     leaderboardTable.align(Align.topLeft);
 
-    
+
     stage.addActor(table);
     table.setVisible(true);
     //chris
@@ -77,7 +77,7 @@ public class TitleScreen implements Screen {
     playButton.addListener(new ClickListener() {
       public void clicked(InputEvent e, float x, float y) {
         game.setScreen(new MapScreen(game));
-        
+
       }
     });
 
@@ -108,28 +108,31 @@ public class TitleScreen implements Screen {
     table.add(quitButton).top().padTop(50).width(Value.percentWidth(0.3f, table))
         .height(Value.percentHeight(0.1f, table));
 
-    
+
     //leaderboard
     Label titleLabel = new Label("Leaderboard", skin);
     titleLabel.setAlignment(Align.center);
-    titleLabel.setFontScale(2.0f); // Increase text size (scales by 2x)
-    leaderboardTable.add(titleLabel).center().width(Value.percentWidth(0.15f, leaderboardTable)).padTop(100).padBottom(30); 
-    leaderboardTable.row(); 
+    titleLabel.setFontScale(1f);
+    leaderboardTable.padTop(stage.getHeight() * 0.05f).padLeft(stage.getWidth() * 0.03f);
+    leaderboardTable.add(titleLabel).left().width(Value.percentWidth(0.15f, leaderboardTable));
+    leaderboardTable.row();
     // Add entries for 1st to 5th place
     for (Map.Entry<Integer,Pair<String,Integer>> playerScore : leaderBoard.playerScores.entrySet()) {
         if (playerScore.getKey() > 4) {
           break;
         }
-        leaderboardTable.add(new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin)) // Customize as needed
+        Label playerData = new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin);
+        playerData.setFontScale(0.7f);
+        leaderboardTable.add(playerData) // Customize as needed
             .left() // Align the text to the left
-            .pad(50) // Add padding around each entry
+            .padTop(stage.getHeight() * 0.04f) // Add padding around each entry
             .width(Value.percentWidth(0.15f, leaderboardTable)); // Adjust the width if necessary
       leaderboardTable.row(); // Move to the next row
     }
 
 // Add the leaderboard table to the stage
 stage.addActor(leaderboardTable);
-      
+
 
 
         stage.addActor(leaderboardTable);
