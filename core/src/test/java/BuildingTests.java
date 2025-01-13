@@ -14,9 +14,9 @@ public class BuildingTests{
     @BeforeEach
     void setUp(){
         List<BuildingInstance> upgrades = new ArrayList<>();
-        BuildingInstance building1 = new BuildingInstance("square");
-        BuildingInstance building2 = new BuildingInstance("square");
-        BuildingInstance building3 = new BuildingInstance("circle");
+        BuildingInstance building1 = new BuildingInstance();
+        BuildingInstance building2 = new BuildingInstance();
+        BuildingInstance building3 = new BuildingInstance();
         building1.addType(BuildingType.ACCOMMODATION);
         building2.addType(BuildingType.ACCOMMODATION);
         building3.addType(BuildingType.ACCOMMODATION);
@@ -32,7 +32,7 @@ public class BuildingTests{
                 new Coord(1, 1)
             }
         ));
-        buildingPlacementManger = new BuildingPlacementManager();
+        buildingPlacementManger = new BuildingPlacementManager(null);
 
     }
 

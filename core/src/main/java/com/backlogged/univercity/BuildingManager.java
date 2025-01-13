@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -65,20 +66,18 @@ public class BuildingManager {
         buildingBlueprints = new ArrayList<>();
 
         List<BuildingInstance> upgrades = new ArrayList<>();
-        BuildingInstance accommodationBuilding1 = new BuildingInstance("square");
-        BuildingInstance accommodationBuilding2 = new BuildingInstance("square");
-        BuildingInstance accommodationBuilding3 = new BuildingInstance("circle");
+        BuildingInstance accommodationBuilding1 = new BuildingInstance();
+        BuildingInstance accommodationBuilding2 = new BuildingInstance();
+        BuildingInstance accommodationBuilding3 = new BuildingInstance();
         accommodationBuilding1.addType(BuildingType.ACCOMMODATION);
         accommodationBuilding2.addType(BuildingType.ACCOMMODATION);
         accommodationBuilding3.addType(BuildingType.ACCOMMODATION);
         accommodationBuilding3.addType(BuildingType.CAFETERIA);
 
-
-        accommodationBuilding1.setSprite(textureAtlas, unitScale);
-        accommodationBuilding2.setSprite(textureAtlas, unitScale);
-        accommodationBuilding2.setSpriteColour(Color.BLACK);
-        accommodationBuilding3.setSprite(textureAtlas, unitScale);
-        accommodationBuilding3.setSpriteColour(Color.FIREBRICK);
+        Texture accomodationTexture = new Texture(Gdx.files.internal("accom.png"));
+        accommodationBuilding1.setSprite(accomodationTexture, unitScale);
+        accommodationBuilding2.setSprite(accomodationTexture, unitScale);
+        accommodationBuilding3.setSprite(accomodationTexture, unitScale);
         upgrades.add(accommodationBuilding1);
         upgrades.add(accommodationBuilding2);
         upgrades.add(accommodationBuilding3);
@@ -87,26 +86,33 @@ public class BuildingManager {
             new Coord[]{
                 new Coord(0, 0),
                 new Coord(0, 1),
+                new Coord(0, 2),
+                new Coord(0, 3),
                 new Coord(1, 0),
-                new Coord(1, 1)
+                new Coord(1, 1),
+                new Coord(1, 2),
+                new Coord(1, 3),
+                new Coord(2, 0),
+                new Coord(2, 1),
+                new Coord(2, 2),
+                new Coord(2, 3)
             }
         ));
 
 
         upgrades = new ArrayList<>();
-        BuildingInstance cafeteriaBuilding1 = new BuildingInstance("circle");
-        BuildingInstance cafeteriaBuilding2 = new BuildingInstance("circle");
-        BuildingInstance cafeteriaBuilding3 = new BuildingInstance("rhombus");
+        BuildingInstance cafeteriaBuilding1 = new BuildingInstance();
+        BuildingInstance cafeteriaBuilding2 = new BuildingInstance();
+        BuildingInstance cafeteriaBuilding3 = new BuildingInstance();
         cafeteriaBuilding1.addType(BuildingType.CAFETERIA);
         cafeteriaBuilding2.addType(BuildingType.CAFETERIA);
         cafeteriaBuilding3.addType(BuildingType.CAFETERIA);
         cafeteriaBuilding3.addType(BuildingType.COURSE);
 
-        cafeteriaBuilding1.setSprite(textureAtlas, unitScale);
-        cafeteriaBuilding2.setSprite(textureAtlas, unitScale);
-        cafeteriaBuilding2.setSpriteColour(Color.CORAL);
-        cafeteriaBuilding3.setSprite(textureAtlas, unitScale);
-        cafeteriaBuilding3.setSpriteColour(Color.LIME);
+        Texture cafateriaTexture = new Texture(Gdx.files.internal("ca.png"));
+        cafeteriaBuilding1.setSprite(cafateriaTexture, unitScale);
+        cafeteriaBuilding2.setSprite(cafateriaTexture, unitScale);
+        cafeteriaBuilding3.setSprite(cafateriaTexture, unitScale);
         upgrades.add(cafeteriaBuilding1);
         upgrades.add(cafeteriaBuilding2);
         upgrades.add(cafeteriaBuilding3);
@@ -115,25 +121,35 @@ public class BuildingManager {
             new Coord[]{
                 new Coord(0, 0),
                 new Coord(0, 1),
+                new Coord(0, 2),
                 new Coord(1, 0),
-                new Coord(1, 1)
+                new Coord(1, 1),
+                new Coord(1, 2),
+                new Coord(2, 0),
+                new Coord(2, 1),
+                new Coord(2, 2),
+                new Coord(3, 0),
+                new Coord(3, 1),
+                new Coord(3, 2),
+                new Coord(4, 0),
+                new Coord(4, 1),
+                new Coord(4, 2)
             }
         ));
 
         upgrades = new ArrayList<>();
-        BuildingInstance courseBuilding1 = new BuildingInstance("rhombus");
-        BuildingInstance courseBuilding2 = new BuildingInstance("rhombus");
-        BuildingInstance courseBuilding3 = new BuildingInstance("square");
+        BuildingInstance courseBuilding1 = new BuildingInstance();
+        BuildingInstance courseBuilding2 = new BuildingInstance();
+        BuildingInstance courseBuilding3 = new BuildingInstance();
         courseBuilding1.addType(BuildingType.COURSE);
         courseBuilding2.addType(BuildingType.COURSE);
         courseBuilding3.addType(BuildingType.COURSE);
         courseBuilding3.addType(BuildingType.CAFETERIA);
 
-        courseBuilding1.setSprite(textureAtlas, unitScale);
-        courseBuilding2.setSprite(textureAtlas, unitScale);
-        courseBuilding2.setSpriteColour(Color.SCARLET);
-        courseBuilding3.setSprite(textureAtlas, unitScale);
-        courseBuilding2.setSpriteColour(Color.SALMON);
+        Texture courseTexture = new Texture(Gdx.files.internal("co.png"));
+        courseBuilding1.setSprite(courseTexture, unitScale);
+        courseBuilding2.setSprite(courseTexture, unitScale);
+        courseBuilding3.setSprite(courseTexture, unitScale);
 
         upgrades.add(courseBuilding1);
         upgrades.add(courseBuilding2);
@@ -142,25 +158,27 @@ public class BuildingManager {
             new Coord[]{
                 new Coord(0, 0),
                 new Coord(0, 1),
+                new Coord(0, 2),
                 new Coord(1, 0),
-                new Coord(1, 1)
+                new Coord(1, 1),
+                new Coord(1, 2)
             }
         ));
         //Recreational Building 1
         upgrades = new ArrayList<>();
-        BuildingInstance recreationalBuilding1 = new BuildingInstance("hex");
-        BuildingInstance recreationalBuilding2 = new BuildingInstance("hex");
-        BuildingInstance recreationalBuilding3 = new BuildingInstance("square");
+        BuildingInstance recreationalBuilding1 = new BuildingInstance();
+        BuildingInstance recreationalBuilding2 = new BuildingInstance();
+        BuildingInstance recreationalBuilding3 = new BuildingInstance();
         recreationalBuilding1.addType(BuildingType.RECREATIONAL);
         recreationalBuilding2.addType(BuildingType.RECREATIONAL);
         recreationalBuilding3.addType(BuildingType.RECREATIONAL);
         recreationalBuilding3.addType(BuildingType.CAFETERIA);
 
-        recreationalBuilding1.setSprite(textureAtlas, unitScale);
-        recreationalBuilding2.setSprite(textureAtlas, unitScale);
-        recreationalBuilding2.setSpriteColour(Color.MAGENTA);
-        recreationalBuilding3.setSprite(textureAtlas, unitScale);
-        recreationalBuilding3.setSpriteColour(Color.FOREST);
+        Texture recreational1Texture = new Texture(Gdx.files.internal("rec1.png"));
+        recreationalBuilding1.setSprite(recreational1Texture, unitScale);
+        recreationalBuilding2.setSprite(recreational1Texture, unitScale);
+        recreationalBuilding3.setSprite(recreational1Texture, unitScale);
+
 
         upgrades.add(recreationalBuilding1);
         upgrades.add(recreationalBuilding2);
@@ -169,8 +187,21 @@ public class BuildingManager {
             new Coord[]{
                 new Coord(0, 0),
                 new Coord(0, 1),
+                new Coord(0, 2),
+                new Coord(0, 3),
                 new Coord(1, 0),
-                new Coord(1, 1)
+                new Coord(1, 1),
+                new Coord(1, 2),
+                new Coord(1, 3),
+                new Coord(2, 0),
+                new Coord(2, 1),
+                new Coord(2, 2),
+                new Coord(2, 3),
+                new Coord(3, 0),
+                new Coord(3, 1),
+                new Coord(3, 2),
+                new Coord(3, 3)
+
             }
         ));
 
@@ -182,21 +213,19 @@ public class BuildingManager {
 
         //Recreational Building 2
         upgrades = new ArrayList<>();
-        recreationalBuilding1 = new BuildingInstance("hex");
-        recreationalBuilding2 = new BuildingInstance("hex");
-        recreationalBuilding3 = new BuildingInstance("square");
+        recreationalBuilding1 = new BuildingInstance();
+        recreationalBuilding2 = new BuildingInstance();
+        recreationalBuilding3 = new BuildingInstance();
 
         recreationalBuilding1.addType(BuildingType.RECREATIONAL);
         recreationalBuilding2.addType(BuildingType.RECREATIONAL);
         recreationalBuilding3.addType(BuildingType.RECREATIONAL);
         recreationalBuilding3.addType(BuildingType.CAFETERIA);
 
-        recreationalBuilding1.setSprite(textureAtlas, unitScale);
-        recreationalBuilding1.setSpriteColour(Color.FOREST);
-        recreationalBuilding2.setSprite(textureAtlas, unitScale);
-        recreationalBuilding2.setSpriteColour(Color.MAGENTA);
-        recreationalBuilding3.setSprite(textureAtlas, unitScale);
-        recreationalBuilding3.setSpriteColour(Color.MAGENTA);
+        Texture recreational2Texture = new Texture(Gdx.files.internal("rec2.png"));
+        recreationalBuilding1.setSprite(recreational2Texture, unitScale);
+        recreationalBuilding2.setSprite(recreational2Texture, unitScale);
+        recreationalBuilding3.setSprite(recreational2Texture, unitScale);
 
         upgrades.add(recreationalBuilding1);
         upgrades.add(recreationalBuilding2);
@@ -205,8 +234,21 @@ public class BuildingManager {
             new Coord[]{
                 new Coord(0, 0),
                 new Coord(0, 1),
+                new Coord(0, 2),
+                new Coord(0, 3),
                 new Coord(1, 0),
-                new Coord(1, 1)
+                new Coord(1, 1),
+                new Coord(1, 2),
+                new Coord(1, 3),
+                new Coord(2, 0),
+                new Coord(2, 1),
+                new Coord(2, 2),
+                new Coord(2, 3),
+                new Coord(3, 0),
+                new Coord(3, 1),
+                new Coord(3, 2),
+                new Coord(3, 3)
+
             }
         ));
 
@@ -354,7 +396,7 @@ public class BuildingManager {
             currentColumn = (int) worldCoordinates.x;
             currentRow = (int) worldCoordinates.y;
             switch (buildingState){
-                case BUILDING -> canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
+                case BUILDING -> canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocation(
                     currentColumn, currentRow, selectedBuilding);
 
                 case MOVING -> canBePlacedAtCurrentLocation = placementManager.canBeMovedToCurrentLocation(
