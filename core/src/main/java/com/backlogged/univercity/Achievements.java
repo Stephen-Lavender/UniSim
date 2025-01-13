@@ -16,7 +16,6 @@ public class Achievements {
     public String getAchievementDesc(String name) {
         for (Achievement achievement : achievements) {
 
-            System.out.println(name + " : " + achievement.name );
             if (achievement.name.equals(name)) {
                 return achievement.description;
             }

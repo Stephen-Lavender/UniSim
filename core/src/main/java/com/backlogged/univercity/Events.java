@@ -4,8 +4,11 @@ import java.util.Random;
 
 public class Events {
 
+
         int picker;
         Random rand = new Random();
+
+        //picks random building to remove
         public boolean WorldEvent(List<Building> buildings) {
             if (buildings.isEmpty()){
                 return false;
@@ -15,7 +18,7 @@ public class Events {
             buildings.remove(picker);
             return true;
         }
-
+        //creates random number for event
         public int ChooseEvent()
         {
             picker = rand.nextInt(1,11);

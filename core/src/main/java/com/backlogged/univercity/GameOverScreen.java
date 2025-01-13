@@ -39,6 +39,8 @@ public class GameOverScreen implements Screen {
    *
    * @param game the current instance of the game
    */
+
+   
   public GameOverScreen(Game game, int finalScore) {
     skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));
     stage = new Stage(new ScreenViewport());

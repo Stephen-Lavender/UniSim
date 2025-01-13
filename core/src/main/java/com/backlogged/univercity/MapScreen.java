@@ -179,12 +179,6 @@ public class MapScreen implements Screen {
             }
         });
 
-        timerLabel.addListener(new ClickListener() {
-            public void clicked(InputEvent e, float x, float y) {
-                game.setScreen(new GameOverScreen(game,buildingManager.satscore.score));
-            }
-        });
-
         detailedBuildingCounter.setInstant(true);
         // Create the main table
         table = new Table(skin);
