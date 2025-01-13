@@ -1,15 +1,20 @@
 package com.backlogged.univercity;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -22,6 +27,7 @@ public class GameOverScreen implements Screen {
   private Skin skin;
   private Stage stage;
   private Table table;
+  private Table enterName;
   private Label gameOverLabel;
   private TextButton startAgainButton;
   private TextButton quitButton;
@@ -31,21 +37,32 @@ public class GameOverScreen implements Screen {
    *
    * @param game the current instance of the game
    */
-  public GameOverScreen(Game game) {
+  public GameOverScreen(Game game, int finalScore) {
     skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));
     stage = new Stage(new ScreenViewport());
+ 
+
     table = new Table(skin);
     table.setFillParent(true);
     table.setDebug(true);
 
     stage.addActor(table);
-
+    table.setVisible(false);
     gameOverLabel = new Label("GAME OVER!", skin, "lightOrangeFont");
 
-    startAgainButton = new TextButton("TRY AGAIN", skin);
+    TextField.TextFieldStyle style = new TextField.TextFieldStyle();
+    style.font = new BitmapFont();
+    style.fontColor = Color.CHARTREUSE;
+    style.font.getData().setScale(5);
+    TextField textField = new TextField("", style);
+    textField.setText("Test");
+
+    startAgainButton = new TextButton("Submit", skin);
     startAgainButton.addListener(new ClickListener() {
       public void clicked(InputEvent e, float x, float y) {
-        game.setScreen(new MapScreen(game));
+        LeaderBoard leaderBoard = new LeaderBoard();
+        leaderBoard.addNewScore(textField.getText(), finalScore);
+        game.setScreen(new TitleScreen(game));
       }
     });
 
@@ -56,13 +73,35 @@ public class GameOverScreen implements Screen {
       }
     });
 
-    table.add(gameOverLabel).top().padTop(100);
-    table.row();
-    table.add(startAgainButton).top().padTop(100).width(Value.percentWidth(0.3f, table))
-        .height(Value.percentHeight(0.1f, table));
-    table.row();
-    table.add(quitButton).top().padTop(50).width(Value.percentWidth(0.3f, table))
-        .height(Value.percentHeight(0.1f, table));
+
+
+    enterName = new Table();
+    enterName.setFillParent(true);
+    enterName.setDebug(true);
+
+
+
+    
+    
+
+
+    
+    enterName.add(gameOverLabel).top().padTop(100).top().padTop(100).width(Value.percentWidth(0.3f, enterName))
+    .height(Value.percentHeight(0.1f, enterName));
+    enterName.row();
+    enterName.add(textField).top().padTop(100).width(Value.percentWidth(0.3f, enterName))
+        .height(Value.percentHeight(0.1f, enterName));
+    enterName.row();
+    enterName.add(startAgainButton).top().padTop(50).width(Value.percentWidth(0.3f, enterName))
+        .height(Value.percentHeight(0.1f, enterName));
+
+    
+    stage.addActor(enterName);
+
+
+
+
+
   }
 
   @Override

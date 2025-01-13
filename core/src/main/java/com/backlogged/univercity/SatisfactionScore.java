@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class SatisfactionScore {
-    long score = 0;
+    int score = 0;
     List<Coord> sceneryCoords = new ArrayList<>();
     Collection<Building> buildings;
 
@@ -29,7 +29,7 @@ public class SatisfactionScore {
         }
     }
 
-    
+
 
     public void updateSatisfaction(Collection<Building> buildings) {
         List<Double> scores = new ArrayList<>();
@@ -44,7 +44,7 @@ public class SatisfactionScore {
             total += test2;
         }
                 
-        score = total;
+        score = (int) total;
 
     }
 

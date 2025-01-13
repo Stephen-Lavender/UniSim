@@ -41,7 +41,7 @@ public class LeaderBoard {
 
             while (scanner.hasNextLine()) {
                 String Line = scanner.nextLine();
-                unSortedList.add(new Pair(Line.split(" ")[0], Integer.parseInt(Line.split(" ")[1])));            
+                unSortedList.add(new Pair(Line.split(":")[0], Integer.parseInt(Line.split(":")[1])));            
             }
             scanner.close();
 
@@ -69,7 +69,7 @@ public class LeaderBoard {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
 
-            writer.write(playerName + " " + playerScore);
+            writer.write(playerName + ":" + playerScore);
             writer.newLine();
             writer.close();
 

@@ -174,7 +174,7 @@ public class MapScreen implements Screen {
 
         timerLabel.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
-                game.setScreen(new GameOverScreen(game));
+                game.setScreen(new GameOverScreen(game,buildingManager.satscore.score));
             }
         });
 
@@ -321,9 +321,10 @@ public class MapScreen implements Screen {
             }
             eventcount++;
         }
-
         if (timeLeft < 1) {
-            game.setScreen(new GameOverScreen(game));
+            
+            game.setScreen(new GameOverScreen(game,buildingManager.satscore.score));
+            
         }
 
         detailedBuildingCounter.getContainer().getActor()

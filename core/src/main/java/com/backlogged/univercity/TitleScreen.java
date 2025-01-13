@@ -2,9 +2,12 @@ package com.backlogged.univercity;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -56,9 +60,15 @@ public class TitleScreen implements Screen {
     table.setFillParent(true);
     table.setDebug(true);
 
+    Table leaderboardTable = new Table();
+    leaderboardTable.setDebug(true);
+    leaderboardTable.setSize(400, 1000);
+    leaderboardTable.setPosition(20,500);
+    leaderboardTable.align(Align.top);
+    
     stage.addActor(table);
+    table.setVisible(true);
     //chris
-    TextButton leaderboard = new TextButton("test", skin);
     //
 
     // Set up the title label and buttons
@@ -67,6 +77,7 @@ public class TitleScreen implements Screen {
     playButton.addListener(new ClickListener() {
       public void clicked(InputEvent e, float x, float y) {
         game.setScreen(new MapScreen(game));
+        
       }
     });
 
@@ -97,31 +108,23 @@ public class TitleScreen implements Screen {
     table.add(quitButton).top().padTop(50).width(Value.percentWidth(0.3f, table))
         .height(Value.percentHeight(0.1f, table));
 
+    
     //leaderboard
-    Table leaderboardTable = new Table();
-        leaderboardTable.setDebug(true);
-        leaderboardTable.setSize(400, 1000);
-        leaderboardTable.setPosition(20,500);
-        leaderboardTable.align(Align.top);
-
-        Label titleLabel = new Label("Leaderboard", skin);
-        titleLabel.setFontScale(2.0f); // Increase text size (scales by 2x)
-        leaderboardTable.add(titleLabel)
-            .center() // Center the text within the cell
-            .width(Value.percentWidth(1f, leaderboardTable)) // Make it span the table width
-            .padBottom(30); // Add space below the title
-        leaderboardTable.row(); 
-        // Add entries for 1st to 5th place
-        for (Map.Entry<Integer,Pair<String,Integer>> playerScore : leaderBoard.playerScores.entrySet()) {
-            if (playerScore.getKey() > 4) {
-              break;
-            }
-            leaderboardTable.add(new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin)) // Customize as needed
-                .left() // Align the text to the left
-                .pad(50) // Add padding around each entry
-                .width(Value.percentWidth(0.9f, leaderboardTable)); // Adjust the width if necessary
-          leaderboardTable.row(); // Move to the next row
+    Label titleLabel = new Label("Leaderboard", skin);
+    titleLabel.setFontScale(2.0f); // Increase text size (scales by 2x)
+    leaderboardTable.add(titleLabel).center().width(Value.percentWidth(1f, leaderboardTable)).padBottom(30); 
+    leaderboardTable.row(); 
+    // Add entries for 1st to 5th place
+    for (Map.Entry<Integer,Pair<String,Integer>> playerScore : leaderBoard.playerScores.entrySet()) {
+        if (playerScore.getKey() > 4) {
+          break;
         }
+        leaderboardTable.add(new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin)) // Customize as needed
+            .left() // Align the text to the left
+            .pad(50) // Add padding around each entry
+            .width(Value.percentWidth(0.9f, leaderboardTable)); // Adjust the width if necessary
+      leaderboardTable.row(); // Move to the next row
+    }
 
 // Add the leaderboard table to the stage
 stage.addActor(leaderboardTable);
