@@ -120,7 +120,7 @@ public class SettingsScreen implements Screen {
     table.row();
     table.add(buttonsTable);
     table.setFillParent(true);
-    table.setDebug(true);
+    table.setDebug(false);
     stage.addActor(table);
 
     bgTexture = new Texture(Constants.BACKGROUND_PICTURE_PATH);
@@ -132,7 +132,7 @@ public class SettingsScreen implements Screen {
    */
   private void createScrollPane() {
     Table preferencesTable = new Table(skin);
-    preferencesTable.setDebug(true);
+    preferencesTable.setDebug(false);
     musicEnabledLabel = new Label("MUSIC ENABLED", skin, "lightOrangeFont");
     musicEnabledCheckBox = new CheckBox("", skin);
     musicEnabledCheckBox.setChecked(GamePreferences.isMusicEnabled());
@@ -393,7 +393,7 @@ public class SettingsScreen implements Screen {
         .height(Value.percentWidth(0.032f, table));
     scrollPane = new ScrollPane(preferencesTable);
     scrollPane.setScrollingDisabled(true, false);
-    scrollPane.setDebug(true);
+    scrollPane.setDebug(false);
     scrollPane.setFlickScroll(false);
     stage.setScrollFocus(scrollPane);
   }

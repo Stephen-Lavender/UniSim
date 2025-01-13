@@ -58,18 +58,18 @@ public class TitleScreen implements Screen {
     skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));
     table = new Table(skin);
     table.setFillParent(true);
-    table.setDebug(true);
+    table.setDebug(false);
 
+    //leaderboard
     Table leaderboardTable = new Table();
-    leaderboardTable.setDebug(true);
+    leaderboardTable.setDebug(false);
     leaderboardTable.setFillParent(true);
     leaderboardTable.align(Align.topLeft);
 
 
     stage.addActor(table);
     table.setVisible(true);
-    //chris
-    //
+
 
     // Set up the title label and buttons
     univerCityLogo = new Button(skin, "univerCityLogo");
@@ -123,16 +123,9 @@ public class TitleScreen implements Screen {
         }
         Label playerData = new Label((playerScore.getKey() + 1) + ": " + playerScore.getValue().name + " " +playerScore.getValue().score + "%"  , skin);
         playerData.setFontScale(0.7f);
-        leaderboardTable.add(playerData) // Customize as needed
-            .left() // Align the text to the left
-            .padTop(stage.getHeight() * 0.04f) // Add padding around each entry
-            .width(Value.percentWidth(0.15f, leaderboardTable)); // Adjust the width if necessary
-      leaderboardTable.row(); // Move to the next row
+        leaderboardTable.add(playerData).left().padTop(stage.getHeight() * 0.04f).width(Value.percentWidth(0.15f, leaderboardTable)); 
+      leaderboardTable.row(); 
     }
-
-// Add the leaderboard table to the stage
-stage.addActor(leaderboardTable);
-
 
 
         stage.addActor(leaderboardTable);

@@ -56,6 +56,7 @@ public class MapScreen implements Screen {
     private Label displayAchievementDesc;
     private Achievements achievements = new Achievements();
     private float timestamp = -1;
+    private Table Screen;
 
     // Buildings
     private final Button accommodationButton;
@@ -217,11 +218,11 @@ public class MapScreen implements Screen {
 
         displayAchievement = new Label("placeholder", skin,"Achievement");
         displayAchievementDesc = new Label("placeholder", skin,"Achievement");
-        displayAchievement.setFontScale(0.5f);
-        displayAchievementDesc.setFontScale(0.5f);
+        displayAchievement.setFontScale(1f);
+        displayAchievementDesc.setFontScale(1f);
 
         achievementTable.setSize(stage.getWidth()/10, stage.getHeight()/10);
-        achievementTable.setDebug(true);
+        achievementTable.setDebug(false);
         achievementTable.setPosition(0,stage.getHeight()/2);
 
         achievementTable.align(Align.left);
@@ -256,7 +257,6 @@ public class MapScreen implements Screen {
         table.add(bottomRow).colspan(5).expandX().expandY().bottom().padBottom(10);
 
 // Enable debug lines for layout visualization during development
-        table.debug();
 
 
 
@@ -340,19 +340,6 @@ public class MapScreen implements Screen {
 
         if ((elapsedTime > Constants.ONE_MONTH * 14 ) && eventcount < 3)
         {
-            if(world.ChooseEvent() == 1)
-            {
-                // do the visuals for a positive event
-
-                // event logic
-            }
-            else
-            {
-                // negative event
-
-                // event logic
-
-            }
             eventcount++;
         }
         if (timeLeft < 1) {
@@ -375,8 +362,7 @@ public class MapScreen implements Screen {
         if(!achievementTable.isVisible()) {
             displayAchievement.setText(achievements.checkall());
             if (displayAchievement.getText().toString() != "") {
-                displayAchievementDesc.setText(achievements.getAchievementDesc(displayAchievement.getText().toString()));
-                System.out.print(achievements.getAchievementDesc(displayAchievement.getText().toString()));
+                displayAchievementDesc.setText("Desc: " + achievements.getAchievementDesc(displayAchievement.getText().toString()));
                 displayAchievement.setText("Achieved: " + displayAchievement.getText());
                 achievementTable.setVisible(true);
                 timestamp = timeLeft - 8;
@@ -492,7 +478,6 @@ public class MapScreen implements Screen {
         if (width == 0 || height == 0) {
             return;
         }
-        //TODO: replace 1000 with constant
         timerLabel.getStyle().font.getData().setScale(width / 2000f);
         buildingCounterLabel.getStyle().font.getData().setScale(width / 2000f);
 

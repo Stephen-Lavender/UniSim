@@ -46,7 +46,7 @@ public class GameOverScreen implements Screen {
 
     table = new Table(skin);
     table.setFillParent(true);
-    table.setDebug(true);
+    table.setDebug(false);
 
     stage.addActor(table);
     table.setVisible(false);
@@ -85,7 +85,7 @@ public class GameOverScreen implements Screen {
 
     enterName = new Table();
     enterName.setFillParent(true);
-    enterName.setDebug(true);
+    enterName.setDebug(false);
 
 
 

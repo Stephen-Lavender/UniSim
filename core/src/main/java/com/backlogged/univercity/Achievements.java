@@ -113,15 +113,6 @@ public class Achievements {
         public void unlock() {
             this.unlocked = true;
         }
-
-        @Override
-        public String toString() {
-            return "Achievement{" +
-                   "name='" + name + '\'' +
-                   ", description='" + description + '\'' +
-                   ", unlocked=" + unlocked +
-                   '}';
-        }
     }
 
     // Constructor
@@ -135,12 +126,7 @@ public class Achievements {
         achievements.add(new Achievement("Happy Campus II","50% Satisfaction score"));
         achievements.add(new Achievement("Happy Campus III","75% Satisfaction score"));
         achievements.add(new Achievement("Happy Campus IIII","100% Satisfaction score"));
-        achievements.add(new Achievement("Building Competent","Place one of each building"));
         achievements.add(new Achievement("Building Pro","Place 10 buildings"));
-
-
-
-
     }
 
     // Unlock an achievement by name
@@ -180,13 +166,4 @@ public class Achievements {
         }
         return lockedAchievements;
     }
-
-    @Override
-    public String toString() {
-        return "Achievements{" +
-               "achievements=" + achievements +
-               '}';
-    }
-
-
 }
