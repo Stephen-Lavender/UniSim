@@ -75,9 +75,9 @@ public class BuildingManager {
         accommodationBuilding3.addType(BuildingType.CAFETERIA);
 
         Texture accomodationTexture = new Texture(Gdx.files.internal("accom.png"));
-        accommodationBuilding1.setSprite(accomodationTexture);
-        accommodationBuilding2.setSprite(accomodationTexture);
-        accommodationBuilding3.setSprite(accomodationTexture);
+        accommodationBuilding1.setSprite(accomodationTexture, unitScale);
+        accommodationBuilding2.setSprite(accomodationTexture, unitScale);
+        accommodationBuilding3.setSprite(accomodationTexture, unitScale);
         upgrades.add(accommodationBuilding1);
         upgrades.add(accommodationBuilding2);
         upgrades.add(accommodationBuilding3);
@@ -110,9 +110,9 @@ public class BuildingManager {
         cafeteriaBuilding3.addType(BuildingType.COURSE);
 
         Texture cafateriaTexture = new Texture(Gdx.files.internal("ca.png"));
-        cafeteriaBuilding1.setSprite(cafateriaTexture);
-        cafeteriaBuilding2.setSprite(cafateriaTexture);
-        cafeteriaBuilding3.setSprite(cafateriaTexture);
+        cafeteriaBuilding1.setSprite(cafateriaTexture, unitScale);
+        cafeteriaBuilding2.setSprite(cafateriaTexture, unitScale);
+        cafeteriaBuilding3.setSprite(cafateriaTexture, unitScale);
         upgrades.add(cafeteriaBuilding1);
         upgrades.add(cafeteriaBuilding2);
         upgrades.add(cafeteriaBuilding3);
@@ -147,9 +147,9 @@ public class BuildingManager {
         courseBuilding3.addType(BuildingType.CAFETERIA);
 
         Texture courseTexture = new Texture(Gdx.files.internal("co.png"));
-        courseBuilding1.setSprite(courseTexture);
-        courseBuilding2.setSprite(courseTexture);
-        courseBuilding3.setSprite(courseTexture);
+        courseBuilding1.setSprite(courseTexture, unitScale);
+        courseBuilding2.setSprite(courseTexture, unitScale);
+        courseBuilding3.setSprite(courseTexture, unitScale);
 
         upgrades.add(courseBuilding1);
         upgrades.add(courseBuilding2);
@@ -175,9 +175,9 @@ public class BuildingManager {
         recreationalBuilding3.addType(BuildingType.CAFETERIA);
 
         Texture recreational1Texture = new Texture(Gdx.files.internal("rec1.png"));
-        recreationalBuilding1.setSprite(recreational1Texture);
-        recreationalBuilding2.setSprite(recreational1Texture);
-        recreationalBuilding3.setSprite(recreational1Texture);
+        recreationalBuilding1.setSprite(recreational1Texture, unitScale);
+        recreationalBuilding2.setSprite(recreational1Texture, unitScale);
+        recreationalBuilding3.setSprite(recreational1Texture, unitScale);
 
 
         upgrades.add(recreationalBuilding1);
@@ -223,9 +223,9 @@ public class BuildingManager {
         recreationalBuilding3.addType(BuildingType.CAFETERIA);
 
         Texture recreational2Texture = new Texture(Gdx.files.internal("rec2.png"));
-        recreationalBuilding1.setSprite(recreational2Texture);
-        recreationalBuilding2.setSprite(recreational2Texture);
-        recreationalBuilding3.setSprite(recreational2Texture);
+        recreationalBuilding1.setSprite(recreational2Texture, unitScale);
+        recreationalBuilding2.setSprite(recreational2Texture, unitScale);
+        recreationalBuilding3.setSprite(recreational2Texture, unitScale);
 
         upgrades.add(recreationalBuilding1);
         upgrades.add(recreationalBuilding2);
@@ -396,7 +396,7 @@ public class BuildingManager {
             currentColumn = (int) worldCoordinates.x;
             currentRow = (int) worldCoordinates.y;
             switch (buildingState){
-                case BUILDING -> canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocationIgnoreTerrain(
+                case BUILDING -> canBePlacedAtCurrentLocation = placementManager.canBePlacedAtLocation(
                     currentColumn, currentRow, selectedBuilding);
 
                 case MOVING -> canBePlacedAtCurrentLocation = placementManager.canBeMovedToCurrentLocation(

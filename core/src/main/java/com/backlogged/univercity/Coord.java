@@ -25,6 +25,8 @@ public class Coord {
         return new Coord(this.column + translation.getColumn(), this.row + translation.getRow());
     }
 
+
+
     /**
      * Computes a hash code for this {@code Coord} based on its row and column
      * values.

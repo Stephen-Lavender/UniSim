@@ -92,7 +92,7 @@ public class MapScreen implements Screen {
         var buildingRenderer = new BuildingRenderer(new TextureAtlas(
             Gdx.files.internal("buildings/buildings.atlas")));
         buildingManager = new BuildingManager(UNIT_SCALE, buildingRenderer,
-            new BuildingPlacementManager((TiledMapTileLayer) map.getLayers().get("Terrain")));
+            new BuildingPlacementManager(map.getLayers().get("OOB Layer")));
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH));
 
@@ -340,9 +340,9 @@ public class MapScreen implements Screen {
             eventcount++;
         }
         if (timeLeft < 1) {
-            
+
             game.setScreen(new GameOverScreen(game,buildingManager.satscore.score));
-            
+
         }
 
         detailedBuildingCounter.getContainer().getActor()

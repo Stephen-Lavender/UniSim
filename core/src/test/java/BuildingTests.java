@@ -32,7 +32,7 @@ public class BuildingTests{
                 new Coord(1, 1)
             }
         ));
-        buildingPlacementManger = new BuildingPlacementManager();
+        buildingPlacementManger = new BuildingPlacementManager(null);
 
     }
 

@@ -27,9 +27,9 @@ public class BuildingInstance {
         return this.type.contains(type);
     }
 
-    public void setSprite(Texture texture) {
+    public void setSprite(Texture texture, float unitScale) {
         this.sprite = new Sprite(texture);
-        this.sprite.setScale(1/16f);
+        this.sprite.setScale(unitScale);
         this.sprite.setOrigin(0, 0);
     }
 
